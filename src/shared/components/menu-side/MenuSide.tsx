@@ -10,6 +10,7 @@ interface IListItemLinkProps {
   label: string;
   onClick: (() => void) | undefined;
 }
+
 const ListItemLink: React.FC<IListItemLinkProps> = ({ to, icon, label, onClick }) => {
   const navigate = useNavigate();
 

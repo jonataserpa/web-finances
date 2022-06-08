@@ -2,7 +2,7 @@ import { BrowserRouter } from "react-router-dom";
 
 import './shared/forms/TraducoesYup';
 
-import { MenuSide } from './shared/components/menu-side/menuSide';
+import { MenuSide } from './shared/components/menu-side/MenuSide';
 import { AppThemeProvider, AuthProvider, DrawerProvider } from './shared/contexts';
 import { AppRoutes } from './routes';
 
