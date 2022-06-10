@@ -42,14 +42,14 @@ interface IDrawerProps {
 }
 
 export const DrawerProvider: React.FC<IDrawerProps> = ({ children }) => {
-  const [drawerOptions, setDrawerOptions] = useState<IDrawerOption[]>([]);
+  const [drawerOptions, setDrawerOptions] = useState<IDrawerOption[]>(routes);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const toggleDrawerOpen = useCallback(() => {
     setIsDrawerOpen(oldDrawerOpen => !oldDrawerOpen);
   }, []);
 
-  const handleSetDrawerOptions = useCallback((newDrawerOptions: IDrawerOption[]) => {
+  const handleSetDrawerOptions = useCallback((routes: IDrawerOption[]) => {
     setDrawerOptions(routes);
   }, []);
 

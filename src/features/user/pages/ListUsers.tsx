@@ -2,12 +2,12 @@ import { useEffect, useMemo, useState } from 'react';
 import { Icon, IconButton, LinearProgress, Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow } from '@mui/material';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
-import { IListUser, UsersService, } from '../services/UsersService';
 import { CompanysService, } from '../../company/services/CompanysService';
-import { ToolList } from '../../../shared/components';
-import { LayoutBasePage } from '../../../shared/layouts';
-import { useDebounce } from '../../../shared/hooks';
+import { IListUser, UsersService, } from '../services/UsersService';
 import { Environment } from '../../../shared/environment';
+import { LayoutBasePage } from '../../../shared/layouts';
+import { ToolList } from '../../../shared/components';
+import { useDebounce } from '../../../shared/hooks';
 
 export const ListUsers: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -17,7 +17,6 @@ export const ListUsers: React.FC = () => {
   const [rows, setRows] = useState<IListUser[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [totalCount, setTotalCount] = useState(0);
-
 
   const busca = useMemo(() => {
     return searchParams.get('busca') || '';
