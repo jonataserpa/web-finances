@@ -1,39 +1,41 @@
-import { useEffect, useState } from 'react';
 import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
 
-import { LayoutBasePage } from '../../shared/layouts';
+import { CompanysService } from '../company/services/CompanysService';
 import { UsersService } from '../user/services/UsersService';
+import { LayoutBasePage } from '../../shared/layouts';
 import { ToolList } from '../../shared/components';
 
 
 export const Dashboard = () => {
-  const [isLoadingCidades, setIsLoadingCidades] = useState(true);
-  const [isLoadingPessoas, setIsLoadingPessoas] = useState(true);
-  const [totalCountCidades, setTotalCountCidades] = useState(0);
-  const [totalCountPessoas, setTotalCountPessoas] = useState(0);
+  const [isLoadingCompanys, setIsLoadingCompanys] = useState(true);
+  const [isLoadingUsers, setIsLoadingUsers] = useState(true);
+  const [totalCountCompanys, setTotalCountCompanys] = useState(0);
+  const [totalCountUsers, setTotalCountUsers] = useState(0);
 
   useEffect(() => {
-    setIsLoadingCidades(true);
-    setIsLoadingPessoas(true);
+    setIsLoadingCompanys(true);
+    setIsLoadingUsers(true);
 
-    // CidadesService.getAll(1)
-    //   .then((result) => {
-    //     setIsLoadingCidades(false);
-
-    //     if (result instanceof Error) {
-    //       alert(result.message);
-    //     } else {
-    //       setTotalCountCidades(result.totalCount);
-    //     }
-    //   });
-    UsersService.getAll(1)
+    CompanysService.getAll(1)
       .then((result) => {
-        setIsLoadingPessoas(false);
+        setIsLoadingCompanys(false);
 
         if (result instanceof Error) {
           alert(result.message);
         } else {
-          setTotalCountPessoas(result.totalCount);
+          setTotalCountCompanys(result.totalCount);
+        }
+      });
+      
+    UsersService.getAll(1)
+      .then((result) => {
+        setIsLoadingUsers(false);
+
+        if (result instanceof Error) {
+          alert(result.message);
+        } else {
+          setTotalCountUsers(result.totalCount);
         }
       });
   }, []);
@@ -53,16 +55,16 @@ export const Dashboard = () => {
               <Card>
                 <CardContent>
                   <Typography variant='h5' align='center'>
-                    Total de pessoas
+                    Total de Users
                   </Typography>
 
                   <Box padding={6} display='flex' justifyContent='center' alignItems='center'>
-                    {!isLoadingPessoas && (
+                    {!isLoadingUsers && (
                       <Typography variant='h1'>
-                        {totalCountPessoas}
+                        {totalCountUsers}
                       </Typography>
                     )}
-                    {isLoadingPessoas && (
+                    {isLoadingUsers && (
                       <Typography variant='h6'>
                         Carregando...
                       </Typography>
@@ -77,16 +79,16 @@ export const Dashboard = () => {
               <Card>
                 <CardContent>
                   <Typography variant='h5' align='center'>
-                    Total de cidades
+                    Total de Companys
                   </Typography>
 
                   <Box padding={6} display='flex' justifyContent='center' alignItems='center'>
-                    {!isLoadingCidades && (
+                    {!isLoadingCompanys && (
                       <Typography variant='h1'>
-                        {totalCountCidades}
+                        {totalCountCompanys}
                       </Typography>
                     )}
-                    {isLoadingCidades && (
+                    {isLoadingCompanys && (
                       <Typography variant='h6'>
                         Carregando...
                       </Typography>
