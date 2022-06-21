@@ -22,7 +22,9 @@
     "@unform/web": "^2.1.6",
     "axios": "^0.26.0",
     "react-scripts": "5.0.0",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "@mui/lab": "5.0.0-alpha.86",
+    "date-fns": "2.28.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.0",

@@ -19,7 +19,7 @@ export const LayoutBasePage: React.FC<ILayoutBasePageProps> = ({ children, title
 
   return (
     <Box height="100%" display="flex" flexDirection="column" gap={1}>
-      <Box padding={1} display="flex" alignItems="center" gap={1} height={theme.spacing(smDown ? 6 : mdDown ? 8 : 12)}>
+      <Box padding={1} display="flex" alignItems="center" gap={1} height={theme.spacing(smDown ? 4 : mdDown ? 6 : 10)}>
         {smDown && (
           <IconButton onClick={toggleDrawerOpen}>
             <Icon>menu</Icon>
@@ -30,7 +30,7 @@ export const LayoutBasePage: React.FC<ILayoutBasePageProps> = ({ children, title
           overflow="hidden"
           whiteSpace="nowrap"
           textOverflow="ellipses"
-          variant={smDown ? 'h5' : mdDown ? 'h4' : 'h3'}
+          variant={smDown ? 'h3' : mdDown ? 'h3' : 'h4'}
         >
           {title}
         </Typography>

@@ -1,22 +1,45 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Icon, IconButton, LinearProgress, Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow } from '@mui/material';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Box, Fab, FormControlLabel, Grid, Icon, IconButton, LinearProgress, Modal, Pagination, Paper, Radio, RadioGroup, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow, TextField, Typography } from '@mui/material';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import AddIcon from '@mui/icons-material/Add';
+import DatePicker from '@mui/lab/DatePicker';
+import * as yup from 'yup';
 
 import { CompanysService, } from '../../company/services/CompanysService';
 import { IListUser, UsersService, } from '../services/UsersService';
 import { Environment } from '../../../shared/environment';
 import { LayoutBasePage } from '../../../shared/layouts';
-import { ToolList } from '../../../shared/components';
+import { IUser } from '../interfaces/iUser.interface';
+import { ToolDetail, ToolList } from '../../../shared/components';
 import { useDebounce } from '../../../shared/hooks';
+import { useVForm, VForm, VTextField } from '../../../shared/forms';
+import { AutoCompleteCompany } from '../../company/components/AutoCompleteCompany';
+
+const formValidationSchema: yup.SchemaOf<IUser> = yup.object().shape({
+  companyId: yup.number().required(),
+  email: yup.string().required().email(),
+  name: yup.string().required().min(3),
+});
 
 export const ListUsers: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { debounce } = useDebounce();
   const navigate = useNavigate();
+  const { formRef, save, saveAndClose, isSaveAndClose } = useVForm();
+
+  const { id = 'nova' } = useParams<'id'>();
 
   const [rows, setRows] = useState<IListUser[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [totalCount, setTotalCount] = useState(0);
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const [nome, setNome] = useState('');
+  const [value, setValue] = useState(null);
 
   const busca = useMemo(() => {
     return searchParams.get('busca') || '';
@@ -63,6 +86,71 @@ export const ListUsers: React.FC = () => {
     }
   };
 
+  const handleSave = (dados: IUser) => {
+
+    // formValidationSchema.
+    //   validate(dados, { abortEarly: false })
+    //   .then((dadosValidados) => {
+    //     setIsLoading(true);
+
+    //     if (id === 'nova') {
+    //       PessoasService
+    //         .create(dadosValidados)
+    //         .then((result) => {
+    //           setIsLoading(false);
+
+    //           if (result instanceof Error) {
+    //             alert(result.message);
+    //           } else {
+    //             if (isSaveAndClose()) {
+    //               navigate('/pessoas');
+    //             } else {
+    //               navigate(`/pessoas/detalhe/${result}`);
+    //             }
+    //           }
+    //         });
+    //     } else {
+    //       PessoasService
+    //         .updateById(Number(id), { id: Number(id), ...dadosValidados })
+    //         .then((result) => {
+    //           setIsLoading(false);
+
+    //           if (result instanceof Error) {
+    //             alert(result.message);
+    //           } else {
+    //             if (isSaveAndClose()) {
+    //               navigate('/pessoas');
+    //             }
+    //           }
+    //         });
+    //     }
+    //   })
+    //   .catch((errors: yup.ValidationError) => {
+    //     const validationErrors: IVFormErrors = {};
+
+    //     errors.inner.forEach(error => {
+    //       if (!error.path) return;
+
+    //       validationErrors[error.path] = error.message;
+    //     });
+
+    //     formRef.current?.setErrors(validationErrors);
+    //   });
+  };
+
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '70%',
+    height: '70%',
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    borderRadius: 4,
+    p: 4,
+  };
 
   return (
     <LayoutBasePage
@@ -93,7 +181,7 @@ export const ListUsers: React.FC = () => {
                   <IconButton size="small" onClick={() => handleDelete(row.id)}>
                     <Icon>delete</Icon>
                   </IconButton>
-                  <IconButton size="small" onClick={() => navigate(`/user/detalhe/${row.id}`)}>
+                  <IconButton size="small" onClick={handleOpen}>
                     <Icon>edit</Icon>
                   </IconButton>
                 </TableCell>
@@ -128,6 +216,198 @@ export const ListUsers: React.FC = () => {
             )}
           </TableFooter>
         </Table>
+
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <LayoutBasePage
+              title={id === 'nova' ? 'New user' : nome}              
+            >
+              <VForm ref={formRef} onSubmit={handleSave}>
+                <Box margin={1} display="flex" flexDirection="column" component={Paper} variant="outlined">
+                  <Grid container direction="column" padding={2} spacing={2}>
+
+                    {isLoading && (
+                      <Grid item>
+                        <LinearProgress variant='indeterminate' />
+                      </Grid>
+                    )}
+
+                    <Grid item>
+                      <Typography variant='h6'>Geral</Typography>
+                    </Grid>
+
+                    <Grid container item direction="row" spacing={2}>
+                      <Grid item xs={12} sm={12} md={6} lg={4} xl={5}>
+                        <VTextField
+                          fullWidth
+                          name='name'
+                          disabled={isLoading}
+                          label='Nome completo'
+                          onChange={e => setNome(e.target.value)}
+                        />
+                      </Grid>
+
+                      <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
+                        <VTextField
+                          fullWidth
+                          name='email'
+                          label='Email'
+                          disabled={isLoading}
+                        />
+                      </Grid>
+
+                      <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
+                        <VTextField
+                          fullWidth
+                          name='cel'
+                          label='Celular'
+                          disabled={isLoading}
+                        />
+                      </Grid>
+                    </Grid>
+
+                    <Grid container item direction="row" spacing={2}>
+                      <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
+                        <AutoCompleteCompany isExternalLoading={isLoading} />
+                      </Grid>
+
+                      <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
+                        <LocalizationProvider dateAdapter={AdapterDateFns}>
+                          <DatePicker
+                            label="Data nascimento"
+                            value={value}
+                            onChange={(newValue) => {
+                              setValue(newValue);
+                            }}
+                            renderInput={(params) => <TextField {...params} />}
+                          />
+                        </LocalizationProvider>
+                      </Grid>
+
+                      <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
+                        <RadioGroup row aria-label="gender" name="row-radio-buttons-group">
+                          <FormControlLabel value="female" control={<Radio />} label="Feminino" />
+                          <FormControlLabel value="male" control={<Radio />} label="Masculino" />
+                          <FormControlLabel value="other" control={<Radio />} label="Outro" />
+                        </RadioGroup>
+                      </Grid>
+                    </Grid>
+
+                  </Grid>
+                </Box>
+
+                <Box margin={1} display="flex" flexDirection="column" component={Paper} variant="outlined">
+                  <Grid container direction="column" padding={2} spacing={2}>
+                    <Grid item>
+                      <Typography variant='h6'>Endereços</Typography>
+                    </Grid>
+
+                    <Grid container item direction="row" spacing={2}>
+                      <Grid item xs={12} sm={12} md={6} lg={4} xl={2}>
+                        <VTextField
+                          fullWidth
+                          name='cep'
+                          label='Cep'
+                          disabled={isLoading}
+                        />
+                      </Grid>
+
+                      <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
+                        <VTextField
+                          fullWidth
+                          name='logradouro'
+                          label='Endereço'
+                          disabled={isLoading}
+                        />
+                      </Grid>
+
+                      <Grid item xs={12} sm={12} md={6} lg={4} xl={1}>
+                        <VTextField
+                          fullWidth
+                          name='number'
+                          label='Nº'
+                          disabled={isLoading}
+                        />
+                      </Grid>
+
+                      <Grid item xs={12} sm={12} md={6} lg={4} xl={1}>
+                        <VTextField
+                          fullWidth
+                          name='state'
+                          label='UF'
+                          disabled={isLoading}
+                        />
+                      </Grid>
+
+                      <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
+                        <VTextField
+                          fullWidth
+                          name='city'
+                          label='Cidade'
+                          disabled={isLoading}
+                        />
+                      </Grid>
+
+
+
+                      <Grid item xs={12} sm={12} md={6} lg={4} xl={1}>
+                        <Fab color="primary" aria-label="add">
+                          <AddIcon />
+                        </Fab>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Box>
+
+                <Box margin={1} display="flex" flexDirection="column" component={Paper} variant="outlined">
+                  <Grid container direction="column" padding={2} spacing={2}>
+                    <Grid item>
+                      <Typography variant='h6'>Acesso</Typography>
+                    </Grid>
+
+                    <Grid container item direction="row" spacing={2}>
+                      <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
+                        <VTextField
+                          fullWidth
+                          name='email'
+                          label='Email'
+                          disabled={isLoading}
+                        />
+                      </Grid>
+
+                      <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
+                        <VTextField
+                          fullWidth
+                          name='password'
+                          label='Password'
+                          disabled={isLoading}
+                        />
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Box>
+              </VForm>
+
+              <ToolDetail
+                  textoBotaoNovo='Nova'
+                  mostrarBotaoSalvarEFechar
+                  mostrarBotaoNovo={id !== 'nova'}
+                  mostrarBotaoApagar={id !== 'nova'}
+
+                  aoClicarEmSalvar={save}
+                  aoClicarEmSalvarEFechar={saveAndClose}
+                  aoClicarEmVoltar={() => navigate('/pessoas')}
+                  aoClicarEmApagar={() => handleDelete(Number(id))}
+                  aoClicarEmNovo={() => navigate('/pessoas/detalhe/nova')}
+                />
+            </LayoutBasePage>
+          </Box>
+        </Modal>
       </TableContainer>
     </LayoutBasePage>
   );
