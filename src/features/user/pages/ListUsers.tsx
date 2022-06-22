@@ -14,13 +14,13 @@ import { LayoutBasePage } from '../../../shared/layouts';
 import { IUser } from '../interfaces/iUser.interface';
 import { ToolDetail, ToolList } from '../../../shared/components';
 import { useDebounce } from '../../../shared/hooks';
-import { useVForm, VForm, VTextField } from '../../../shared/forms';
+import { IVFormErrors, useVForm, VForm, VTextField } from '../../../shared/forms';
 import { AutoCompleteCompany } from '../../company/components/AutoCompleteCompany';
 
 const formValidationSchema: yup.SchemaOf<IUser> = yup.object().shape({
-  companyId: yup.number().required(),
-  email: yup.string().required().email(),
   name: yup.string().required().min(3),
+  email: yup.string().required().email(),
+  companyId: yup.number().required(),
 });
 
 export const ListUsers: React.FC = () => {
@@ -88,54 +88,54 @@ export const ListUsers: React.FC = () => {
 
   const handleSave = (dados: IUser) => {
 
-    // formValidationSchema.
-    //   validate(dados, { abortEarly: false })
-    //   .then((dadosValidados) => {
-    //     setIsLoading(true);
+    formValidationSchema.
+      validate(dados, { abortEarly: false })
+      .then((dadosValidados) => {
+        setIsLoading(true);
 
-    //     if (id === 'nova') {
-    //       PessoasService
-    //         .create(dadosValidados)
-    //         .then((result) => {
-    //           setIsLoading(false);
+        // if (id === 'nova') {
+        //   PessoasService
+        //     .create(dadosValidados)
+        //     .then((result) => {
+        //       setIsLoading(false);
 
-    //           if (result instanceof Error) {
-    //             alert(result.message);
-    //           } else {
-    //             if (isSaveAndClose()) {
-    //               navigate('/pessoas');
-    //             } else {
-    //               navigate(`/pessoas/detalhe/${result}`);
-    //             }
-    //           }
-    //         });
-    //     } else {
-    //       PessoasService
-    //         .updateById(Number(id), { id: Number(id), ...dadosValidados })
-    //         .then((result) => {
-    //           setIsLoading(false);
+        //       if (result instanceof Error) {
+        //         alert(result.message);
+        //       } else {
+        //         if (isSaveAndClose()) {
+        //           navigate('/pessoas');
+        //         } else {
+        //           navigate(`/pessoas/detalhe/${result}`);
+        //         }
+        //       }
+        //     });
+        // } else {
+        //   PessoasService
+        //     .updateById(Number(id), { id: Number(id), ...dadosValidados })
+        //     .then((result) => {
+        //       setIsLoading(false);
 
-    //           if (result instanceof Error) {
-    //             alert(result.message);
-    //           } else {
-    //             if (isSaveAndClose()) {
-    //               navigate('/pessoas');
-    //             }
-    //           }
-    //         });
-    //     }
-    //   })
-    //   .catch((errors: yup.ValidationError) => {
-    //     const validationErrors: IVFormErrors = {};
+        //       if (result instanceof Error) {
+        //         alert(result.message);
+        //       } else {
+        //         if (isSaveAndClose()) {
+        //           navigate('/pessoas');
+        //         }
+        //       }
+        //     });
+        // }
+      })
+      .catch((errors: yup.ValidationError) => {
+        const validationErrors: IVFormErrors = {};
 
-    //     errors.inner.forEach(error => {
-    //       if (!error.path) return;
+        errors.inner.forEach(error => {
+          if (!error.path) return;
 
-    //       validationErrors[error.path] = error.message;
-    //     });
+          validationErrors[error.path] = error.message;
+        });
 
-    //     formRef.current?.setErrors(validationErrors);
-    //   });
+        formRef.current?.setErrors(validationErrors);
+      });
   };
 
   const style = {
@@ -352,8 +352,6 @@ export const ListUsers: React.FC = () => {
                           disabled={isLoading}
                         />
                       </Grid>
-
-
 
                       <Grid item xs={12} sm={12} md={6} lg={4} xl={1}>
                         <Fab color="primary" aria-label="add">
