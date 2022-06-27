@@ -18,7 +18,7 @@ export interface IUser {
     smartphone?: string;
     companyId: number;
     dateborn?: string;
-    gender?: string;
+    radiogender?: string;
     logradouros?: ILogradouros[];
     password?: string;
 }

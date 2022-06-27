@@ -1,10 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Box, Fab, FormControlLabel, Grid, Icon, IconButton, LinearProgress, Modal, Pagination, Paper, Radio, RadioGroup, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow, TextField, Typography } from '@mui/material';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import AddIcon from '@mui/icons-material/Add';
-import DatePicker from '@mui/lab/DatePicker';
 import * as yup from 'yup';
 
 import { CompanysService, } from '../../company/services/CompanysService';
@@ -16,11 +13,15 @@ import { ToolDetail, ToolList } from '../../../shared/components';
 import { useDebounce } from '../../../shared/hooks';
 import { IVFormErrors, useVForm, VForm, VTextField } from '../../../shared/forms';
 import { AutoCompleteCompany } from '../../company/components/AutoCompleteCompany';
+import { VDatePicker } from '../../../shared/forms/VDatePicker';
+import { VRadioButton } from '../../../shared/forms/VRadioButton';
 
-const formValidationSchema: yup.SchemaOf<IUser> = yup.object().shape({
+const formValidationSchema: yup.SchemaOf<IUser | any> = yup.object().shape({
   name: yup.string().required().min(3),
   email: yup.string().required().email(),
   companyId: yup.number().required(),
+  dateborn: yup.string().required(),
+  radiogender: yup.string().required(),
 });
 
 export const ListUsers: React.FC = () => {
@@ -39,7 +40,6 @@ export const ListUsers: React.FC = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [nome, setNome] = useState('');
-  const [value, setValue] = useState(null);
 
   const busca = useMemo(() => {
     return searchParams.get('busca') || '';
@@ -92,6 +92,7 @@ export const ListUsers: React.FC = () => {
       validate(dados, { abortEarly: false })
       .then((dadosValidados) => {
         setIsLoading(true);
+        console.log(dadosValidados)
 
         // if (id === 'nova') {
         //   PessoasService
@@ -133,7 +134,7 @@ export const ListUsers: React.FC = () => {
 
           validationErrors[error.path] = error.message;
         });
-
+        console.log(validationErrors)
         formRef.current?.setErrors(validationErrors);
       });
   };
@@ -225,7 +226,7 @@ export const ListUsers: React.FC = () => {
         >
           <Box sx={style}>
             <LayoutBasePage
-              title={id === 'nova' ? 'New user' : nome}              
+              title={id === 'nova' ? 'New user' : nome}
             >
               <VForm ref={formRef} onSubmit={handleSave}>
                 <Box margin={1} display="flex" flexDirection="column" component={Paper} variant="outlined">
@@ -277,24 +278,21 @@ export const ListUsers: React.FC = () => {
                       </Grid>
 
                       <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
-                        <LocalizationProvider dateAdapter={AdapterDateFns}>
-                          <DatePicker
-                            label="Data nascimento"
-                            value={value}
-                            onChange={(newValue) => {
-                              setValue(newValue);
-                            }}
-                            renderInput={(params) => <TextField {...params} />}
-                          />
-                        </LocalizationProvider>
+                        <VDatePicker
+                          fullWidth
+                          name='dateborn'
+                          label='Data de nascimento'
+                          disabled={isLoading}
+                        />
                       </Grid>
 
                       <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
-                        <RadioGroup row aria-label="gender" name="row-radio-buttons-group">
-                          <FormControlLabel value="female" control={<Radio />} label="Feminino" />
-                          <FormControlLabel value="male" control={<Radio />} label="Masculino" />
-                          <FormControlLabel value="other" control={<Radio />} label="Outro" />
-                        </RadioGroup>
+                        <VRadioButton 
+                          fullWidth
+                          name='radiogender'
+                          label='Gênero'
+                          disabled={isLoading}
+                        />
                       </Grid>
                     </Grid>
 
@@ -392,17 +390,17 @@ export const ListUsers: React.FC = () => {
               </VForm>
 
               <ToolDetail
-                  textoBotaoNovo='Nova'
-                  mostrarBotaoSalvarEFechar
-                  mostrarBotaoNovo={id !== 'nova'}
-                  mostrarBotaoApagar={id !== 'nova'}
+                textoBotaoNovo='Nova'
+                mostrarBotaoSalvarEFechar
+                mostrarBotaoNovo={id !== 'nova'}
+                mostrarBotaoApagar={id !== 'nova'}
 
-                  aoClicarEmSalvar={save}
-                  aoClicarEmSalvarEFechar={saveAndClose}
-                  aoClicarEmVoltar={() => navigate('/pessoas')}
-                  aoClicarEmApagar={() => handleDelete(Number(id))}
-                  aoClicarEmNovo={() => navigate('/pessoas/detalhe/nova')}
-                />
+                aoClicarEmSalvar={save}
+                aoClicarEmSalvarEFechar={saveAndClose}
+                aoClicarEmVoltar={() => navigate('/pessoas')}
+                aoClicarEmApagar={() => handleDelete(Number(id))}
+                aoClicarEmNovo={() => navigate('/pessoas/detalhe/nova')}
+              />
             </LayoutBasePage>
           </Box>
         </Modal>
