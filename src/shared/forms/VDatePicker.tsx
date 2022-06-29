@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { TextField, TextFieldProps } from '@mui/material';
+import { FormControl, FormHelperText, TextField, TextFieldProps } from '@mui/material';
 import { useField } from '@unform/core';
 import { DatePicker, LocalizationProvider } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -18,29 +18,32 @@ export const VDatePicker: React.FC<TVDatePickerProps> = ({ name, ...rest }) => {
       getValue: () => value,
       setValue: (_, newValue) => setValue(newValue),
     });
-    
+
   }, [registerField, fieldName, value]);
 
 
   return (
 
-    <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <DatePicker
-        renderInput={(params) => <TextField
-          {...rest}
-          {...params}
-          
-          error={!!error && value === '' && !value}
-          helperText={value === '' ? error : ''}
-          defaultValue={defaultValue}
-
-          value={value} 
-          onChange={e => { setValue(e.target.value); rest.onChange?.(e); }}
-          onKeyDown={(e) => { error && clearError(); rest.onKeyDown?.(e); }} />}
-
+    <FormControl
+      required
+      error={!!error}
+      defaultValue={defaultValue}
+      component="fieldset"
+    >
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <DatePicker
+          renderInput={(params) => <TextField
+            {...rest}
+            {...params}
+            error={!!error && (value === '' || !value)}
+          />}
           onChange={(newValue) => { setValue(newValue); rest.onChange?.(newValue); }}
           value={value} />
-    </LocalizationProvider>
 
+        {!!error && (value === '' || !value)  && (
+          <FormHelperText>{error}</FormHelperText>
+        )}
+      </LocalizationProvider>
+    </FormControl>
   );
 };

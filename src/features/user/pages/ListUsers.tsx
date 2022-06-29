@@ -20,7 +20,7 @@ const formValidationSchema: yup.SchemaOf<IUser | any> = yup.object().shape({
   name: yup.string().required().min(3),
   email: yup.string().required().email(),
   companyId: yup.number().required(),
-  dateborn: yup.string().required(),
+  dateborn: yup.string().required().nullable(),
   radiogender: yup.string().required(),
 });
 
@@ -372,7 +372,7 @@ export const ListUsers: React.FC = () => {
                           fullWidth
                           name='email'
                           label='Email'
-                          disabled={isLoading}
+                          disabled={true}
                         />
                       </Grid>
 
