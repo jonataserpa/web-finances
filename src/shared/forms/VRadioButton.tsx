@@ -38,7 +38,7 @@ export const VRadioButton: React.FC<TVRadioButtonProps> = ({ name, ...rest }) =>
         <FormControlLabel value="male" control={<Radio />} label="Masculino" />
         <FormControlLabel value="other" control={<Radio />} label="Outro" />
 
-        {!!error && (
+        {!!error && (value === '' || !value)  && (
           <FormHelperText>{error}</FormHelperText>
         )}
       </RadioGroup>

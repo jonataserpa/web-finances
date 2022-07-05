@@ -15,6 +15,7 @@ import { IVFormErrors, useVForm, VForm, VTextField } from '../../../shared/forms
 import { AutoCompleteCompany } from '../../company/components/AutoCompleteCompany';
 import { VDatePicker } from '../../../shared/forms/VDatePicker';
 import { VRadioButton } from '../../../shared/forms/VRadioButton';
+import { VInputPhone } from '../../../shared/forms/VPhone';
 
 const formValidationSchema: yup.SchemaOf<IUser | any> = yup.object().shape({
   name: yup.string().required().min(3),
@@ -22,6 +23,7 @@ const formValidationSchema: yup.SchemaOf<IUser | any> = yup.object().shape({
   companyId: yup.number().required(),
   dateborn: yup.string().required().nullable(),
   radiogender: yup.string().required(),
+  cel: yup.string().required().min(11),
 });
 
 export const ListUsers: React.FC = () => {
@@ -263,11 +265,12 @@ export const ListUsers: React.FC = () => {
                       </Grid>
 
                       <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
-                        <VTextField
+                        <VInputPhone
                           fullWidth
                           name='cel'
                           label='Celular'
                           disabled={isLoading}
+                          variant="outlined"
                         />
                       </Grid>
                     </Grid>
@@ -287,7 +290,7 @@ export const ListUsers: React.FC = () => {
                       </Grid>
 
                       <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
-                        <VRadioButton 
+                        <VRadioButton
                           fullWidth
                           name='radiogender'
                           label='Gênero'
