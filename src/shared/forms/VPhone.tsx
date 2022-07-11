@@ -1,8 +1,9 @@
 
 import { forwardRef, ReactNode, useEffect, useRef, useState } from 'react';
-import { Box, FormControl, FormControlLabel, FormHelperText, Input, InputLabel, TextField, TextFieldProps } from '@mui/material';
+import { Box, FormControl, FormControlLabel, FormHelperText, TextField, TextFieldProps } from '@mui/material';
 import { useField } from '@unform/core';
 import NumberFormat, { InputAttributes } from 'react-number-format';
+import { useStyles } from './styles';
 
 type InputPhoneProps = TextFieldProps & {
     name: string;
@@ -22,7 +23,7 @@ export function VInputPhone({ name, label, disabled, ...rest }: InputPhoneProps)
 
     const [value, setValue] = useState(defaultValue || '');
 
-    const phone = useRef<HTMLInputElement>(null)
+    const classes = useStyles();
 
     useEffect(() => {
         registerField({
@@ -32,55 +33,32 @@ export function VInputPhone({ name, label, disabled, ...rest }: InputPhoneProps)
         });
     }, [registerField, fieldName, value]);
 
-    function handleFocus() {
-        if (phone.current) {
-            phone.current.focus();
-        }
-    }
-
-    const NumberFormatCustom = forwardRef<
-        NumberFormat<InputAttributes>,
-        CustomProps
-    >(function NumberFormatCustom(props, ref) {
-        const { onChange, ...other } = props;
-
-
-        return (
-            <NumberFormat
-                {...other}
-                value={value}
-                defaultValue={value}
-                getInputRef={ref}
-                onChange={(values: any) => {
-                    setValue(values.value);
-                }}
-                format="(##) #####-####"
-                allowEmptyFormatting mask="_"
-            />
-        );
-    });
-
     return (
         <>
-            <TextField
-                {...rest}
-                id={name}
-                name={name}
-                label={label}
-
-                value={value}
-                error={!!error}
-                helperText={error}
+            <FormControl
+                required
+                error={!!error && (value === '' || !value)}
                 defaultValue={defaultValue}
-                onChange={e => { setValue(e.target.value); rest.onChange?.(e); }}
-                onKeyDown={(e) => { error && clearError(); rest.onKeyDown?.(e); }}
-                
-                InputProps={{
-                    inputComponent: NumberFormatCustom as any,
-                }}
-                variant="outlined"
+                component="fieldset"
+            >
+                <NumberFormat
+                    value={value}
+                    onChange={(values: any) => {
+                        setValue(values.target.value);
+                        rest.onChange?.(values);
+                    }}
+                    format="(##) #####-####"
+                    allowEmptyFormatting mask="_"
+                    customInput={TextField}
+                    className={!!error && (value === '' || !value) ? classes.inputPhoneError : ''}
 
-            />
+                />
+
+                {!!error && (value === '' || !value) && (
+                    <FormHelperText>{error}</FormHelperText>
+                )}
+
+            </FormControl>
         </>
     );
 }

@@ -23,7 +23,7 @@ const formValidationSchema: yup.SchemaOf<IUser | any> = yup.object().shape({
   companyId: yup.number().required(),
   dateborn: yup.string().required().nullable(),
   radiogender: yup.string().required(),
-  cel: yup.string().required().min(11),
+  phone: yup.string().required(),
 });
 
 export const ListUsers: React.FC = () => {
@@ -267,7 +267,7 @@ export const ListUsers: React.FC = () => {
                       <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
                         <VInputPhone
                           fullWidth
-                          name='cel'
+                          name='phone'
                           label='Celular'
                           disabled={isLoading}
                           variant="outlined"
@@ -356,7 +356,7 @@ export const ListUsers: React.FC = () => {
 
                       <Grid item xs={12} sm={12} md={6} lg={4} xl={1}>
                         <Fab color="primary" aria-label="add">
-                          <AddIcon />
+                          <AddIcon onClick={() => alert('clickado')} />
                         </Fab>
                       </Grid>
                     </Grid>

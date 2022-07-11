@@ -15,7 +15,7 @@ export interface IUser {
     id?: string;
     name: string;
     email: string;
-    smartphone?: string;
+    phone?: string;
     companyId: number;
     dateborn?: string;
     radiogender?: string;
