@@ -1,13 +1,16 @@
 import { BrowserRouter } from "react-router-dom";
 
-import './shared/forms/TraducoesYup';
+import "./shared/forms/TraducoesYup";
 
-import { MenuSide } from './shared/components/menu-side/MenuSide';
-import { AppThemeProvider, AuthProvider, DrawerProvider } from './shared/contexts';
-import { AppRoutes } from './routes';
+import { MenuSide } from "./shared/components/menu-side/MenuSide";
+import {
+  AppThemeProvider,
+  AuthProvider,
+  DrawerProvider,
+} from "./shared/contexts";
+import { AppRoutes } from "./routes";
 
 function App() {
-
   return (
     <AuthProvider>
       <AppThemeProvider>
@@ -20,7 +23,7 @@ function App() {
         </DrawerProvider>
       </AppThemeProvider>
     </AuthProvider>
-  )
+  );
 }
 
-export default App
+export default App;

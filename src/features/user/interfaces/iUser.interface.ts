@@ -4,21 +4,21 @@
  */
 
 export interface ILogradouros {
-    cep?: string;
-    logradouro?: string;
-    number?: Number;
-    uf?: string;
-    city?: string;
+  cep?: string;
+  logradouro?: string;
+  number?: Number;
+  uf?: string;
+  city?: string;
 }
 
 export interface IUser {
-    id?: string;
-    name: string;
-    email: string;
-    phone?: string;
-    companyId: number;
-    dateborn?: string;
-    radiogender?: string;
-    logradouros?: ILogradouros[];
-    password?: string;
+  id?: string;
+  name: string;
+  email: string;
+  phone?: string;
+  companyId: number;
+  dateborn?: string;
+  radiogender?: string;
+  logradouros?: ILogradouros[];
+  password?: string;
 }

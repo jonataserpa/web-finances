@@ -1,8 +1,23 @@
-import { Avatar, Divider, Drawer, Icon, List, ListItemButton, ListItemIcon, ListItemText, useMediaQuery, useTheme } from '@mui/material';
-import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
-import { Box } from '@mui/system';
+import {
+  Avatar,
+  Divider,
+  Drawer,
+  Icon,
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
+import { useMatch, useNavigate, useResolvedPath } from "react-router-dom";
+import { Box } from "@mui/system";
 
-import { useAppThemeContext, useAuthContext, useDrawerContext } from '../../contexts';
+import {
+  useAppThemeContext,
+  useAuthContext,
+  useDrawerContext,
+} from "../../contexts";
 
 interface IListItemLinkProps {
   to: string;
@@ -11,12 +26,16 @@ interface IListItemLinkProps {
   onClick: (() => void) | undefined;
 }
 
-const ListItemLink: React.FC<IListItemLinkProps> = ({ to, icon, label, onClick }) => {
+const ListItemLink: React.FC<IListItemLinkProps> = ({
+  to,
+  icon,
+  label,
+  onClick,
+}) => {
   const navigate = useNavigate();
 
   const resolvedPath = useResolvedPath(to);
   const match = useMatch({ path: resolvedPath.pathname, end: false });
-
 
   const handleClick = () => {
     navigate(to);
@@ -39,7 +58,7 @@ interface IMenuLateralProps {
 
 export const MenuSide: React.FC<IMenuLateralProps> = ({ children }) => {
   const theme = useTheme();
-  const smDown = useMediaQuery(theme.breakpoints.down('sm'));
+  const smDown = useMediaQuery(theme.breakpoints.down("sm"));
 
   const { isDrawerOpen, drawerOptions, toggleDrawerOpen } = useDrawerContext();
   const { toggleTheme } = useAppThemeContext();
@@ -47,10 +66,24 @@ export const MenuSide: React.FC<IMenuLateralProps> = ({ children }) => {
 
   return (
     <>
-      <Drawer open={isDrawerOpen} variant={smDown ? 'temporary' : 'permanent'} onClose={toggleDrawerOpen}>
-        <Box width={theme.spacing(28)} height="100%" display="flex" flexDirection="column">
-
-          <Box width="100%" height={theme.spacing(20)} display="flex" alignItems="center" justifyContent="center">
+      <Drawer
+        open={isDrawerOpen}
+        variant={smDown ? "temporary" : "permanent"}
+        onClose={toggleDrawerOpen}
+      >
+        <Box
+          width={theme.spacing(28)}
+          height="100%"
+          display="flex"
+          flexDirection="column"
+        >
+          <Box
+            width="100%"
+            height={theme.spacing(20)}
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
             <Avatar
               sx={{ height: theme.spacing(12), width: theme.spacing(12) }}
               src="https://pic.onlinewebfonts.com/svg/img_568656.png"
@@ -61,7 +94,7 @@ export const MenuSide: React.FC<IMenuLateralProps> = ({ children }) => {
 
           <Box flex={1}>
             <List component="nav">
-              {drawerOptions.map(drawerOption => (
+              {drawerOptions.map((drawerOption) => (
                 <ListItemLink
                   to={drawerOption.path}
                   key={drawerOption.path}

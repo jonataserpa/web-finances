@@ -1,6 +1,6 @@
-import { Box, Button, Icon, Paper, TextField, useTheme } from '@mui/material';
+import { Box, Button, Icon, Paper, TextField, useTheme } from "@mui/material";
 
-import { Environment } from '../../environment';
+import { Environment } from "../../environment";
 
 interface IToolListProps {
   textoDaBusca?: string;
@@ -12,11 +12,11 @@ interface IToolListProps {
 }
 
 export const ToolList: React.FC<IToolListProps> = ({
-  textoDaBusca = '',
+  textoDaBusca = "",
   aoMudarTextoDeBusca,
   mostrarInputBusca = false,
   aoClicarEmNovo,
-  textoBotaoNovo = 'Novo',
+  textoBotaoNovo = "Novo",
   mostrarBotaoNovo = true,
 }) => {
   const theme = useTheme();
@@ -44,12 +44,14 @@ export const ToolList: React.FC<IToolListProps> = ({
       <Box flex={1} display="flex" justifyContent="end">
         {mostrarBotaoNovo && (
           <Button
-            color='primary'
+            color="primary"
             disableElevation
-            variant='contained'
+            variant="contained"
             onClick={aoClicarEmNovo}
             endIcon={<Icon>add</Icon>}
-          >{textoBotaoNovo}</Button>
+          >
+            {textoBotaoNovo}
+          </Button>
         )}
       </Box>
     </Box>

@@ -1,16 +1,22 @@
-import { useEffect, useState } from 'react';
-import { FormControl, FormHelperText, TextField, TextFieldProps } from '@mui/material';
-import { useField } from '@unform/core';
-import { DatePicker, LocalizationProvider } from '@mui/lab';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import { useEffect, useState } from "react";
+import {
+  FormControl,
+  FormHelperText,
+  TextField,
+  TextFieldProps,
+} from "@mui/material";
+import { useField } from "@unform/core";
+import { DatePicker, LocalizationProvider } from "@mui/lab";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
 
 type TVDatePickerProps = TextFieldProps & {
   name: string;
-}
+};
 export const VDatePicker: React.FC<TVDatePickerProps> = ({ name, ...rest }) => {
-  const { fieldName, registerField, defaultValue, error, clearError } = useField(name);
+  const { fieldName, registerField, defaultValue, error, clearError } =
+    useField(name);
 
-  const [value, setValue] = useState(defaultValue || '');
+  const [value, setValue] = useState(defaultValue || "");
 
   useEffect(() => {
     registerField({
@@ -18,12 +24,9 @@ export const VDatePicker: React.FC<TVDatePickerProps> = ({ name, ...rest }) => {
       getValue: () => value,
       setValue: (_, newValue) => setValue(newValue),
     });
-
   }, [registerField, fieldName, value]);
 
-
   return (
-
     <FormControl
       required
       error={!!error}
@@ -32,15 +35,21 @@ export const VDatePicker: React.FC<TVDatePickerProps> = ({ name, ...rest }) => {
     >
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <DatePicker
-          renderInput={(params) => <TextField
-            {...rest}
-            {...params}
-            error={!!error && (value === '' || !value)}
-          />}
-          onChange={(newValue) => { setValue(newValue); rest.onChange?.(newValue); }}
-          value={value} />
+          renderInput={(params) => (
+            <TextField
+              {...rest}
+              {...params}
+              error={!!error && (value === "" || !value)}
+            />
+          )}
+          onChange={(newValue) => {
+            setValue(newValue);
+            rest.onChange?.(newValue);
+          }}
+          value={value}
+        />
 
-        {!!error && (value === '' || !value)  && (
+        {!!error && (value === "" || !value) && (
           <FormHelperText>{error}</FormHelperText>
         )}
       </LocalizationProvider>

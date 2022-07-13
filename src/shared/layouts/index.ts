@@ -1,1 +1,1 @@
-export * from './LayoutBasePage';
+export * from "./LayoutBasePage";

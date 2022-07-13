@@ -1,11 +1,18 @@
-import { createContext, Key, useCallback, useContext, useMemo, useState } from 'react';
-import { ThemeProvider } from '@mui/material';
-import { Box } from '@mui/system';
+import {
+  createContext,
+  Key,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
+import { ThemeProvider } from "@mui/material";
+import { Box } from "@mui/system";
 
-import { DarkTheme, LightTheme } from './../themes';
+import { DarkTheme, LightTheme } from "./../themes";
 
 interface IThemeContextData {
-  themeName: 'light' | 'dark';
+  themeName: "light" | "dark";
   toggleTheme: () => void;
 }
 
@@ -20,23 +27,28 @@ interface IAppThemeProps {
 }
 
 export const AppThemeProvider: React.FC<IAppThemeProps> = ({ children }) => {
-  const [themeName, setThemeName] = useState<'light' | 'dark'>('light');
+  const [themeName, setThemeName] = useState<"light" | "dark">("light");
 
   const toggleTheme = useCallback(() => {
-    setThemeName(oldThemeName => oldThemeName === 'light' ? 'dark' : 'light');
+    setThemeName((oldThemeName) =>
+      oldThemeName === "light" ? "dark" : "light"
+    );
   }, []);
 
   const theme = useMemo(() => {
-    if (themeName === 'light') return LightTheme;
+    if (themeName === "light") return LightTheme;
 
     return DarkTheme;
   }, [themeName]);
 
-
   return (
     <ThemeContext.Provider value={{ themeName, toggleTheme }}>
       <ThemeProvider theme={theme}>
-        <Box width="100vw" height="100vh" bgcolor={theme.palette.background.default}>
+        <Box
+          width="100vw"
+          height="100vh"
+          bgcolor={theme.palette.background.default}
+        >
           {children}
         </Box>
       </ThemeProvider>

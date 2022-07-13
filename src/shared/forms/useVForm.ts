@@ -1,13 +1,11 @@
-import { FormHandles } from '@unform/core';
-import { useCallback, useRef } from 'react';
-
+import { FormHandles } from "@unform/core";
+import { useCallback, useRef } from "react";
 
 export const useVForm = () => {
   const formRef = useRef<FormHandles>(null);
 
   const isSavingAndClose = useRef(false);
   const isSavingAndNew = useRef(false);
-
 
   const handleSave = useCallback(() => {
     isSavingAndClose.current = false;
@@ -27,7 +25,6 @@ export const useVForm = () => {
     formRef.current?.submitForm();
   }, []);
 
-
   const handleIsSaveAndNew = useCallback(() => {
     return isSavingAndNew.current;
   }, []);
@@ -35,7 +32,6 @@ export const useVForm = () => {
   const handleIsSaveAndClose = useCallback(() => {
     return isSavingAndClose.current;
   }, []);
-
 
   return {
     formRef,
