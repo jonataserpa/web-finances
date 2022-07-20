@@ -3,13 +3,7 @@
  * Author Jonata Serpa
  */
 
-export interface ILogradouros {
-  cep?: string;
-  logradouro?: string;
-  number?: Number;
-  uf?: string;
-  city?: string;
-}
+import { IAdresses } from "./IAdresses";
 
 export interface IUser {
   id?: string;
@@ -19,6 +13,7 @@ export interface IUser {
   companyId: number;
   dateborn?: string;
   radiogender?: string;
-  logradouros?: ILogradouros[];
+  address?: IAdresses[];
   password?: string;
+
 }

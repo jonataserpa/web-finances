@@ -1,19 +1,33 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { TextField, TextFieldProps } from "@mui/material";
 import { useField } from "@unform/core";
 
 type TVTextFieldProps = TextFieldProps & {
   name: string;
 };
+interface InputValueReference {
+  value: string;
+}
 export const VTextField: React.FC<TVTextFieldProps> = ({ name, ...rest }) => {
   const { fieldName, registerField, defaultValue, error, clearError } =
     useField(name);
-
+  const inputValueRef = useRef<InputValueReference>({ value: defaultValue });
+  const inputElementRef = useRef<any>(null);
   const [value, setValue] = useState(defaultValue || "");
+  let msg='';
+
+  if (fieldName === 'address.0.adrees' && value === '') {
+    msg = 'Campo obrigatório';
+  }
+  
+  if (fieldName === 'address.1.adrees' && value === '') {
+    msg = 'Campo obrigatório';
+  }
 
   useEffect(() => {
     registerField({
       name: fieldName,
+      ref: inputValueRef.current,
       getValue: () => value,
       setValue: (_, newValue) => setValue(newValue),
     });
@@ -22,8 +36,10 @@ export const VTextField: React.FC<TVTextFieldProps> = ({ name, ...rest }) => {
   return (
     <TextField
       {...rest}
-      error={!!error}
-      helperText={error}
+      id={name}
+      name={name}
+      error={!!error || msg !== ''}
+      helperText={error || msg}
       defaultValue={defaultValue}
       value={value}
       onChange={(e) => {
@@ -34,6 +50,7 @@ export const VTextField: React.FC<TVTextFieldProps> = ({ name, ...rest }) => {
         error && clearError();
         rest.onKeyDown?.(e);
       }}
+      ref={inputElementRef}
     />
   );
 };
