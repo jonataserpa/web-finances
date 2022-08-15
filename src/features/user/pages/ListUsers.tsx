@@ -23,7 +23,8 @@ import {
   Typography,
 } from "@mui/material";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import AddIcon from "@mui/icons-material/Add";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+
 import * as yup from "yup";
 
 import { CompanysService } from "../../company/services/CompanysService";
@@ -45,6 +46,8 @@ import { VRadioButton } from "../../../shared/forms/VRadioButton";
 import { VInputPhone } from "../../../shared/forms/VPhone";
 import { IAdresses } from "../interfaces/IAdresses";
 import { Scope } from "@unform/core";
+import { useDispatch } from "react-redux";
+import allActions from "../../../store/actions";
 
 const formValidationSchema: yup.SchemaOf<IUser | any> = yup.object().shape({
   name: yup.string().required().min(3),
@@ -57,8 +60,8 @@ const formValidationSchema: yup.SchemaOf<IUser | any> = yup.object().shape({
     yup.object({
       cep: yup.string().required(),
       adrees: yup.string().required(),
-      state: yup.string().required(),
       city: yup.string().required(),
+      state: yup.string().required(),
     })
   ),
 });
@@ -77,7 +80,8 @@ export const ListUsers: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { debounce } = useDebounce();
   const navigate = useNavigate();
-  const { formRef, save, saveAndClose, isSaveAndClose } = useVForm();
+  const { formRef, save, saveAndClose } = useVForm();
+  const dispatch = useDispatch();
 
   const { id = "nova" } = useParams<"id">();
 
@@ -171,17 +175,18 @@ export const ListUsers: React.FC = () => {
         //       }
         //     });
         // }
+        formRef.current?.reset();
       })
       .catch((errors: yup.ValidationError) => {
         const validationErrors: IVFormErrors = {};
 
         errors.inner.forEach((error) => {
           if (!error.path) return;
-
           validationErrors[error.path] = error.message;
         });
-        console.log(validationErrors);
+        console.log('adresses', errors.value.address);
         formRef.current?.setErrors(validationErrors);
+        dispatch(allActions.user.setUser(true, errors.value.address));
       });
   };
 
@@ -232,7 +237,7 @@ export const ListUsers: React.FC = () => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
+            <Grid item xs={12} sm={12} md={6} lg={4} xl={2}>
               <VTextField
                 fullWidth
                 name="adrees"
@@ -241,7 +246,7 @@ export const ListUsers: React.FC = () => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={12} md={6} lg={4} xl={1}>
+            <Grid item xs={12} sm={12} md={6} lg={4} xl={2}>
               <VTextField
                 fullWidth
                 name="number_end"
@@ -250,7 +255,7 @@ export const ListUsers: React.FC = () => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={12} md={6} lg={4} xl={1}>
+            <Grid item xs={12} sm={12} md={6} lg={4} xl={2}>
               <VTextField
                 fullWidth
                 name="state"
@@ -259,7 +264,7 @@ export const ListUsers: React.FC = () => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
+            <Grid item xs={12} sm={12} md={6} lg={4} xl={2}>
               <VTextField
                 fullWidth
                 name="city"
@@ -268,10 +273,20 @@ export const ListUsers: React.FC = () => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={12} md={6} lg={4} xl={1}>
-              <Fab color="primary" aria-label="add">
-                <AddIcon onClick={() => addAdrees()} />
-              </Fab>
+            <Grid item xs={12} sm={12} md={6} lg={4} xl={2} style={{ marginTop: 10, padding: 10 }}>
+              <Icon
+                sx={{ fontSize: 30 }}
+                onClick={() => addAdrees()}
+                color="primary"
+                style={{ cursor: "pointer" }}
+              >
+                add_circle
+              </Icon>
+              <RemoveCircleOutlineIcon
+                sx={{ fontSize: 30 }}
+                color="primary"
+                style={{ cursor: "pointer" }}
+              />
             </Grid>
           </Grid>
         </Scope>
@@ -394,12 +409,7 @@ export const ListUsers: React.FC = () => {
                       </Grid>
 
                       <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
-                        <VTextField
-                          fullWidth
-                          name="email"
-                          label="Email"
-                          disabled={isLoading}
-                        />
+                        <AutoCompleteCompany isExternalLoading={isLoading} />
                       </Grid>
 
                       <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
@@ -414,10 +424,6 @@ export const ListUsers: React.FC = () => {
                     </Grid>
 
                     <Grid container item direction="row" spacing={2}>
-                      <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
-                        <AutoCompleteCompany isExternalLoading={isLoading} />
-                      </Grid>
-
                       <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
                         <VDatePicker
                           fullWidth
@@ -473,7 +479,7 @@ export const ListUsers: React.FC = () => {
                           fullWidth
                           name="email"
                           label="Email"
-                          disabled={true}
+                          disabled={isLoading}
                         />
                       </Grid>
 

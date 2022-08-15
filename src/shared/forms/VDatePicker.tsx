@@ -11,8 +11,9 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 
 type TVDatePickerProps = TextFieldProps & {
   name: string;
+  label: string;
 };
-export const VDatePicker: React.FC<TVDatePickerProps> = ({ name, ...rest }) => {
+export const VDatePicker: React.FC<TVDatePickerProps> = ({ name, label, ...rest }) => {
   const { fieldName, registerField, defaultValue, error, clearError } =
     useField(name);
 
@@ -39,6 +40,8 @@ export const VDatePicker: React.FC<TVDatePickerProps> = ({ name, ...rest }) => {
             <TextField
               {...rest}
               {...params}
+              size="small"
+              label={label}
               error={!!error && (value === "" || !value)}
             />
           )}

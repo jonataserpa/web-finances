@@ -74,6 +74,7 @@ export const AutoCompleteCompany: React.FC<IAutoCompleteCompanyProps> = ({
       loadingText="Carregando..."
       disablePortal
       options={opcoes}
+      size="small"
       loading={isLoading}
       disabled={isExternalLoading}
       value={autoCompleteSelectedOption}

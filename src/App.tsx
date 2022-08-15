@@ -9,20 +9,24 @@ import {
   DrawerProvider,
 } from "./shared/contexts";
 import { AppRoutes } from "./routes";
+import store from "./store";
+import { Provider } from "react-redux";
 
 function App() {
   return (
-    <AuthProvider>
-      <AppThemeProvider>
-        <DrawerProvider>
-          <BrowserRouter>
-            <MenuSide>
-              <AppRoutes />
-            </MenuSide>
-          </BrowserRouter>
-        </DrawerProvider>
-      </AppThemeProvider>
-    </AuthProvider>
+    <Provider store={store}>
+      <AuthProvider>
+        <AppThemeProvider>
+          <DrawerProvider>
+            <BrowserRouter>
+              <MenuSide>
+                <AppRoutes />
+              </MenuSide>
+            </BrowserRouter>
+          </DrawerProvider>
+        </AppThemeProvider>
+      </AuthProvider>
+    </Provider>
   );
 }
 

@@ -59,6 +59,8 @@ export function VInputPhone({
             rest.onChange?.(values);
           }}
           format="(##) #####-####"
+          size="small"
+          label={label}
           allowEmptyFormatting
           mask="_"
           customInput={TextField}
