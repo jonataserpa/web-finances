@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
+import { v4 as uuidv4 } from 'uuid';
+
 import {
   Box,
-  Fab,
-  FormControlLabel,
   Grid,
   Icon,
   IconButton,
@@ -58,6 +58,7 @@ const formValidationSchema: yup.SchemaOf<IUser | any> = yup.object().shape({
   phone: yup.string().required(),
   address: yup.array(
     yup.object({
+      id: yup.string(),
       cep: yup.string().required(),
       adrees: yup.string().required(),
       city: yup.string().required(),
@@ -68,6 +69,7 @@ const formValidationSchema: yup.SchemaOf<IUser | any> = yup.object().shape({
 
 const adress = [
   {
+    id: uuidv4(),
     cep: "",
     adrees: "",
     number_end: "",
@@ -204,10 +206,14 @@ export const ListUsers: React.FC = () => {
     p: 4,
   };
 
+  /**
+   * Add item array address
+   */
   function addAdrees(): void {
     setAdresses([
       ...adresses,
       {
+        id: uuidv4(),
         cep: "",
         adrees: "",
         number_end: "",
@@ -216,6 +222,15 @@ export const ListUsers: React.FC = () => {
       },
     ]);
   }
+  
+  /**
+   * Remove item array address
+   */
+  function removeAdrees(newAdress: IAdresses): void {
+    const removed = adresses.filter((item) => item.id !== newAdress.id);
+
+    setAdresses([ ...removed]);
+  }
 
   /**
    * List addrees
@@ -223,7 +238,7 @@ export const ListUsers: React.FC = () => {
    * @param index
    * @returns
    */
-  function listAdrees(item: IAdresses, index: number): JSX.Element {
+  function listAdrees(newAdress: IAdresses, index: number): JSX.Element {
     return (
       <Scope key={index} path="address">
         <Scope path={`${index}`}>
@@ -282,11 +297,15 @@ export const ListUsers: React.FC = () => {
               >
                 add_circle
               </Icon>
-              <RemoveCircleOutlineIcon
-                sx={{ fontSize: 30 }}
-                color="primary"
-                style={{ cursor: "pointer" }}
-              />
+
+              {index > 0 && (
+                <RemoveCircleOutlineIcon
+                  sx={{ fontSize: 30 }}
+                  color="primary"
+                  onClick={() => removeAdrees(newAdress)}
+                  style={{ cursor: "pointer" }}
+                />
+              )}
             </Grid>
           </Grid>
         </Scope>

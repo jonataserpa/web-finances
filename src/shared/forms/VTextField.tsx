@@ -71,7 +71,7 @@ export const VTextField: React.FC<TVTextFieldProps> = ({ name, ...rest }) => {
   }
 
   if (address && address.length > 0 && send) {
-    address?.map((adr, index: number) => {
+    address?.map((adr) => {
       msg = "Campo obrigatório";      
       validateAddress(adr);
     });
