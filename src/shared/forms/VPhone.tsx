@@ -7,7 +7,7 @@ import {
   TextField,
   TextFieldProps,
 } from "@mui/material";
-import { useField } from "@unform/core";
+// import { useField } from "@unform/core";
 import NumberFormat, { InputAttributes } from "react-number-format";
 import { useStyles } from "./styles";
 
@@ -16,6 +16,9 @@ type InputPhoneProps = TextFieldProps & {
   label: string;
   disabled: boolean;
   children?: ReactNode;
+  value: string | undefined;
+  error: boolean | undefined;
+  helperText: boolean | string | undefined;
 };
 
 interface CustomProps {
@@ -27,35 +30,26 @@ export function VInputPhone({
   name,
   label,
   disabled,
+  value,
+  error,
+  helperText,
   ...rest
 }: InputPhoneProps): JSX.Element {
-  const { fieldName, registerField, defaultValue, error, clearError } =
-    useField(name);
-
-  const [value, setValue] = useState(defaultValue || "");
-
+  const [valueDefault, setValueDefault] = useState(value || "");
   const classes = useStyles();
-
-  useEffect(() => {
-    registerField({
-      name: fieldName,
-      getValue: () => value,
-      setValue: (_, newValue) => setValue(newValue),
-    });
-  }, [registerField, fieldName, value]);
 
   return (
     <>
       <FormControl
         required
-        error={!!error && (value === "" || !value)}
-        defaultValue={defaultValue}
+        error={!!error}
+        defaultValue={valueDefault}
         component="fieldset"
       >
         <NumberFormat
-          value={value}
+          value={valueDefault}
           onChange={(values: any) => {
-            setValue(values.target.value);
+            setValueDefault(values.target.value);
             rest.onChange?.(values);
           }}
           format="(##) #####-####"
@@ -65,12 +59,12 @@ export function VInputPhone({
           mask="_"
           customInput={TextField}
           className={
-            !!error && (value === "" || !value) ? classes.inputPhoneError : ""
+            !!error && (valueDefault === '' || valueDefault === '(__) _____-____') ? classes.inputPhoneError : ""
           }
         />
 
-        {!!error && (value === "" || !value) && (
-          <FormHelperText>{error}</FormHelperText>
+        {!!error && (valueDefault === '' || valueDefault === '(__) _____-____') && (
+          <FormHelperText>{helperText}</FormHelperText>
         )}
       </FormControl>
     </>

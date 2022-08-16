@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { TextField, TextFieldProps } from "@mui/material";
-import { useField } from "@unform/core";
+// import { useField } from "@unform/core";
 import { useVForm } from "./useVForm";
 import { useSelector } from "react-redux";
 import { ICombineState } from "../../store/reducers";
@@ -8,21 +8,24 @@ import { IAdresses } from "../../features/user/interfaces/IAdresses";
 
 type TVTextFieldProps = TextFieldProps & {
   name: string;
+  error: boolean | undefined;
+  helperText: boolean | string | undefined;
+  type: string;
 };
 interface InputValueReference {
   value: string;
 }
-export const VTextField: React.FC<TVTextFieldProps> = ({ name, ...rest }) => {
-  const { fieldName, registerField, defaultValue, error, clearError } =
-    useField(name);
-  const inputValueRef = useRef<InputValueReference>({ value: defaultValue });
-  const inputElementRef = useRef<any>(null);
-  const [value, setValue] = useState(defaultValue || "");
-  let msg = "";
+export const VTextField: React.FC<TVTextFieldProps> = ({ name, error, helperText, type, value, ...rest }) => {
+  // const { fieldName, registerField, defaultValue, error, clearError } =
+  //   useField(name);
+  // const inputValueRef = useRef<InputValueReference>({ value: defaultValue });
+  // const inputElementRef = useRef<any>(null);
+  const [valueDefault, setValueDefault] = useState(value || "");
+  // let msg = "";
 
-  const { send, address } = useSelector((state: ICombineState) => state.user);
-  const validate = useRef<boolean>(send);
-  validate.current = send;
+  // const { send, address } = useSelector((state: ICombineState) => state.user);
+  // const validate = useRef<boolean>(send);
+  // validate.current = send;
 
   /**
    * Validate address fields dinamic
@@ -70,49 +73,47 @@ export const VTextField: React.FC<TVTextFieldProps> = ({ name, ...rest }) => {
     }
   }
 
-  if (address && address.length > 0 && send) {
-    address?.map((adr) => {
-      msg = "Campo obrigatório";      
-      validateAddress(adr);
-    });
-  }
+  // if (address && address.length > 0 && send) {
+  //   address?.map((adr) => {
+  //     msg = "Campo obrigatório";      
+  //     validateAddress(adr);
+  //   });
+  // }
 
-  if (fieldName === name && send) {
-    msg = error ? error : "Campo obrigatório";
-    if (value !== "" && value !== undefined) {
-      validate.current = false;
-      msg = error ? error : "";
-    }
-  }
+  // if (fieldName === name && send) {
+  //   msg = error ? error : "Campo obrigatório";
+  //   if (value !== "" && value !== undefined) {
+  //     validate.current = false;
+  //     msg = error ? error : "";
+  //   }
+  // }
 
-  useEffect(() => {
-    registerField({
-      name: fieldName,
-      ref: inputValueRef.current,
-      getValue: () => value,
-      setValue: (_, newValue) => setValue(newValue),
-    });
-  }, [registerField, fieldName, value]);
+  // useEffect(() => {
+  //   registerField({
+  //     name: fieldName,
+  //     ref: value,
+  //     getValue: () => value,
+  //     setValue: (_, newValue) => setValue(newValue),
+  //   });
+  // }, [registerField, fieldName, value]);
 
   return (
     <TextField
       {...rest}
       id={name}
+      type={type}
       name={name}
-      error={!!error || validate.current}
-      helperText={error || msg}
-      defaultValue={defaultValue}
-      value={value}
+      value={valueDefault}
+      error={!!error}
+      helperText={helperText}
       size="small"
       onChange={(e) => {
-        setValue(e.target.value);
+        setValueDefault(e.target.value);
         rest.onChange?.(e);
       }}
       onKeyDown={(e) => {
-        error && clearError();
         rest.onKeyDown?.(e);
       }}
-      ref={inputElementRef}
     />
   );
 };

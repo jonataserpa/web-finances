@@ -8,42 +8,36 @@ import {
   TextField,
   TextFieldProps,
 } from "@mui/material";
-import { useField } from "@unform/core";
 
 type TVRadioButtonProps = TextFieldProps & {
   name: string;
+  value: string;     
+  error: boolean | undefined;
+  helperText: boolean | string | undefined; 
 };
 export const VRadioButton: React.FC<TVRadioButtonProps> = ({
   name,
+  value,
+  error,
+  helperText,
   ...rest
 }) => {
-  const { fieldName, registerField, defaultValue, error, clearError } =
-    useField(name);
-
-  const [value, setValue] = useState(defaultValue || "");
-
-  useEffect(() => {
-    registerField({
-      name: fieldName,
-      getValue: () => value,
-      setValue: (_, newValue) => setValue(newValue),
-    });
-  }, [registerField, fieldName, value]);
+  const [valueDefault, setValueDefault] = useState(value || "");
 
   return (
     <FormControl
       required
       error={!!error}
-      defaultValue={defaultValue}
+      defaultValue={valueDefault}
       component="fieldset"
     >
       <RadioGroup
         row
         aria-label="gender"
-        value={value}
+        value={valueDefault}
         name="radiogender"
         onChange={(e) => {
-          setValue(e.target.value);
+          setValueDefault(e.target.value);
           rest.onChange?.(e);
         }}
       >
@@ -51,8 +45,8 @@ export const VRadioButton: React.FC<TVRadioButtonProps> = ({
         <FormControlLabel value="male" control={<Radio />} label="Masculino" />
         <FormControlLabel value="other" control={<Radio />} label="Outro" />
 
-        {!!error && (value === "" || !value) && (
-          <FormHelperText>{error}</FormHelperText>
+        {!!error && (
+          <FormHelperText>{helperText}</FormHelperText>
         )}
       </RadioGroup>
     </FormControl>

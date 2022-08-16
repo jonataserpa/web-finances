@@ -5,13 +5,17 @@
 
 import { IAdresses } from "./IAdresses";
 
-export interface IUser {
+interface DynamicKey {
+  [key: string]: any;
+}
+
+export interface IUser extends DynamicKey {
   id?: string;
   name: string;
   email: string;
-  phone?: string;
+  phone: string;
   companyId: number;
-  dateborn?: string;
+  dateborn: string;
   radiogender?: string;
   address?: IAdresses[];
   password?: string;

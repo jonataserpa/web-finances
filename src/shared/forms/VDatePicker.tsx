@@ -5,33 +5,24 @@ import {
   TextField,
   TextFieldProps,
 } from "@mui/material";
-import { useField } from "@unform/core";
 import { DatePicker, LocalizationProvider } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 
 type TVDatePickerProps = TextFieldProps & {
   name: string;
   label: string;
+  value: string;
+  error: boolean | undefined;
+  helperText: boolean | string | undefined;
 };
-export const VDatePicker: React.FC<TVDatePickerProps> = ({ name, label, ...rest }) => {
-  const { fieldName, registerField, defaultValue, error, clearError } =
-    useField(name);
-
-  const [value, setValue] = useState(defaultValue || "");
-
-  useEffect(() => {
-    registerField({
-      name: fieldName,
-      getValue: () => value,
-      setValue: (_, newValue) => setValue(newValue),
-    });
-  }, [registerField, fieldName, value]);
+export const VDatePicker: React.FC<TVDatePickerProps> = ({ name, error, helperText, label, value, ...rest }) => {
+  const [valueDefault, setValueDefault] = useState(value || "");
 
   return (
     <FormControl
       required
       error={!!error}
-      defaultValue={defaultValue}
+      defaultValue={valueDefault}
       component="fieldset"
     >
       <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -42,18 +33,18 @@ export const VDatePicker: React.FC<TVDatePickerProps> = ({ name, label, ...rest 
               {...params}
               size="small"
               label={label}
-              error={!!error && (value === "" || !value)}
+              error={!!error}
+              // error={!!error}
             />
           )}
           onChange={(newValue) => {
-            setValue(newValue);
-            rest.onChange?.(newValue);
+            setValueDefault(newValue || '');
           }}
-          value={value}
+          value={valueDefault}
         />
 
-        {!!error && (value === "" || !value) && (
-          <FormHelperText>{error}</FormHelperText>
+        {!!error && (
+          <FormHelperText>{helperText}</FormHelperText>
         )}
       </LocalizationProvider>
     </FormControl>

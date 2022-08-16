@@ -3,7 +3,6 @@ import { Autocomplete, CircularProgress, TextField } from "@mui/material";
 
 import { CompanysService } from "../services/CompanysService";
 import { useDebounce } from "../../../shared/hooks";
-import { useField } from "@unform/core";
 import { IAutoCompleteCompanyProps } from "../interfaces/iCompany.interface";
 
 type TAutoCompleteOption = {
@@ -14,25 +13,25 @@ type TAutoCompleteOption = {
 export const AutoCompleteCompany: React.FC<IAutoCompleteCompanyProps> = ({
   isExternalLoading = false,
 }) => {
-  const { fieldName, registerField, defaultValue, error, clearError } =
-    useField("companyId");
+  // const { fieldName, registerField, defaultValue, error, clearError } =
+  //   useField("companyId");
   const { debounce } = useDebounce();
 
   const [selectedId, setSelectedId] = useState<number | undefined>(
-    defaultValue
+    1
   );
 
   const [opcoes, setOpcoes] = useState<TAutoCompleteOption[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [busca, setBusca] = useState("");
 
-  useEffect(() => {
-    registerField({
-      name: fieldName,
-      getValue: () => selectedId,
-      setValue: (_, newSelectedId) => setSelectedId(newSelectedId),
-    });
-  }, [registerField, fieldName, selectedId]);
+  // useEffect(() => {
+  //   registerField({
+  //     name: fieldName,
+  //     getValue: () => selectedId,
+  //     setValue: (_, newSelectedId) => setSelectedId(newSelectedId),
+  //   });
+  // }, [registerField, fieldName, selectedId]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -82,7 +81,6 @@ export const AutoCompleteCompany: React.FC<IAutoCompleteCompanyProps> = ({
       onChange={(_, newValue) => {
         setSelectedId(newValue?.id);
         setBusca("");
-        clearError();
       }}
       popupIcon={
         isExternalLoading || isLoading ? (
@@ -93,8 +91,6 @@ export const AutoCompleteCompany: React.FC<IAutoCompleteCompanyProps> = ({
         <TextField
           {...params}
           label="Company"
-          error={!!error}
-          helperText={error}
         />
       )}
     />

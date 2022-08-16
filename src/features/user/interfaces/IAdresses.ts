@@ -2,7 +2,11 @@
  * Creation Date: 2022-07-12
  * Author Jonata Serpa
  */
-export interface IAdresses {
+
+ interface DynamicKey {
+  [key: string]: any;
+}
+export interface IAdresses extends DynamicKey  {
   id?: string;
   cep: string;
   adrees: string;

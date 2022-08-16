@@ -73,6 +73,7 @@ export const ToolDetail: React.FC<IToolDetailProps> = ({
           color="primary"
           disableElevation
           variant="contained"
+          type="submit"
           onClick={aoClicarEmSalvar}
           startIcon={<Icon>save</Icon>}
         >

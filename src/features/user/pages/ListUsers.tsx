@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { v4 as uuidv4 } from 'uuid';
-
+import { v4 as uuidv4 } from "uuid";
 import {
   Box,
   Grid,
@@ -46,8 +45,10 @@ import { VRadioButton } from "../../../shared/forms/VRadioButton";
 import { VInputPhone } from "../../../shared/forms/VPhone";
 import { IAdresses } from "../interfaces/IAdresses";
 import { Scope } from "@unform/core";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import allActions from "../../../store/actions";
+import { ICombineState } from "../../../store/reducers";
+import { FormikProvider, useFormik } from "formik";
 
 const formValidationSchema: yup.SchemaOf<IUser | any> = yup.object().shape({
   name: yup.string().required().min(3),
@@ -67,28 +68,39 @@ const formValidationSchema: yup.SchemaOf<IUser | any> = yup.object().shape({
   ),
 });
 
-const adress = [
-  {
-    id: uuidv4(),
-    cep: "",
-    adrees: "",
-    number_end: "",
-    state: "",
-    city: "",
-  },
-];
-
 export const ListUsers: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { debounce } = useDebounce();
   const navigate = useNavigate();
-  const { formRef, save, saveAndClose } = useVForm();
+  const { save, saveAndClose } = useVForm();
   const dispatch = useDispatch();
+
+  const address = [
+    {
+      id: uuidv4(),
+      cep: "123546",
+      adrees: "TESTE",
+      number_end: "22",
+      state: "MG",
+      city: "Silvianopois",
+    },
+  ]
+
+  const user = {
+    name: "TESTE",
+    email: "jonataser@gmail.com",
+    phone: "",
+    companyId: 1,
+    dateborn: "2022-08-16",
+    radiogender: "",
+    address,
+  };
 
   const { id = "nova" } = useParams<"id">();
 
   const [rows, setRows] = useState<IListUser[]>([]);
-  const [adresses, setAdresses] = useState<IAdresses[]>(adress);
+  const [dataResponse, setDataResponse] = useState<IUser>(user);
+
   const [isLoading, setIsLoading] = useState(true);
   const [totalCount, setTotalCount] = useState(0);
 
@@ -139,6 +151,10 @@ export const ListUsers: React.FC = () => {
     }
   };
 
+  /**
+   * Save user
+   * @param dados
+   */
   const handleSave = (dados: IUser) => {
     formValidationSchema
       .validate(dados, { abortEarly: false })
@@ -177,7 +193,6 @@ export const ListUsers: React.FC = () => {
         //       }
         //     });
         // }
-        formRef.current?.reset();
       })
       .catch((errors: yup.ValidationError) => {
         const validationErrors: IVFormErrors = {};
@@ -186,8 +201,8 @@ export const ListUsers: React.FC = () => {
           if (!error.path) return;
           validationErrors[error.path] = error.message;
         });
-        console.log('adresses', errors.value.address);
-        formRef.current?.setErrors(validationErrors);
+        console.log("adresses", errors.value.address);
+        // formRef.current?.setErrors(validationErrors);
         dispatch(allActions.user.setUser(true, errors.value.address));
       });
   };
@@ -210,27 +225,67 @@ export const ListUsers: React.FC = () => {
    * Add item array address
    */
   function addAdrees(): void {
-    setAdresses([
-      ...adresses,
-      {
-        id: uuidv4(),
-        cep: "",
-        adrees: "",
-        number_end: "",
-        state: "",
-        city: "",
-      },
-    ]);
+    const array = dataResponse.address || [];
+
+    const teste = {
+      id: "01",
+      cep: "",
+      adrees: "",
+      number_end: "",
+      state: "",
+      city: "",
+    };
+
+    array.push(teste);
+
+    setDataResponse({
+      ...dataResponse,
+      address: array,
+    });
+
+    console.log("dataResponse", dataResponse);
   }
-  
+
   /**
    * Remove item array address
    */
   function removeAdrees(newAdress: IAdresses): void {
-    const removed = adresses.filter((item) => item.id !== newAdress.id);
+    const removed = dataResponse?.address?.filter(
+      (item: IAdresses) => item.id !== newAdress.id
+    );
 
-    setAdresses([ ...removed]);
+    setDataResponse({ ...dataResponse, address: removed });
   }
+
+  function validateAddress(
+    event: any,
+    indexAddress: number,
+    newAdress: IAdresses
+  ) {
+    const value = event.target.value;
+    const name = event.target.name;
+    let listAddress: IAdresses[] = [];
+
+    const dataEdited = dataResponse.address?.map((item, index: number) => {
+      if (index === indexAddress) {
+        item[name] = value;
+      }
+      return item;
+    });
+
+    dispatch(allActions.user.setUser(false, dataEdited));
+    setDataResponse({ ...dataResponse, address: dataEdited });
+  }
+
+  const formik = useFormik({
+    enableReinitialize: true,
+    initialValues: { ...dataResponse },
+    validationSchema: formValidationSchema,
+    onSubmit: (values) => {
+      console.log(values);
+      handleSave(values);
+    },
+  });
 
   /**
    * List addrees
@@ -244,11 +299,16 @@ export const ListUsers: React.FC = () => {
         <Scope path={`${index}`}>
           <Grid container item direction="row" spacing={2}>
             <Grid item xs={12} sm={12} md={6} lg={4} xl={2}>
+              <VTextField name="id" label="Id" value="123" />
+            </Grid>
+
+            <Grid item xs={12} sm={12} md={6} lg={4} xl={2}>
               <VTextField
                 fullWidth
                 name="cep"
                 label="Cep"
                 disabled={isLoading}
+                onChange={(e) => validateAddress(e, index, newAdress)}
               />
             </Grid>
 
@@ -258,6 +318,7 @@ export const ListUsers: React.FC = () => {
                 name="adrees"
                 label="Endereço"
                 disabled={isLoading}
+                onChange={(e) => validateAddress(e, index, newAdress)}
               />
             </Grid>
 
@@ -267,6 +328,7 @@ export const ListUsers: React.FC = () => {
                 name="number_end"
                 label="Nº"
                 disabled={isLoading}
+                onChange={(e) => validateAddress(e, index, newAdress)}
               />
             </Grid>
 
@@ -276,6 +338,7 @@ export const ListUsers: React.FC = () => {
                 name="state"
                 label="UF"
                 disabled={isLoading}
+                onChange={(e) => validateAddress(e, index, newAdress)}
               />
             </Grid>
 
@@ -285,10 +348,19 @@ export const ListUsers: React.FC = () => {
                 name="city"
                 label="Cidade"
                 disabled={isLoading}
+                onChange={(e) => validateAddress(e, index, newAdress)}
               />
             </Grid>
 
-            <Grid item xs={12} sm={12} md={6} lg={4} xl={2} style={{ marginTop: 10, padding: 10 }}>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={6}
+              lg={4}
+              xl={2}
+              style={{ marginTop: 10, padding: 10 }}
+            >
               <Icon
                 sx={{ fontSize: 30 }}
                 onClick={() => addAdrees()}
@@ -397,135 +469,165 @@ export const ListUsers: React.FC = () => {
         >
           <Box sx={style}>
             <LayoutBasePage title={id === "nova" ? "New user" : nome}>
-              <VForm ref={formRef} onSubmit={handleSave}>
-                <Box
-                  margin={1}
-                  display="flex"
-                  flexDirection="column"
-                  component={Paper}
-                  variant="outlined"
-                >
-                  <Grid container direction="column" padding={2} spacing={2}>
-                    {isLoading && (
+              <FormikProvider value={formik}>
+                <form onSubmit={formik.handleSubmit}>
+                  <Box
+                    margin={1}
+                    display="flex"
+                    flexDirection="column"
+                    component={Paper}
+                    variant="outlined"
+                  >
+                    <Grid container direction="column" padding={2} spacing={2}>
+                      {isLoading && (
+                        <Grid item>
+                          <LinearProgress variant="indeterminate" />
+                        </Grid>
+                      )}
+
                       <Grid item>
-                        <LinearProgress variant="indeterminate" />
-                      </Grid>
-                    )}
-
-                    <Grid item>
-                      <Typography variant="h6">Geral</Typography>
-                    </Grid>
-
-                    <Grid container item direction="row" spacing={2}>
-                      <Grid item xs={12} sm={12} md={6} lg={4} xl={5}>
-                        <VTextField
-                          fullWidth
-                          name="name"
-                          disabled={isLoading}
-                          label="Nome completo"
-                          onChange={(e) => setNome(e.target.value)}
-                        />
+                        <Typography variant="h6">Geral</Typography>
                       </Grid>
 
-                      <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
-                        <AutoCompleteCompany isExternalLoading={isLoading} />
+                      <Grid container item direction="row" spacing={2}>
+                        <Grid item xs={12} sm={12} md={6} lg={4} xl={5}>
+                          <VTextField
+                            fullWidth
+                            name="name"
+                            type="text"
+                            disabled={isLoading}
+                            label="Nome completo"
+                            onChange={formik.handleChange}
+                            value={formik.values.name}
+                            error={formik.touched.name && Boolean(formik.errors.name)}
+                            helperText={formik.touched.name && formik.errors.name}
+                          />
+                        </Grid>
+
+                        <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
+                          <AutoCompleteCompany isExternalLoading={isLoading} />
+                        </Grid>
+
+                        <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
+                          <VInputPhone
+                            fullWidth
+                            name="phone"
+                            label="Celular"
+                            disabled={isLoading}
+                            variant="outlined"
+                            onChange={formik.handleChange}
+                            value={formik.values.phone}
+                            error={formik.touched.phone && Boolean(formik.errors.phone)}
+                            helperText={formik.touched.phone && formik.errors.phone}
+                          />
+                        </Grid>
                       </Grid>
 
-                      <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
-                        <VInputPhone
-                          fullWidth
-                          name="phone"
-                          label="Celular"
-                          disabled={isLoading}
-                          variant="outlined"
-                        />
-                      </Grid>
-                    </Grid>
+                      <Grid container item direction="row" spacing={2}>
+                        <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
+                          <VDatePicker
+                            fullWidth
+                            name="dateborn"
+                            label="Data de nascimento"
+                            disabled={isLoading}
+                            onChange={formik.handleChange}
+                            value={formik.values.dateborn}
+                            error={formik.touched.dateborn && Boolean(formik.errors.dateborn)}
+                            helperText={formik.touched.dateborn && formik.errors.dateborn}
+                          />
+                        </Grid>
 
-                    <Grid container item direction="row" spacing={2}>
-                      <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
-                        <VDatePicker
-                          fullWidth
-                          name="dateborn"
-                          label="Data de nascimento"
-                          disabled={isLoading}
-                        />
-                      </Grid>
-
-                      <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
-                        <VRadioButton
-                          fullWidth
-                          name="radiogender"
-                          label="Gênero"
-                          disabled={isLoading}
-                        />
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </Box>
-
-                <Box
-                  margin={1}
-                  display="flex"
-                  flexDirection="column"
-                  component={Paper}
-                  variant="outlined"
-                >
-                  <Grid container direction="column" padding={2} spacing={2}>
-                    <Grid item>
-                      <Typography variant="h6">Endereços</Typography>
-                    </Grid>
-
-                    {adresses.map((item, index) => listAdrees(item, index))}
-                  </Grid>
-                </Box>
-
-                <Box
-                  margin={1}
-                  display="flex"
-                  flexDirection="column"
-                  component={Paper}
-                  variant="outlined"
-                >
-                  <Grid container direction="column" padding={2} spacing={2}>
-                    <Grid item>
-                      <Typography variant="h6">Acesso</Typography>
-                    </Grid>
-
-                    <Grid container item direction="row" spacing={2}>
-                      <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
-                        <VTextField
-                          fullWidth
-                          name="email"
-                          label="Email"
-                          disabled={isLoading}
-                        />
-                      </Grid>
-
-                      <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
-                        <VTextField
-                          fullWidth
-                          name="password"
-                          label="Password"
-                          disabled={isLoading}
-                        />
+                        <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
+                          <VRadioButton
+                            fullWidth
+                            name="radiogender"
+                            label="Gênero"
+                            disabled={isLoading}
+                            onChange={formik.handleChange}
+                            value={formik.values.radiogender || ""}
+                            error={formik.touched.radiogender && Boolean(formik.errors.radiogender)}
+                            helperText={formik.touched.radiogender && formik.errors.radiogender}
+                          />
+                        </Grid>
                       </Grid>
                     </Grid>
-                  </Grid>
-                </Box>
-              </VForm>
+                  </Box>
 
-              <ToolDetail
-                textoBotaoNovo="Nova"
-                mostrarBotaoSalvarEFechar
-                mostrarBotaoNovo={id !== "nova"}
-                mostrarBotaoApagar={id !== "nova"}
-                aoClicarEmSalvar={save}
-                aoClicarEmSalvarEFechar={saveAndClose}
-                aoClicarEmVoltar={() => navigate("/pessoas")}
-                aoClicarEmApagar={() => handleDelete(Number(id))}
-                aoClicarEmNovo={() => navigate("/pessoas/detalhe/nova")}
-              />
+                  <Box
+                    margin={1}
+                    display="flex"
+                    flexDirection="column"
+                    component={Paper}
+                    variant="outlined"
+                  >
+                    <Grid container direction="column" padding={2} spacing={2}>
+                      <Grid item>
+                        <Typography variant="h6">Endereços</Typography>
+                      </Grid>
+
+                      {/* {dataResponse?.address?.map((item, index) =>
+                        listAdrees(item, index)
+                      )} */}
+                    </Grid>
+                  </Box>
+
+                  <Box
+                    margin={1}
+                    display="flex"
+                    flexDirection="column"
+                    component={Paper}
+                    variant="outlined"
+                  >
+                    <Grid container direction="column" padding={2} spacing={2}>
+                      <Grid item>
+                        <Typography variant="h6">Acesso</Typography>
+                      </Grid>
+
+                      <Grid container item direction="row" spacing={2}>
+                        <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
+                          <VTextField
+                            fullWidth
+                            name="email"
+                            type="email"
+                            label="Email"
+                            disabled={isLoading}
+                            onChange={formik.handleChange}
+                            value={formik.values.email}
+                            error={formik.touched.email && Boolean(formik.errors.email)}
+                            helperText={formik.touched.email && formik.errors.email}
+                          />
+                        </Grid>
+
+                        <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
+                          <VTextField
+                            fullWidth
+                            name="password"
+                            type="password"
+                            label="Password"
+                            disabled={isLoading}
+                            onChange={formik.handleChange}
+                            value={formik.values.password}
+                            error={formik.touched.password && Boolean(formik.errors.password)}
+                            helperText={formik.touched.password && formik.errors.password}
+                          />
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Box>
+
+                  <ToolDetail
+                    textoBotaoNovo="Nova"
+                    mostrarBotaoSalvarEFechar
+                    mostrarBotaoNovo={id !== "nova"}
+                    mostrarBotaoApagar={id !== "nova"}
+                    aoClicarEmSalvar={save}
+                    aoClicarEmSalvarEFechar={saveAndClose}
+                    aoClicarEmVoltar={() => navigate("/pessoas")}
+                    aoClicarEmApagar={() => handleDelete(Number(id))}
+                    aoClicarEmNovo={() => navigate("/pessoas/detalhe/nova")}
+                  />
+                </form>
+              </FormikProvider>
             </LayoutBasePage>
           </Box>
         </Modal>

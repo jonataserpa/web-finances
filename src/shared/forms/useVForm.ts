@@ -1,28 +1,27 @@
-import { FormHandles } from "@unform/core";
+import { alertClasses } from "@mui/material";
+import { FormikHandlers } from "formik";
 import { useCallback, useRef } from "react";
 
 export const useVForm = () => {
-  const formRef = useRef<FormHandles>(null);
-
+  const formRef = useRef<FormikHandlers>(null);
   const isSavingAndClose = useRef(false);
   const isSavingAndNew = useRef(false);
 
   const handleSave = useCallback(() => {
     isSavingAndClose.current = false;
     isSavingAndNew.current = false;
-    formRef.current?.submitForm();
   }, []);
 
   const handleSaveAndNew = useCallback(() => {
     isSavingAndClose.current = false;
     isSavingAndNew.current = true;
-    formRef.current?.submitForm();
+    // formRef.current?.submitForm();
   }, []);
 
   const handleSaveAndClose = useCallback(() => {
     isSavingAndClose.current = true;
     isSavingAndNew.current = false;
-    formRef.current?.submitForm();
+    // formRef.current?.submitForm();
   }, []);
 
   const handleIsSaveAndNew = useCallback(() => {
@@ -34,8 +33,6 @@ export const useVForm = () => {
   }, []);
 
   return {
-    formRef,
-
     save: handleSave,
     saveAndNew: handleSaveAndNew,
     saveAndClose: handleSaveAndClose,
