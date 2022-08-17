@@ -91,7 +91,7 @@ export const ListUsers: React.FC = () => {
     email: "jonataser@gmail.com",
     phone: "",
     companyId: 1,
-    dateborn: "2022-08-16",
+    dateborn: "",
     radiogender: "",
     address,
   };
@@ -505,7 +505,11 @@ export const ListUsers: React.FC = () => {
                         </Grid>
 
                         <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
-                          <AutoCompleteCompany isExternalLoading={isLoading} />
+                          <AutoCompleteCompany 
+                            isExternalLoading={isLoading} 
+                            error={formik.touched.name && Boolean(formik.errors.name)}
+                            helperText={formik.touched.name && formik.errors.name}
+                            />
                         </Grid>
 
                         <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>

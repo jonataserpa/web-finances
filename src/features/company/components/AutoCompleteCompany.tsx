@@ -12,9 +12,9 @@ type TAutoCompleteOption = {
 
 export const AutoCompleteCompany: React.FC<IAutoCompleteCompanyProps> = ({
   isExternalLoading = false,
+  error, 
+  helperText,
 }) => {
-  // const { fieldName, registerField, defaultValue, error, clearError } =
-  //   useField("companyId");
   const { debounce } = useDebounce();
 
   const [selectedId, setSelectedId] = useState<number | undefined>(
@@ -24,14 +24,6 @@ export const AutoCompleteCompany: React.FC<IAutoCompleteCompanyProps> = ({
   const [opcoes, setOpcoes] = useState<TAutoCompleteOption[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [busca, setBusca] = useState("");
-
-  // useEffect(() => {
-  //   registerField({
-  //     name: fieldName,
-  //     getValue: () => selectedId,
-  //     setValue: (_, newSelectedId) => setSelectedId(newSelectedId),
-  //   });
-  // }, [registerField, fieldName, selectedId]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -90,6 +82,8 @@ export const AutoCompleteCompany: React.FC<IAutoCompleteCompanyProps> = ({
       renderInput={(params) => (
         <TextField
           {...params}
+          error={!!error}
+          helperText={helperText}
           label="Company"
         />
       )}

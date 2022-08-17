@@ -11,7 +11,7 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 type TVDatePickerProps = TextFieldProps & {
   name: string;
   label: string;
-  value: string;
+  value: string | undefined;
   error: boolean | undefined;
   helperText: boolean | string | undefined;
 };
@@ -21,7 +21,7 @@ export const VDatePicker: React.FC<TVDatePickerProps> = ({ name, error, helperTe
   return (
     <FormControl
       required
-      error={!!error}
+      error={!!error && valueDefault === ''}
       defaultValue={valueDefault}
       component="fieldset"
     >
@@ -33,8 +33,7 @@ export const VDatePicker: React.FC<TVDatePickerProps> = ({ name, error, helperTe
               {...params}
               size="small"
               label={label}
-              error={!!error}
-              // error={!!error}
+              error={!!error && valueDefault === ''}
             />
           )}
           onChange={(newValue) => {
@@ -43,7 +42,7 @@ export const VDatePicker: React.FC<TVDatePickerProps> = ({ name, error, helperTe
           value={valueDefault}
         />
 
-        {!!error && (
+        {!!error && valueDefault === '' && (
           <FormHelperText>{helperText}</FormHelperText>
         )}
       </LocalizationProvider>
