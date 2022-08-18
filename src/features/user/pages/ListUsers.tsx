@@ -90,7 +90,7 @@ export const ListUsers: React.FC = () => {
     name: "TESTE",
     email: "jonataser@gmail.com",
     phone: "",
-    companyId: 1,
+    companyId: undefined,
     dateborn: "",
     radiogender: "",
     address,
@@ -507,8 +507,9 @@ export const ListUsers: React.FC = () => {
                         <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
                           <AutoCompleteCompany 
                             isExternalLoading={isLoading} 
-                            error={formik.touched.name && Boolean(formik.errors.name)}
-                            helperText={formik.touched.name && formik.errors.name}
+                            value={formik.values.companyId}
+                            error={formik.touched.companyId && Boolean(formik.errors.companyId)}
+                            helperText={formik.touched.companyId && formik.errors.companyId}
                             />
                         </Grid>
 

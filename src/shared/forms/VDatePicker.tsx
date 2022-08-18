@@ -11,8 +11,8 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 type TVDatePickerProps = TextFieldProps & {
   name: string;
   label: string;
-  value: string | undefined;
   error: boolean | undefined;
+  value: string | undefined;
   helperText: boolean | string | undefined;
 };
 export const VDatePicker: React.FC<TVDatePickerProps> = ({ name, error, helperText, label, value, ...rest }) => {

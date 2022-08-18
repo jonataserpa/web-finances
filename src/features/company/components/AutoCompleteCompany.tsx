@@ -7,19 +7,18 @@ import { IAutoCompleteCompanyProps } from "../interfaces/iCompany.interface";
 
 type TAutoCompleteOption = {
   id: number;
-  label: string;
+  label: string;  
 };
 
 export const AutoCompleteCompany: React.FC<IAutoCompleteCompanyProps> = ({
   isExternalLoading = false,
   error, 
   helperText,
+  value,
 }) => {
   const { debounce } = useDebounce();
 
-  const [selectedId, setSelectedId] = useState<number | undefined>(
-    1
-  );
+  const [selectedId, setSelectedId] = useState<number | undefined>(value);
 
   const [opcoes, setOpcoes] = useState<TAutoCompleteOption[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -82,8 +81,8 @@ export const AutoCompleteCompany: React.FC<IAutoCompleteCompanyProps> = ({
       renderInput={(params) => (
         <TextField
           {...params}
-          error={!!error}
-          helperText={helperText}
+          error={!!error && !selectedId}
+          helperText={!!error && !selectedId ? helperText : ''}
           label="Company"
         />
       )}
