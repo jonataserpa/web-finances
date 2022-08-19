@@ -49,7 +49,7 @@ import { Scope } from "@unform/core";
 import { useDispatch, useSelector } from "react-redux";
 import allActions from "../../../store/actions";
 import { ICombineState } from "../../../store/reducers";
-import { FormikProvider, useFormik } from "formik";
+import { FieldArray, FieldArrayRenderProps, FormikProvider, getIn, useFormik } from "formik";
 
 const formValidationSchema: yup.SchemaOf<IUser | any> = yup.object().shape({
   name: yup.string().required().min(3),
@@ -58,15 +58,15 @@ const formValidationSchema: yup.SchemaOf<IUser | any> = yup.object().shape({
   dateborn: yup.string().required().nullable(),
   radiogender: yup.string().required(),
   phone: yup.string().required(),
-  // address: yup.array(
-  //   yup.object({
-  //     id: yup.string(),
-  //     cep: yup.string().required(),
-  //     adrees: yup.string().required(),
-  //     city: yup.string().required(),
-  //     state: yup.string().required(),
-  //   })
-  // ),
+  address: yup.array(
+    yup.object({
+      id: yup.string(),
+      cep: yup.string().required(),
+      adrees: yup.string().required(),
+      city: yup.string().required(),
+      state: yup.string().required(),
+    })
+  ),
 });
 
 export const ListUsers: React.FC = () => {
@@ -79,16 +79,16 @@ export const ListUsers: React.FC = () => {
   const address = [
     {
       id: uuidv4(),
-      cep: "123546",
-      adrees: "TESTE",
-      number_end: "22",
-      state: "MG",
-      city: "Silvianopois",
+      cep: "",
+      adrees: "",
+      number_end: "",
+      state: "",
+      city: "",
     },
   ];
 
   const user = {
-    name: "TESTE",
+    name: "",
     email: "jonataser@gmail.com",
     phone: "",
     companyId: undefined,
@@ -229,57 +229,22 @@ export const ListUsers: React.FC = () => {
   /**
    * Add item array address
    */
-  function addAdrees(): void {
-    const array = dataResponse.address || [];
-
-    const teste = {
-      id: "01",
+  function addAdrees(arrayHelpers: FieldArrayRenderProps): void {
+    arrayHelpers.push({
+      id: uuidv4(),
       cep: "",
       adrees: "",
       number_end: "",
       state: "",
       city: "",
-    };
-
-    array.push(teste);
-
-    setDataResponse({
-      ...dataResponse,
-      address: array,
     });
-
-    console.log("dataResponse", dataResponse);
   }
 
   /**
    * Remove item array address
    */
-  function removeAdrees(newAdress: IAdresses): void {
-    const removed = dataResponse?.address?.filter(
-      (item: IAdresses) => item.id !== newAdress.id
-    );
-
-    setDataResponse({ ...dataResponse, address: removed });
-  }
-
-  function validateAddress(
-    event: any,
-    indexAddress: number,
-    newAdress: IAdresses
-  ) {
-    const value = event.target.value;
-    const name = event.target.name;
-    let listAddress: IAdresses[] = [];
-
-    const dataEdited = dataResponse.address?.map((item, index: number) => {
-      if (index === indexAddress) {
-        item[name] = value;
-      }
-      return item;
-    });
-
-    dispatch(allActions.user.setUser(false, dataEdited));
-    setDataResponse({ ...dataResponse, address: dataEdited });
+  function removeAdrees(arrayHelpers: any, index: number): void {
+    arrayHelpers.remove(index);
   }
 
   const formik = useFormik({
@@ -299,93 +264,131 @@ export const ListUsers: React.FC = () => {
    */
   function listAdrees(newAdress: IAdresses, index: number): JSX.Element {
     return (
-      <Scope key={index} path="address">
-        <Scope path={`${index}`}>
-          <Grid container item direction="row" spacing={2}>
-            <Grid item xs={12} sm={12} md={6} lg={4} xl={2}>
-              <VTextField name="id" label="Id" value="123" />
-            </Grid>
+      <FieldArray
+        name="address"
+        render={(arrayHelpers) => (
+          <>
+            {formik.values.address?.map((address: IAdresses, index: number) => (
+              <div key={address.id}>
+                <Grid container item direction="row" spacing={2}>
+                  <Grid item xs={12} sm={12} md={6} lg={4} xl={2}>
+                    <VTextField
+                      fullWidth
+                      id={`address[${index}].cep`}
+                      name={`address[${index}].cep`}
+                      type="text"
+                      label="Cep"
+                      disabled={isLoading}
+                      onChange={formik.handleChange}
+                      value={address.cep}
+                      error={Boolean(
+                        getIn(formik.errors, `address[${index}].cep`)
+                      )}
+                      helperText={getIn(formik.errors, `address[${index}].cep`)}
+                    />
+                  </Grid>
 
-            <Grid item xs={12} sm={12} md={6} lg={4} xl={2}>
-              <VTextField
-                fullWidth
-                name="cep"
-                label="Cep"
-                disabled={isLoading}
-                onChange={(e) => validateAddress(e, index, newAdress)}
-              />
-            </Grid>
+                  <Grid item xs={12} sm={12} md={6} lg={4} xl={2}>
+                    <VTextField
+                      fullWidth
+                      id={`address[${index}].adrees`}
+                      name={`address[${index}].adrees`}
+                      type="text"
+                      label="Endereço"
+                      disabled={isLoading}
+                      onChange={formik.handleChange}
+                      value={address.address}
+                      error={Boolean(
+                        getIn(formik.errors, `address[${index}].adrees`)
+                      )}
+                      helperText={getIn(formik.errors, `address[${index}].adrees`)}
+                    />
+                  </Grid>
 
-            <Grid item xs={12} sm={12} md={6} lg={4} xl={2}>
-              <VTextField
-                fullWidth
-                name="adrees"
-                label="Endereço"
-                disabled={isLoading}
-                onChange={(e) => validateAddress(e, index, newAdress)}
-              />
-            </Grid>
+                  <Grid item xs={12} sm={12} md={6} lg={4} xl={2}>
+                    <VTextField
+                      fullWidth
+                      id={`address[${index}].number_end`}
+                      name={`address[${index}].number_end`}
+                      type="text"
+                      label="Nº"
+                      disabled={isLoading}
+                      onChange={formik.handleChange}
+                      value={address.number_end}
+                      error={Boolean(
+                        getIn(formik.errors, `address[${index}].number_end`)
+                      )}
+                      helperText={getIn(formik.errors, `address[${index}].number_end`)}
+                    />
+                  </Grid>
 
-            <Grid item xs={12} sm={12} md={6} lg={4} xl={2}>
-              <VTextField
-                fullWidth
-                name="number_end"
-                label="Nº"
-                disabled={isLoading}
-                onChange={(e) => validateAddress(e, index, newAdress)}
-              />
-            </Grid>
+                  <Grid item xs={12} sm={12} md={6} lg={4} xl={2}>
+                    <VTextField
+                      fullWidth
+                      id={`address[${index}].state`}
+                      name={`address[${index}].state`}
+                      type="text"
+                      label="UF"
+                      disabled={isLoading}
+                      onChange={formik.handleChange}
+                      value={address.state}
+                      error={Boolean(
+                        getIn(formik.errors, `address[${index}].state`)
+                      )}
+                      helperText={getIn(formik.errors, `address[${index}].state`)}
+                    />
+                  </Grid>
 
-            <Grid item xs={12} sm={12} md={6} lg={4} xl={2}>
-              <VTextField
-                fullWidth
-                name="state"
-                label="UF"
-                disabled={isLoading}
-                onChange={(e) => validateAddress(e, index, newAdress)}
-              />
-            </Grid>
+                  <Grid item xs={12} sm={12} md={6} lg={4} xl={2}>
+                    <VTextField
+                      fullWidth
+                      id={`address[${index}].city`}
+                      name={`address[${index}].city`}
+                      type="text"
+                      label="Cidade"
+                      disabled={isLoading}
+                      onChange={formik.handleChange}
+                      value={address.city}
+                      error={Boolean(
+                        getIn(formik.errors, `address[${index}].city`)
+                      )}
+                      helperText={getIn(formik.errors, `address[${index}].city`)}
+                    />
+                  </Grid>
 
-            <Grid item xs={12} sm={12} md={6} lg={4} xl={2}>
-              <VTextField
-                fullWidth
-                name="city"
-                label="Cidade"
-                disabled={isLoading}
-                onChange={(e) => validateAddress(e, index, newAdress)}
-              />
-            </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    lg={4}
+                    xl={2}
+                    style={{ marginTop: 10, padding: 10 }}
+                  >
+                    <Icon
+                      sx={{ fontSize: 30 }}
+                      onClick={() => addAdrees(arrayHelpers)}
+                      color="primary"
+                      style={{ cursor: "pointer" }}
+                    >
+                      add_circle
+                    </Icon>
 
-            <Grid
-              item
-              xs={12}
-              sm={12}
-              md={6}
-              lg={4}
-              xl={2}
-              style={{ marginTop: 10, padding: 10 }}
-            >
-              <Icon
-                sx={{ fontSize: 30 }}
-                onClick={() => addAdrees()}
-                color="primary"
-                style={{ cursor: "pointer" }}
-              >
-                add_circle
-              </Icon>
-
-              {index > 0 && (
-                <RemoveCircleOutlineIcon
-                  sx={{ fontSize: 30 }}
-                  color="primary"
-                  onClick={() => removeAdrees(newAdress)}
-                  style={{ cursor: "pointer" }}
-                />
-              )}
-            </Grid>
-          </Grid>
-        </Scope>
-      </Scope>
+                    {index > 0 && (
+                      <RemoveCircleOutlineIcon
+                        sx={{ fontSize: 30 }}
+                        color="primary"
+                        onClick={() => removeAdrees(arrayHelpers, index)}
+                        style={{ cursor: "pointer" }}
+                      />
+                    )}
+                  </Grid>
+                </Grid>
+              </div>
+            ))}
+          </>
+        )}
+      />
     );
   }
 
@@ -601,9 +604,9 @@ export const ListUsers: React.FC = () => {
                         <Typography variant="h6">Endereços</Typography>
                       </Grid>
 
-                      {/* {dataResponse?.address?.map((item, index) =>
-                        listAdrees(item, index)
-                      )} */}
+                      {/* {dataResponse?.address?.map((item, index) => */}
+                        {listAdrees()}
+                      {/* )} */}
                     </Grid>
                   </Box>
 
