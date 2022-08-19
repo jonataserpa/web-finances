@@ -35,7 +35,6 @@ import { IUser } from "../interfaces/iUser.interface";
 import { ToolDetail, ToolList } from "../../../shared/components";
 import { useDebounce } from "../../../shared/hooks";
 import {
-  IVFormErrors,
   useVForm,
   VForm,
   VTextField,
@@ -45,10 +44,6 @@ import { VDatePicker } from "../../../shared/forms/VDatePicker";
 import { VRadioButton } from "../../../shared/forms/VRadioButton";
 import { VInputPhone } from "../../../shared/forms/VPhone";
 import { IAdresses } from "../interfaces/IAdresses";
-import { Scope } from "@unform/core";
-import { useDispatch, useSelector } from "react-redux";
-import allActions from "../../../store/actions";
-import { ICombineState } from "../../../store/reducers";
 import { FieldArray, FieldArrayRenderProps, FormikProvider, getIn, useFormik } from "formik";
 
 const formValidationSchema: yup.SchemaOf<IUser | any> = yup.object().shape({
@@ -74,7 +69,6 @@ export const ListUsers: React.FC = () => {
   const { debounce } = useDebounce();
   const navigate = useNavigate();
   const { save, saveAndClose } = useVForm();
-  const dispatch = useDispatch();
 
   const address = [
     {
@@ -258,11 +252,9 @@ export const ListUsers: React.FC = () => {
 
   /**
    * List addrees
-   * @param item
-   * @param index
    * @returns
    */
-  function listAdrees(newAdress: IAdresses, index: number): JSX.Element {
+  function listAdrees(): JSX.Element {
     return (
       <FieldArray
         name="address"
@@ -281,14 +273,12 @@ export const ListUsers: React.FC = () => {
                       disabled={isLoading}
                       onChange={formik.handleChange}
                       value={address.cep}
-                      error={Boolean(
-                        getIn(formik.errors, `address[${index}].cep`)
-                      )}
-                      helperText={getIn(formik.errors, `address[${index}].cep`)}
+                      error={Boolean(getIn(formik.errors, `address[${index}].cep`)) && Boolean(getIn(formik.touched, `address[${index}].cep`))}
+                      helperText={Boolean(getIn(formik.errors, `address[${index}].cep`)) && Boolean(getIn(formik.touched, `address[${index}].cep`)) ? getIn(formik.errors, `address[${index}].cep`) : ''}
                     />
                   </Grid>
 
-                  <Grid item xs={12} sm={12} md={6} lg={4} xl={2}>
+                  <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
                     <VTextField
                       fullWidth
                       id={`address[${index}].adrees`}
@@ -298,14 +288,12 @@ export const ListUsers: React.FC = () => {
                       disabled={isLoading}
                       onChange={formik.handleChange}
                       value={address.address}
-                      error={Boolean(
-                        getIn(formik.errors, `address[${index}].adrees`)
-                      )}
-                      helperText={getIn(formik.errors, `address[${index}].adrees`)}
+                      error={Boolean(getIn(formik.errors, `address[${index}].adrees`)) && Boolean(getIn(formik.touched, `address[${index}].adrees`))}
+                      helperText={Boolean(getIn(formik.errors, `address[${index}].adrees`)) && Boolean(getIn(formik.touched, `address[${index}].adrees`)) ? getIn(formik.errors, `address[${index}].adrees`) : ''}
                     />
                   </Grid>
 
-                  <Grid item xs={12} sm={12} md={6} lg={4} xl={2}>
+                  <Grid item xs={12} sm={12} md={6} lg={4} xl={1}>
                     <VTextField
                       fullWidth
                       id={`address[${index}].number_end`}
@@ -315,10 +303,8 @@ export const ListUsers: React.FC = () => {
                       disabled={isLoading}
                       onChange={formik.handleChange}
                       value={address.number_end}
-                      error={Boolean(
-                        getIn(formik.errors, `address[${index}].number_end`)
-                      )}
-                      helperText={getIn(formik.errors, `address[${index}].number_end`)}
+                      error={Boolean(getIn(formik.errors, `address[${index}].number_end`)) && Boolean(getIn(formik.touched, `address[${index}].number_end`))}
+                      helperText={Boolean(getIn(formik.errors, `address[${index}].number_end`)) && Boolean(getIn(formik.touched, `address[${index}].number_end`)) ? getIn(formik.errors, `address[${index}].number_end`) : ''}
                     />
                   </Grid>
 
@@ -332,10 +318,8 @@ export const ListUsers: React.FC = () => {
                       disabled={isLoading}
                       onChange={formik.handleChange}
                       value={address.state}
-                      error={Boolean(
-                        getIn(formik.errors, `address[${index}].state`)
-                      )}
-                      helperText={getIn(formik.errors, `address[${index}].state`)}
+                      error={Boolean(getIn(formik.errors, `address[${index}].state`)) && Boolean(getIn(formik.touched, `address[${index}].state`))}
+                      helperText={Boolean(getIn(formik.errors, `address[${index}].state`)) && Boolean(getIn(formik.touched, `address[${index}].state`)) ? getIn(formik.errors, `address[${index}].state`) : ''}
                     />
                   </Grid>
 
@@ -349,10 +333,8 @@ export const ListUsers: React.FC = () => {
                       disabled={isLoading}
                       onChange={formik.handleChange}
                       value={address.city}
-                      error={Boolean(
-                        getIn(formik.errors, `address[${index}].city`)
-                      )}
-                      helperText={getIn(formik.errors, `address[${index}].city`)}
+                      error={Boolean(getIn(formik.errors, `address[${index}].city`)) && Boolean(getIn(formik.touched, `address[${index}].city`))}
+                      helperText={Boolean(getIn(formik.errors, `address[${index}].city`)) && Boolean(getIn(formik.touched, `address[${index}].city`)) ? getIn(formik.errors, `address[${index}].city`) : ''}
                     />
                   </Grid>
 
@@ -602,11 +584,8 @@ export const ListUsers: React.FC = () => {
                     <Grid container direction="column" padding={2} spacing={2}>
                       <Grid item>
                         <Typography variant="h6">Endereços</Typography>
-                      </Grid>
-
-                      {/* {dataResponse?.address?.map((item, index) => */}
                         {listAdrees()}
-                      {/* )} */}
+                      </Grid>
                     </Grid>
                   </Box>
 
@@ -663,24 +642,6 @@ export const ListUsers: React.FC = () => {
                       </Grid>
                     </Grid>
                   </Box>
-
-                  {/* <Button
-                    color="primary"
-                    disableElevation
-                    variant="contained"
-                    type="submit"
-                    // onClick={aoClicarEmSalvar}
-                    startIcon={<Icon>save</Icon>}
-                  >
-                    <Typography
-                      variant="button"
-                      whiteSpace="nowrap"
-                      textOverflow="ellipsis"
-                      overflow="hidden"
-                    >
-                      Salvar
-                    </Typography>
-                  </Button> */}
 
                   <ToolDetail
                     textoBotaoNovo="Nova"
