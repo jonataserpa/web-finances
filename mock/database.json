@@ -218,6 +218,26 @@
       ],
       "password": "Teste#123",
       "id": 11
+    },
+    {
+      "name": "tttt-editad",
+      "email": "jonata.junio@inatel.br",
+      "phone": "(23) 12132-1321",
+      "companyId": 6,
+      "dateborn": "2022-08-19T19:52:58.000Z",
+      "radiogender": "male",
+      "address": [
+        {
+          "id": "e7c49e6e-02ae-4720-872b-1a7504ff688c",
+          "cep": "65465465465",
+          "adrees": "ttttt",
+          "number_end": "5465",
+          "state": "mg",
+          "city": "hjjj"
+        }
+      ],
+      "password": "Teste#123",
+      "id": 12
     }
   ],
   "companys": [

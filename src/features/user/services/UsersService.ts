@@ -114,10 +114,7 @@ const create = async (
  * @param id
  * @param user
  */
-const updateById = async (
-  id: number,
-  user: IUser
-): Promise<void | Error> => {
+const updateById = async (id: number, user: IUser): Promise<void | Error> => {
   try {
     await Api.put(`/users/${id}`, user);
   } catch (error) {

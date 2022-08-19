@@ -22,8 +22,6 @@ import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import CloseIcon from "@mui/icons-material/Close";
 
-import * as yup from "yup";
-
 import { CompanysService } from "../../company/services/CompanysService";
 import { UsersService } from "../services/UsersService";
 import { Environment } from "../../../shared/environment";
@@ -44,6 +42,7 @@ import {
   getIn,
   useFormik,
 } from "formik";
+import { formValidationSchema } from "../schema";
 
 const style = {
   position: "absolute",
@@ -58,24 +57,6 @@ const style = {
   borderRadius: 4,
   p: 4,
 };
-
-const formValidationSchema: yup.SchemaOf<IUser | any> = yup.object().shape({
-  name: yup.string().required().min(3),
-  email: yup.string().required().email(),
-  companyId: yup.number().required(),
-  dateborn: yup.string().required().nullable(),
-  radiogender: yup.string().required(),
-  phone: yup.string().required(),
-  address: yup.array(
-    yup.object({
-      id: yup.string(),
-      cep: yup.string().required(),
-      adrees: yup.string().required(),
-      city: yup.string().required(),
-      state: yup.string().required(),
-    })
-  ),
-});
 
 const address = [
   {
