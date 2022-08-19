@@ -10,6 +10,7 @@ import {
 // import { useField } from "@unform/core";
 import NumberFormat, { InputAttributes } from "react-number-format";
 import { useStyles } from "./styles";
+import { useFormikContext } from "formik";
 
 type InputPhoneProps = TextFieldProps & {
   name: string;
@@ -37,6 +38,7 @@ export function VInputPhone({
 }: InputPhoneProps): JSX.Element {
   const [valueDefault, setValueDefault] = useState(value || "");
   const classes = useStyles();
+  const formik = useFormikContext();
 
   return (
     <>
@@ -51,6 +53,7 @@ export function VInputPhone({
           onChange={(values: any) => {
             setValueDefault(values.target.value);
             rest.onChange?.(values);
+            formik.setFieldValue(name, values.target.value);
           }}
           format="(##) #####-####"
           size="small"

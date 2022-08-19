@@ -3,4 +3,5 @@ export interface IAutoCompleteCompanyProps {
   error: boolean | undefined;
   helperText: boolean | string | undefined;
   value: number | undefined;
+  name: string;
 }

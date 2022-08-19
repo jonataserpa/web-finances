@@ -4,6 +4,7 @@ import { Autocomplete, CircularProgress, TextField } from "@mui/material";
 import { CompanysService } from "../services/CompanysService";
 import { useDebounce } from "../../../shared/hooks";
 import { IAutoCompleteCompanyProps } from "../interfaces/iCompany.interface";
+import { useFormikContext } from "formik";
 
 type TAutoCompleteOption = {
   id: number;
@@ -15,9 +16,10 @@ export const AutoCompleteCompany: React.FC<IAutoCompleteCompanyProps> = ({
   error, 
   helperText,
   value,
+  name,
 }) => {
   const { debounce } = useDebounce();
-
+  const formik = useFormikContext();
   const [selectedId, setSelectedId] = useState<number | undefined>(value);
 
   const [opcoes, setOpcoes] = useState<TAutoCompleteOption[]>([]);
@@ -71,6 +73,7 @@ export const AutoCompleteCompany: React.FC<IAutoCompleteCompanyProps> = ({
       onInputChange={(_, newValue) => setBusca(newValue)}
       onChange={(_, newValue) => {
         setSelectedId(newValue?.id);
+        formik.setFieldValue('companyId', newValue?.id);
         setBusca("");
       }}
       popupIcon={
@@ -84,6 +87,7 @@ export const AutoCompleteCompany: React.FC<IAutoCompleteCompanyProps> = ({
           error={!!error && !selectedId}
           helperText={!!error && !selectedId ? helperText : ''}
           label="Company"
+          name={name}
         />
       )}
     />

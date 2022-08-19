@@ -74,7 +74,7 @@ export const ToolDetail: React.FC<IToolDetailProps> = ({
           disableElevation
           variant="contained"
           type="submit"
-          onClick={aoClicarEmSalvar}
+          // onClick={aoClicarEmSalvar}
           startIcon={<Icon>save</Icon>}
         >
           <Typography

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import {
   Box,
+  Button,
   Grid,
   Icon,
   IconButton,
@@ -57,15 +58,15 @@ const formValidationSchema: yup.SchemaOf<IUser | any> = yup.object().shape({
   dateborn: yup.string().required().nullable(),
   radiogender: yup.string().required(),
   phone: yup.string().required(),
-  address: yup.array(
-    yup.object({
-      id: yup.string(),
-      cep: yup.string().required(),
-      adrees: yup.string().required(),
-      city: yup.string().required(),
-      state: yup.string().required(),
-    })
-  ),
+  // address: yup.array(
+  //   yup.object({
+  //     id: yup.string(),
+  //     cep: yup.string().required(),
+  //     adrees: yup.string().required(),
+  //     city: yup.string().required(),
+  //     state: yup.string().required(),
+  //   })
+  // ),
 });
 
 export const ListUsers: React.FC = () => {
@@ -84,7 +85,7 @@ export const ListUsers: React.FC = () => {
       state: "MG",
       city: "Silvianopois",
     },
-  ]
+  ];
 
   const user = {
     name: "TESTE",
@@ -151,61 +152,65 @@ export const ListUsers: React.FC = () => {
     }
   };
 
-  /**
-   * Save user
-   * @param dados
-   */
-  const handleSave = (dados: IUser) => {
-    formValidationSchema
-      .validate(dados, { abortEarly: false })
-      .then((dadosValidados) => {
-        setIsLoading(true);
-        console.log(dadosValidados);
+  // function save(values: IUser): void {
+  //   console.log(values);
+  // }
 
-        // if (id === 'nova') {
-        //   PessoasService
-        //     .create(dadosValidados)
-        //     .then((result) => {
-        //       setIsLoading(false);
+  // /**
+  //  * Save user
+  //  * @param dados
+  //  */
+  // const handleSave = (dados: IUser) => {
+  //   formValidationSchema
+  //     .validate(dados, { abortEarly: false })
+  //     .then((dadosValidados) => {
+  //       setIsLoading(true);
+  //       console.log(dadosValidados);
 
-        //       if (result instanceof Error) {
-        //         alert(result.message);
-        //       } else {
-        //         if (isSaveAndClose()) {
-        //           navigate('/pessoas');
-        //         } else {
-        //           navigate(`/pessoas/detalhe/${result}`);
-        //         }
-        //       }
-        //     });
-        // } else {
-        //   PessoasService
-        //     .updateById(Number(id), { id: Number(id), ...dadosValidados })
-        //     .then((result) => {
-        //       setIsLoading(false);
+  //       // if (id === 'nova') {
+  //       //   PessoasService
+  //       //     .create(dadosValidados)
+  //       //     .then((result) => {
+  //       //       setIsLoading(false);
 
-        //       if (result instanceof Error) {
-        //         alert(result.message);
-        //       } else {
-        //         if (isSaveAndClose()) {
-        //           navigate('/pessoas');
-        //         }
-        //       }
-        //     });
-        // }
-      })
-      .catch((errors: yup.ValidationError) => {
-        const validationErrors: IVFormErrors = {};
+  //       //       if (result instanceof Error) {
+  //       //         alert(result.message);
+  //       //       } else {
+  //       //         if (isSaveAndClose()) {
+  //       //           navigate('/pessoas');
+  //       //         } else {
+  //       //           navigate(`/pessoas/detalhe/${result}`);
+  //       //         }
+  //       //       }
+  //       //     });
+  //       // } else {
+  //       //   PessoasService
+  //       //     .updateById(Number(id), { id: Number(id), ...dadosValidados })
+  //       //     .then((result) => {
+  //       //       setIsLoading(false);
 
-        errors.inner.forEach((error) => {
-          if (!error.path) return;
-          validationErrors[error.path] = error.message;
-        });
-        console.log("adresses", errors.value.address);
-        // formRef.current?.setErrors(validationErrors);
-        dispatch(allActions.user.setUser(true, errors.value.address));
-      });
-  };
+  //       //       if (result instanceof Error) {
+  //       //         alert(result.message);
+  //       //       } else {
+  //       //         if (isSaveAndClose()) {
+  //       //           navigate('/pessoas');
+  //       //         }
+  //       //       }
+  //       //     });
+  //       // }
+  //     })
+  //     .catch((errors: yup.ValidationError) => {
+  //       const validationErrors: IVFormErrors = {};
+
+  //       errors.inner.forEach((error) => {
+  //         if (!error.path) return;
+  //         validationErrors[error.path] = error.message;
+  //       });
+  //       console.log("adresses", errors.value.address);
+  //       // formRef.current?.setErrors(validationErrors);
+  //       dispatch(allActions.user.setUser(true, errors.value.address));
+  //     });
+  // };
 
   const style = {
     position: "absolute",
@@ -282,8 +287,7 @@ export const ListUsers: React.FC = () => {
     initialValues: { ...dataResponse },
     validationSchema: formValidationSchema,
     onSubmit: (values) => {
-      console.log(values);
-      handleSave(values);
+      save(values);
     },
   });
 
@@ -499,18 +503,29 @@ export const ListUsers: React.FC = () => {
                             label="Nome completo"
                             onChange={formik.handleChange}
                             value={formik.values.name}
-                            error={formik.touched.name && Boolean(formik.errors.name)}
-                            helperText={formik.touched.name && formik.errors.name}
+                            error={
+                              formik.touched.name && Boolean(formik.errors.name)
+                            }
+                            helperText={
+                              formik.touched.name && formik.errors.name
+                            }
                           />
                         </Grid>
 
                         <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
-                          <AutoCompleteCompany 
-                            isExternalLoading={isLoading} 
+                          <AutoCompleteCompany
+                            isExternalLoading={isLoading}
                             value={formik.values.companyId}
-                            error={formik.touched.companyId && Boolean(formik.errors.companyId)}
-                            helperText={formik.touched.companyId && formik.errors.companyId}
-                            />
+                            name="companyId"
+                            error={
+                              formik.touched.companyId &&
+                              Boolean(formik.errors.companyId)
+                            }
+                            helperText={
+                              formik.touched.companyId &&
+                              formik.errors.companyId
+                            }
+                          />
                         </Grid>
 
                         <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
@@ -522,8 +537,13 @@ export const ListUsers: React.FC = () => {
                             variant="outlined"
                             onChange={formik.handleChange}
                             value={formik.values.phone}
-                            error={formik.touched.phone && Boolean(formik.errors.phone)}
-                            helperText={formik.touched.phone && formik.errors.phone}
+                            error={
+                              formik.touched.phone &&
+                              Boolean(formik.errors.phone)
+                            }
+                            helperText={
+                              formik.touched.phone && formik.errors.phone
+                            }
                           />
                         </Grid>
                       </Grid>
@@ -537,8 +557,13 @@ export const ListUsers: React.FC = () => {
                             disabled={isLoading}
                             onChange={formik.handleChange}
                             value={formik.values.dateborn}
-                            error={formik.touched.dateborn && Boolean(formik.errors.dateborn)}
-                            helperText={formik.touched.dateborn && formik.errors.dateborn}
+                            error={
+                              formik.touched.dateborn &&
+                              Boolean(formik.errors.dateborn)
+                            }
+                            helperText={
+                              formik.touched.dateborn && formik.errors.dateborn
+                            }
                           />
                         </Grid>
 
@@ -550,8 +575,14 @@ export const ListUsers: React.FC = () => {
                             disabled={isLoading}
                             onChange={formik.handleChange}
                             value={formik.values.radiogender || ""}
-                            error={formik.touched.radiogender && Boolean(formik.errors.radiogender)}
-                            helperText={formik.touched.radiogender && formik.errors.radiogender}
+                            error={
+                              formik.touched.radiogender &&
+                              Boolean(formik.errors.radiogender)
+                            }
+                            helperText={
+                              formik.touched.radiogender &&
+                              formik.errors.radiogender
+                            }
                           />
                         </Grid>
                       </Grid>
@@ -598,8 +629,13 @@ export const ListUsers: React.FC = () => {
                             disabled={isLoading}
                             onChange={formik.handleChange}
                             value={formik.values.email}
-                            error={formik.touched.email && Boolean(formik.errors.email)}
-                            helperText={formik.touched.email && formik.errors.email}
+                            error={
+                              formik.touched.email &&
+                              Boolean(formik.errors.email)
+                            }
+                            helperText={
+                              formik.touched.email && formik.errors.email
+                            }
                           />
                         </Grid>
 
@@ -612,20 +648,42 @@ export const ListUsers: React.FC = () => {
                             disabled={isLoading}
                             onChange={formik.handleChange}
                             value={formik.values.password}
-                            error={formik.touched.password && Boolean(formik.errors.password)}
-                            helperText={formik.touched.password && formik.errors.password}
+                            error={
+                              formik.touched.password &&
+                              Boolean(formik.errors.password)
+                            }
+                            helperText={
+                              formik.touched.password && formik.errors.password
+                            }
                           />
                         </Grid>
                       </Grid>
                     </Grid>
                   </Box>
 
+                  {/* <Button
+                    color="primary"
+                    disableElevation
+                    variant="contained"
+                    type="submit"
+                    // onClick={aoClicarEmSalvar}
+                    startIcon={<Icon>save</Icon>}
+                  >
+                    <Typography
+                      variant="button"
+                      whiteSpace="nowrap"
+                      textOverflow="ellipsis"
+                      overflow="hidden"
+                    >
+                      Salvar
+                    </Typography>
+                  </Button> */}
+
                   <ToolDetail
                     textoBotaoNovo="Nova"
                     mostrarBotaoSalvarEFechar
                     mostrarBotaoNovo={id !== "nova"}
                     mostrarBotaoApagar={id !== "nova"}
-                    aoClicarEmSalvar={save}
                     aoClicarEmSalvarEFechar={saveAndClose}
                     aoClicarEmVoltar={() => navigate("/pessoas")}
                     aoClicarEmApagar={() => handleDelete(Number(id))}
