@@ -255,7 +255,7 @@ export const ListUsers: React.FC = () => {
                       label="Endereço"
                       disabled={isLoading}
                       onChange={formik.handleChange}
-                      value={address.address}
+                      value={address.adrees}
                       error={
                         Boolean(
                           getIn(formik.errors, `address[${index}].adrees`)
