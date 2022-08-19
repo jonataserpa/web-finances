@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import {
   Box,
-  Button,
   Grid,
   Icon,
   IconButton,
@@ -10,8 +9,6 @@ import {
   Modal,
   Pagination,
   Paper,
-  Radio,
-  RadioGroup,
   Table,
   TableBody,
   TableCell,
@@ -19,7 +16,6 @@ import {
   TableFooter,
   TableHead,
   TableRow,
-  TextField,
   Typography,
 } from "@mui/material";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
@@ -114,7 +110,6 @@ export const ListUsers: React.FC = () => {
   const [totalCount, setTotalCount] = useState(0);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-
   const [titleModal, setTitleModal] = useState("");
 
   const busca = useMemo(() => {
@@ -125,9 +120,10 @@ export const ListUsers: React.FC = () => {
     return Number(searchParams.get("pagina") || "1");
   }, [searchParams]);
 
-  useEffect(() => {
-    setIsLoading(true);
-
+  /**
+   * Get all users
+   */
+  function getAllUsers() {
     debounce(() => {
       UsersService.getAll(pagina, busca).then((result) => {
         setIsLoading(false);
@@ -142,6 +138,14 @@ export const ListUsers: React.FC = () => {
         }
       });
     });
+  }
+
+  /**
+   * Define default values list loading
+   */
+  useEffect(() => {
+    setIsLoading(true);
+    getAllUsers();
   }, [busca, pagina]);
 
   /**
@@ -197,6 +201,7 @@ export const ListUsers: React.FC = () => {
     }
     setIsLoading(false);
     handleClose();
+    getAllUsers();
   }
 
   /**
@@ -419,7 +424,7 @@ export const ListUsers: React.FC = () => {
   /**
    * Edit user modal dialog
    */
-  async function handleEdit(user: IUser) {
+  function handleEdit(user: IUser) {
     setTitleModal("Edit User");
     setDataResponse(user);
     setTimeout(() => {

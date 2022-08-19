@@ -21,7 +21,7 @@
       "id": 1
     },
     {
-      "name": "Nubia OLiveira",
+      "name": "Nubia OLiveira-editado",
       "email": "jonataser@gmail.com",
       "phone": "(77) 77777-4544",
       "companyId": 2,
@@ -121,7 +121,7 @@
       "companyId": 6
     },
     {
-      "name": "novo usuario",
+      "name": "novo usuario-edit",
       "email": "jonataser@gmail.com",
       "phone": "(23) 12312-3123",
       "companyId": 4,
@@ -180,7 +180,7 @@
       "id": 9
     },
     {
-      "name": "testes",
+      "name": "testes-editado",
       "email": "jonata.junio@inatel.br",
       "phone": "(23) 42342-3423",
       "companyId": 6,
@@ -198,6 +198,26 @@
       ],
       "password": "Teste#123",
       "id": 10
+    },
+    {
+      "name": "Kiara-editadohhhh",
+      "email": "kiara@gmail.br",
+      "phone": "(23) 43242-3423",
+      "companyId": 1,
+      "dateborn": "2022-08-03T19:20:50.000Z",
+      "radiogender": "female",
+      "address": [
+        {
+          "id": "b67392fd-c3dd-469f-bebb-9708aeefe5ac",
+          "cep": "123",
+          "adrees": "teste",
+          "number_end": "44",
+          "state": "AM",
+          "city": "teste"
+        }
+      ],
+      "password": "Teste#123",
+      "id": 11
     }
   ],
   "companys": [

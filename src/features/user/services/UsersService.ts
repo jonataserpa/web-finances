@@ -1,12 +1,6 @@
 import { Api } from "../../../shared/services/axios-config";
 import { Environment } from "../../../shared/environment";
-
-export interface IListUser {
-  id: number;
-  email: string;
-  companyId: number;
-  name: string;
-}
+import { IUser } from "../interfaces/iUser.interface";
 
 export interface IDetailUser {
   id: number;
@@ -16,7 +10,7 @@ export interface IDetailUser {
 }
 
 type TUserWithTotalCount = {
-  data: IListUser[];
+  data: IUser[];
   totalCount: number;
 };
 
