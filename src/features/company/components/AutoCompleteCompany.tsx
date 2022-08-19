@@ -8,12 +8,12 @@ import { useFormikContext } from "formik";
 
 type TAutoCompleteOption = {
   id: number;
-  label: string;  
+  label: string;
 };
 
 export const AutoCompleteCompany: React.FC<IAutoCompleteCompanyProps> = ({
   isExternalLoading = false,
-  error, 
+  error,
   helperText,
   value,
   name,
@@ -73,7 +73,7 @@ export const AutoCompleteCompany: React.FC<IAutoCompleteCompanyProps> = ({
       onInputChange={(_, newValue) => setBusca(newValue)}
       onChange={(_, newValue) => {
         setSelectedId(newValue?.id);
-        formik.setFieldValue('companyId', newValue?.id);
+        formik.setFieldValue("companyId", newValue?.id);
         setBusca("");
       }}
       popupIcon={
@@ -85,7 +85,7 @@ export const AutoCompleteCompany: React.FC<IAutoCompleteCompanyProps> = ({
         <TextField
           {...params}
           error={!!error && !selectedId}
-          helperText={!!error && !selectedId ? helperText : ''}
+          helperText={!!error && !selectedId ? helperText : ""}
           label="Company"
           name={name}
         />

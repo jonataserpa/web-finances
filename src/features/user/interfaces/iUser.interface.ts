@@ -19,5 +19,4 @@ export interface IUser extends DynamicKey {
   radiogender?: string;
   address?: IAdresses[];
   password?: string;
-
 }

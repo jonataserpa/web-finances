@@ -2,7 +2,6 @@ import { IUserAction } from "../actions/user.actions";
 import { SET_USERS } from "../actions/types";
 import { IAdresses } from "../../features/user/interfaces/IAdresses";
 
-
 export interface IUserState {
   send: boolean;
   address: IAdresses[];

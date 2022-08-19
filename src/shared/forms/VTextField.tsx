@@ -9,7 +9,14 @@ type TVTextFieldProps = TextFieldProps & {
   type: string;
 };
 
-export const VTextField: React.FC<TVTextFieldProps> = ({ name, error, helperText, type, value, ...rest }) => {
+export const VTextField: React.FC<TVTextFieldProps> = ({
+  name,
+  error,
+  helperText,
+  type,
+  value,
+  ...rest
+}) => {
   const [valueDefault, setValueDefault] = useState(value || "");
 
   return (

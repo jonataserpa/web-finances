@@ -65,6 +65,7 @@ export const ToolDetail: React.FC<IToolDetailProps> = ({
       paddingX={2}
       display="flex"
       alignItems="center"
+      marginTop={20}
       height={theme.spacing(5)}
       component={Paper}
     >

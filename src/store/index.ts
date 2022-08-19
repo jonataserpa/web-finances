@@ -1,5 +1,5 @@
-import { createStore, compose } from 'redux';
-import rootReducer from './reducers';
+import { createStore, compose } from "redux";
+import rootReducer from "./reducers";
 
 /**
  * turn on redux dev tools, removed in production
@@ -11,7 +11,7 @@ import rootReducer from './reducers';
  * link: (chrome) https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd
  */
 const composeEnhancers =
-  typeof window === 'object' &&
+  typeof window === "object" &&
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -23,12 +23,12 @@ const enhancer = composeEnhancers();
 const initialState = {};
 
 const STAGING: boolean =
-  `${import.meta.env.VITE_APP_STAGING}` === 'DEVELOP' || false;
+  `${import.meta.env.VITE_APP_STAGING}` === "DEVELOP" || false;
 
 const store = createStore(
   rootReducer,
   initialState,
-  STAGING ? enhancer : undefined,
+  STAGING ? enhancer : undefined
 );
 
 export default store;

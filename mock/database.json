@@ -1,94 +1,203 @@
 {
   "users": [
     {
-      "id": 3,
-      "name": "Jonata Serpa",
-      "email": "jonataserpa@gmail.com",
-      "companyId": 1
+      "name": "Jonata serpa",
+      "email": "jonataser@gmail.com",
+      "phone": "(77) 77777-4544",
+      "companyId": 2,
+      "dateborn": "2022-08-13T16:05:29.000Z",
+      "radiogender": "male",
+      "address": [
+        {
+          "id": "a267cbe0-a8e8-401d-825c-41d668b4e927",
+          "cep": "12345678",
+          "adrees": "teste",
+          "number_end": "123",
+          "state": "mg",
+          "city": "silv"
+        }
+      ],
+      "password": "teste",
+      "id": 1
     },
     {
-      "id": 5,
-      "name": "Alfredo Pereira",
-      "email": "alfredo@gmail.com",
-      "companyId": 1
+      "name": "Nubia OLiveira",
+      "email": "jonataser@gmail.com",
+      "phone": "(77) 77777-4544",
+      "companyId": 2,
+      "dateborn": "2022-08-13T16:05:29.000Z",
+      "radiogender": "male",
+      "address": [
+        {
+          "id": "a267cbe0-a8e8-401d-825c-5545353333",
+          "cep": "12345678",
+          "adrees": "rua vitor coutinho",
+          "number_end": "66",
+          "state": "mg",
+          "city": "silv"
+        }
+      ],
+      "password": "teste",
+      "id": 2
     },
     {
+      "name": "Arthur Bertolini",
+      "email": "jonataser@gmail.com",
+      "phone": "(77) 77777-4544",
+      "companyId": 2,
+      "dateborn": "2022-08-13T16:05:29.000Z",
+      "radiogender": "male",
+      "address": [
+        {
+          "id": "a267cbe0-a8e8-401d-825c-5545353333",
+          "cep": "12345678",
+          "adrees": "rua vitor coutinho",
+          "number_end": "66",
+          "state": "mg",
+          "city": "silv"
+        }
+      ],
+      "password": "teste",
+      "id": 3
+    },
+    {
+      "name": "LOgan",
+      "email": "jonataser@gmail.com",
+      "phone": "(77) 77777-4544",
+      "companyId": 2,
+      "dateborn": "2022-08-13T16:05:29.000Z",
+      "radiogender": "male",
+      "address": [
+        {
+          "id": "a267cbe0-a8e8-401d-825c-5545353333",
+          "cep": "12345678",
+          "adrees": "rua vitor coutinho",
+          "number_end": "66",
+          "state": "mg",
+          "city": "silv"
+        }
+      ],
+      "password": "teste",
+      "id": 4
+    },
+    {
+      "name": "testes",
+      "email": "jonataser@gmail.com",
+      "phone": "(77) 77777-4544",
+      "companyId": 2,
+      "dateborn": "2022-08-13T16:05:29.000Z",
+      "radiogender": "male",
+      "address": [
+        {
+          "id": "a267cbe0-a8e8-401d-825c-41d668b4e927",
+          "cep": "12345678",
+          "adrees": "teste",
+          "number_end": "123",
+          "state": "mg",
+          "city": "silv"
+        }
+      ],
+      "password": "teste",
+      "id": 5
+    },
+    {
+      "name": "jjjjjjjjjjjjj-editadooooo",
+      "email": "jonataser@gmail.com",
+      "phone": "(77) 77777-7777",
+      "dateborn": "2022-08-06T16:14:48.000Z",
+      "radiogender": "other",
+      "address": [
+        {
+          "id": "87f82609-6977-44b8-9611-f8c0aa4d935a",
+          "cep": "666666",
+          "adrees": "teste",
+          "number_end": "444",
+          "state": "mg",
+          "city": "silv"
+        }
+      ],
+      "password": "hhhhhhhhhhhh",
       "id": 6,
-      "name": "Juca Silva",
-      "email": "Juca@gmail.com",
-      "companyId": 1
+      "companyId": 6
     },
     {
-      "id": 7,
-      "name": "Maria Silva",
-      "email": "maria@gmail.com",
-      "companyId": 3
+      "name": "novo usuario",
+      "email": "jonataser@gmail.com",
+      "phone": "(23) 12312-3123",
+      "companyId": 4,
+      "dateborn": "2022-08-12T18:02:32.000Z",
+      "radiogender": "male",
+      "address": [
+        {
+          "id": "4c0fd21c-b492-48c3-a574-73e8c8979147",
+          "cep": "12333",
+          "adrees": "teste",
+          "number_end": "435",
+          "state": "mg",
+          "city": "kkkkkkkkk"
+        }
+      ],
+      "id": 7
     },
     {
-      "id": 8,
-      "name": "Carlos Silva",
-      "email": "carlos@gmail.com",
-      "companyId": 5
+      "name": "testes",
+      "email": "jonata.junio@inatel.br",
+      "phone": "(23) 42342-3423",
+      "companyId": 6,
+      "dateborn": "2022-08-19T18:18:34.000Z",
+      "radiogender": "male",
+      "address": [
+        {
+          "id": "08925c66-7540-46c8-adb6-0bdcc4f48901",
+          "cep": "234",
+          "adrees": "teste",
+          "number_end": "234",
+          "state": "AM",
+          "city": "teste"
+        }
+      ],
+      "password": "Teste#123",
+      "id": 8
     },
     {
-      "id": 9,
-      "companyId": 1,
-      "email": "pedro@gmail.com",
-      "name": "Pedro Silva"
+      "name": "testes",
+      "email": "jonata.junio@inatel.br",
+      "phone": "(23) 42342-3423",
+      "companyId": 6,
+      "dateborn": "2022-08-19T18:18:34.000Z",
+      "radiogender": "male",
+      "address": [
+        {
+          "id": "08925c66-7540-46c8-adb6-0bdcc4f48901",
+          "cep": "234",
+          "adrees": "teste",
+          "number_end": "234",
+          "state": "AM",
+          "city": "teste"
+        }
+      ],
+      "password": "Teste#123",
+      "id": 9
     },
     {
-      "id": 10,
-      "companyId": 1,
-      "email": "alfredo@gmail.com",
-      "name": "Alfredo Silva"
-    },
-    {
-      "id": 11,
-      "companyId": 1,
-      "email": "alfredo@gmail.com",
-      "name": "Alfredo Silva"
-    },
-    {
-      "id": 12,
-      "companyId": 1,
-      "email": "Juca@gmail.com",
-      "name": "Juca Silva"
-    },
-    {
-      "id": 13,
-      "companyId": 1,
-      "email": "maria@gmail.com",
-      "name": "Maria Silva"
-    },
-    {
-      "id": 14,
-      "companyId": 1,
-      "email": "carlos@gmail.com",
-      "name": "Carlos Silva"
-    },
-    {
-      "id": 154,
-      "companyId": 1,
-      "email": "pedro@gmail.com",
-      "name": "Pedro Silva"
-    },
-    {
-      "id": 16,
-      "companyId": 1,
-      "email": "alfredo@gmail.com",
-      "name": "Alfredo Silva"
-    },
-    {
-      "name": "Ana Silva",
-      "email": "ana@gmail.com",
-      "companyId": "1",
-      "id": 156
-    },
-    {
-      "name": "Geronimo",
-      "email": "geronimo@gmail.com",
-      "companyId": 5,
-      "id": 157
+      "name": "testes",
+      "email": "jonata.junio@inatel.br",
+      "phone": "(23) 42342-3423",
+      "companyId": 6,
+      "dateborn": "2022-08-19T18:18:34.000Z",
+      "radiogender": "male",
+      "address": [
+        {
+          "id": "08925c66-7540-46c8-adb6-0bdcc4f48901",
+          "cep": "234",
+          "adrees": "teste",
+          "number_end": "234",
+          "state": "AM",
+          "city": "teste"
+        }
+      ],
+      "password": "Teste#123",
+      "id": 10
     }
   ],
   "companys": [
@@ -103,10 +212,6 @@
     {
       "name": "Palmitinho",
       "id": 4
-    },
-    {
-      "name": "Caxias",
-      "id": 5
     },
     {
       "name": "Sapucaia do Sul",

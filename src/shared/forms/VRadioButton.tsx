@@ -11,9 +11,9 @@ import {
 
 type TVRadioButtonProps = TextFieldProps & {
   name: string;
-  value: string;     
+  value: string;
   error: boolean | undefined;
-  helperText: boolean | string | undefined; 
+  helperText: boolean | string | undefined;
 };
 export const VRadioButton: React.FC<TVRadioButtonProps> = ({
   name,
@@ -45,9 +45,7 @@ export const VRadioButton: React.FC<TVRadioButtonProps> = ({
         <FormControlLabel value="male" control={<Radio />} label="Masculino" />
         <FormControlLabel value="other" control={<Radio />} label="Outro" />
 
-        {!!error && (
-          <FormHelperText>{helperText}</FormHelperText>
-        )}
+        {!!error && <FormHelperText>{helperText}</FormHelperText>}
       </RadioGroup>
     </FormControl>
   );

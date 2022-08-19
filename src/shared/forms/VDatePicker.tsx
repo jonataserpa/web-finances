@@ -16,14 +16,21 @@ type TVDatePickerProps = TextFieldProps & {
   value: string | undefined;
   helperText: boolean | string | undefined;
 };
-export const VDatePicker: React.FC<TVDatePickerProps> = ({ name, error, helperText, label, value, ...rest }) => {
+export const VDatePicker: React.FC<TVDatePickerProps> = ({
+  name,
+  error,
+  helperText,
+  label,
+  value,
+  ...rest
+}) => {
   const [valueDefault, setValueDefault] = useState(value || "");
   const formik = useFormikContext();
 
   return (
     <FormControl
       required
-      error={!!error && valueDefault === ''}
+      error={!!error && valueDefault === ""}
       defaultValue={valueDefault}
       component="fieldset"
     >
@@ -35,18 +42,18 @@ export const VDatePicker: React.FC<TVDatePickerProps> = ({ name, error, helperTe
               {...params}
               size="small"
               label={label}
-              error={!!error && valueDefault === ''}
+              error={!!error && valueDefault === ""}
               value={valueDefault}
             />
           )}
           onChange={(newValue) => {
-            setValueDefault(newValue || '');
+            setValueDefault(newValue || "");
             formik.setFieldValue(name, newValue);
           }}
           value={valueDefault}
         />
 
-        {!!error && valueDefault === '' && (
+        {!!error && valueDefault === "" && (
           <FormHelperText>{helperText}</FormHelperText>
         )}
       </LocalizationProvider>

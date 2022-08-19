@@ -3,10 +3,10 @@
  * Author Jonata Serpa
  */
 
- interface DynamicKey {
+interface DynamicKey {
   [key: string]: any;
 }
-export interface IAdresses extends DynamicKey  {
+export interface IAdresses extends DynamicKey {
   id?: string;
   cep: string;
   adrees: string;

@@ -1,5 +1,5 @@
-import { IAdresses } from '../../features/user/interfaces/IAdresses';
-import { SET_USERS } from './types';
+import { IAdresses } from "../../features/user/interfaces/IAdresses";
+import { SET_USERS } from "./types";
 
 export interface IUserAction {
   type: string;
@@ -9,17 +9,14 @@ export interface IUserAction {
   };
 }
 
-const setUser = (
-    send: boolean,
-    address?: IAdresses[],
-): IUserAction => ({
+const setUser = (send: boolean, address?: IAdresses[]): IUserAction => ({
   type: SET_USERS,
   payload: {
     send,
-    address
+    address,
   },
 });
 
 export default {
-    setUser,
+  setUser,
 };

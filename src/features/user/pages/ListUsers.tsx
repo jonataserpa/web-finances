@@ -24,27 +24,44 @@ import {
 } from "@mui/material";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import CloseIcon from "@mui/icons-material/Close";
 
 import * as yup from "yup";
 
 import { CompanysService } from "../../company/services/CompanysService";
-import { IListUser, UsersService } from "../services/UsersService";
+import { UsersService } from "../services/UsersService";
 import { Environment } from "../../../shared/environment";
 import { LayoutBasePage } from "../../../shared/layouts";
 import { IUser } from "../interfaces/iUser.interface";
 import { ToolDetail, ToolList } from "../../../shared/components";
 import { useDebounce } from "../../../shared/hooks";
-import {
-  useVForm,
-  VForm,
-  VTextField,
-} from "../../../shared/forms";
+import { useVForm, VForm, VTextField } from "../../../shared/forms";
 import { AutoCompleteCompany } from "../../company/components/AutoCompleteCompany";
 import { VDatePicker } from "../../../shared/forms/VDatePicker";
 import { VRadioButton } from "../../../shared/forms/VRadioButton";
 import { VInputPhone } from "../../../shared/forms/VPhone";
 import { IAdresses } from "../interfaces/IAdresses";
-import { FieldArray, FieldArrayRenderProps, FormikProvider, getIn, useFormik } from "formik";
+import {
+  FieldArray,
+  FieldArrayRenderProps,
+  FormikProvider,
+  getIn,
+  useFormik,
+} from "formik";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "80%",
+  height: "80%",
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  borderRadius: 4,
+  p: 4,
+};
 
 const formValidationSchema: yup.SchemaOf<IUser | any> = yup.object().shape({
   name: yup.string().required().min(3),
@@ -64,45 +81,41 @@ const formValidationSchema: yup.SchemaOf<IUser | any> = yup.object().shape({
   ),
 });
 
+const address = [
+  {
+    id: uuidv4(),
+    cep: "",
+    adrees: "",
+    number_end: "",
+    state: "",
+    city: "",
+  },
+];
+
+const user = {
+  name: "",
+  email: "",
+  phone: "",
+  companyId: undefined,
+  dateborn: "",
+  radiogender: "",
+  address,
+};
+
 export const ListUsers: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { debounce } = useDebounce();
   const navigate = useNavigate();
-  const { save, saveAndClose } = useVForm();
-
-  const address = [
-    {
-      id: uuidv4(),
-      cep: "",
-      adrees: "",
-      number_end: "",
-      state: "",
-      city: "",
-    },
-  ];
-
-  const user = {
-    name: "",
-    email: "jonataser@gmail.com",
-    phone: "",
-    companyId: undefined,
-    dateborn: "",
-    radiogender: "",
-    address,
-  };
-
+  const { save, saveAndClose, update } = useVForm();
   const { id = "nova" } = useParams<"id">();
-
-  const [rows, setRows] = useState<IListUser[]>([]);
+  const [rows, setRows] = useState<IUser[]>([]);
   const [dataResponse, setDataResponse] = useState<IUser>(user);
-
   const [isLoading, setIsLoading] = useState(true);
   const [totalCount, setTotalCount] = useState(0);
-
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  const [nome, setNome] = useState("");
+
+  const [titleModal, setTitleModal] = useState("");
 
   const busca = useMemo(() => {
     return searchParams.get("busca") || "";
@@ -131,7 +144,11 @@ export const ListUsers: React.FC = () => {
     });
   }, [busca, pagina]);
 
-  const handleDelete = (id: number) => {
+  /**
+   * Handle delete item
+   * @param id
+   */
+  const handleDelete = (id: string | undefined) => {
     if (confirm("Realmente deseja apagar?")) {
       CompanysService.deleteById(id).then((result) => {
         if (result instanceof Error) {
@@ -144,80 +161,6 @@ export const ListUsers: React.FC = () => {
         }
       });
     }
-  };
-
-  // function save(values: IUser): void {
-  //   console.log(values);
-  // }
-
-  // /**
-  //  * Save user
-  //  * @param dados
-  //  */
-  // const handleSave = (dados: IUser) => {
-  //   formValidationSchema
-  //     .validate(dados, { abortEarly: false })
-  //     .then((dadosValidados) => {
-  //       setIsLoading(true);
-  //       console.log(dadosValidados);
-
-  //       // if (id === 'nova') {
-  //       //   PessoasService
-  //       //     .create(dadosValidados)
-  //       //     .then((result) => {
-  //       //       setIsLoading(false);
-
-  //       //       if (result instanceof Error) {
-  //       //         alert(result.message);
-  //       //       } else {
-  //       //         if (isSaveAndClose()) {
-  //       //           navigate('/pessoas');
-  //       //         } else {
-  //       //           navigate(`/pessoas/detalhe/${result}`);
-  //       //         }
-  //       //       }
-  //       //     });
-  //       // } else {
-  //       //   PessoasService
-  //       //     .updateById(Number(id), { id: Number(id), ...dadosValidados })
-  //       //     .then((result) => {
-  //       //       setIsLoading(false);
-
-  //       //       if (result instanceof Error) {
-  //       //         alert(result.message);
-  //       //       } else {
-  //       //         if (isSaveAndClose()) {
-  //       //           navigate('/pessoas');
-  //       //         }
-  //       //       }
-  //       //     });
-  //       // }
-  //     })
-  //     .catch((errors: yup.ValidationError) => {
-  //       const validationErrors: IVFormErrors = {};
-
-  //       errors.inner.forEach((error) => {
-  //         if (!error.path) return;
-  //         validationErrors[error.path] = error.message;
-  //       });
-  //       console.log("adresses", errors.value.address);
-  //       // formRef.current?.setErrors(validationErrors);
-  //       dispatch(allActions.user.setUser(true, errors.value.address));
-  //     });
-  // };
-
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: "70%",
-    height: "70%",
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    borderRadius: 4,
-    p: 4,
   };
 
   /**
@@ -241,14 +184,41 @@ export const ListUsers: React.FC = () => {
     arrayHelpers.remove(index);
   }
 
+  /**
+   * Validate payload
+   * @param payload
+   */
+  function validatePayload(payload: any): void {
+    setIsLoading(true);
+    if (payload.id === "" || payload.id === undefined) {
+      save(payload);
+    } else {
+      update(payload);
+    }
+    setIsLoading(false);
+    handleClose();
+  }
+
+  /**
+   * formik initialValues
+   */
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: { ...dataResponse },
     validationSchema: formValidationSchema,
     onSubmit: (values) => {
-      save(values);
+      validatePayload(values);
     },
   });
+
+  /**
+   * Handle close modal dialog
+   */
+  const handleClose = () => {
+    setOpen(false);
+    setDataResponse(user);
+    formik.resetForm();
+  };
 
   /**
    * List addrees
@@ -273,8 +243,20 @@ export const ListUsers: React.FC = () => {
                       disabled={isLoading}
                       onChange={formik.handleChange}
                       value={address.cep}
-                      error={Boolean(getIn(formik.errors, `address[${index}].cep`)) && Boolean(getIn(formik.touched, `address[${index}].cep`))}
-                      helperText={Boolean(getIn(formik.errors, `address[${index}].cep`)) && Boolean(getIn(formik.touched, `address[${index}].cep`)) ? getIn(formik.errors, `address[${index}].cep`) : ''}
+                      error={
+                        Boolean(
+                          getIn(formik.errors, `address[${index}].cep`)
+                        ) &&
+                        Boolean(getIn(formik.touched, `address[${index}].cep`))
+                      }
+                      helperText={
+                        Boolean(
+                          getIn(formik.errors, `address[${index}].cep`)
+                        ) &&
+                        Boolean(getIn(formik.touched, `address[${index}].cep`))
+                          ? getIn(formik.errors, `address[${index}].cep`)
+                          : ""
+                      }
                     />
                   </Grid>
 
@@ -288,8 +270,24 @@ export const ListUsers: React.FC = () => {
                       disabled={isLoading}
                       onChange={formik.handleChange}
                       value={address.address}
-                      error={Boolean(getIn(formik.errors, `address[${index}].adrees`)) && Boolean(getIn(formik.touched, `address[${index}].adrees`))}
-                      helperText={Boolean(getIn(formik.errors, `address[${index}].adrees`)) && Boolean(getIn(formik.touched, `address[${index}].adrees`)) ? getIn(formik.errors, `address[${index}].adrees`) : ''}
+                      error={
+                        Boolean(
+                          getIn(formik.errors, `address[${index}].adrees`)
+                        ) &&
+                        Boolean(
+                          getIn(formik.touched, `address[${index}].adrees`)
+                        )
+                      }
+                      helperText={
+                        Boolean(
+                          getIn(formik.errors, `address[${index}].adrees`)
+                        ) &&
+                        Boolean(
+                          getIn(formik.touched, `address[${index}].adrees`)
+                        )
+                          ? getIn(formik.errors, `address[${index}].adrees`)
+                          : ""
+                      }
                     />
                   </Grid>
 
@@ -303,8 +301,24 @@ export const ListUsers: React.FC = () => {
                       disabled={isLoading}
                       onChange={formik.handleChange}
                       value={address.number_end}
-                      error={Boolean(getIn(formik.errors, `address[${index}].number_end`)) && Boolean(getIn(formik.touched, `address[${index}].number_end`))}
-                      helperText={Boolean(getIn(formik.errors, `address[${index}].number_end`)) && Boolean(getIn(formik.touched, `address[${index}].number_end`)) ? getIn(formik.errors, `address[${index}].number_end`) : ''}
+                      error={
+                        Boolean(
+                          getIn(formik.errors, `address[${index}].number_end`)
+                        ) &&
+                        Boolean(
+                          getIn(formik.touched, `address[${index}].number_end`)
+                        )
+                      }
+                      helperText={
+                        Boolean(
+                          getIn(formik.errors, `address[${index}].number_end`)
+                        ) &&
+                        Boolean(
+                          getIn(formik.touched, `address[${index}].number_end`)
+                        )
+                          ? getIn(formik.errors, `address[${index}].number_end`)
+                          : ""
+                      }
                     />
                   </Grid>
 
@@ -318,8 +332,24 @@ export const ListUsers: React.FC = () => {
                       disabled={isLoading}
                       onChange={formik.handleChange}
                       value={address.state}
-                      error={Boolean(getIn(formik.errors, `address[${index}].state`)) && Boolean(getIn(formik.touched, `address[${index}].state`))}
-                      helperText={Boolean(getIn(formik.errors, `address[${index}].state`)) && Boolean(getIn(formik.touched, `address[${index}].state`)) ? getIn(formik.errors, `address[${index}].state`) : ''}
+                      error={
+                        Boolean(
+                          getIn(formik.errors, `address[${index}].state`)
+                        ) &&
+                        Boolean(
+                          getIn(formik.touched, `address[${index}].state`)
+                        )
+                      }
+                      helperText={
+                        Boolean(
+                          getIn(formik.errors, `address[${index}].state`)
+                        ) &&
+                        Boolean(
+                          getIn(formik.touched, `address[${index}].state`)
+                        )
+                          ? getIn(formik.errors, `address[${index}].state`)
+                          : ""
+                      }
                     />
                   </Grid>
 
@@ -333,8 +363,20 @@ export const ListUsers: React.FC = () => {
                       disabled={isLoading}
                       onChange={formik.handleChange}
                       value={address.city}
-                      error={Boolean(getIn(formik.errors, `address[${index}].city`)) && Boolean(getIn(formik.touched, `address[${index}].city`))}
-                      helperText={Boolean(getIn(formik.errors, `address[${index}].city`)) && Boolean(getIn(formik.touched, `address[${index}].city`)) ? getIn(formik.errors, `address[${index}].city`) : ''}
+                      error={
+                        Boolean(
+                          getIn(formik.errors, `address[${index}].city`)
+                        ) &&
+                        Boolean(getIn(formik.touched, `address[${index}].city`))
+                      }
+                      helperText={
+                        Boolean(
+                          getIn(formik.errors, `address[${index}].city`)
+                        ) &&
+                        Boolean(getIn(formik.touched, `address[${index}].city`))
+                          ? getIn(formik.errors, `address[${index}].city`)
+                          : ""
+                      }
                     />
                   </Grid>
 
@@ -374,6 +416,17 @@ export const ListUsers: React.FC = () => {
     );
   }
 
+  /**
+   * Edit user modal dialog
+   */
+  async function handleEdit(user: IUser) {
+    setTitleModal("Edit User");
+    setDataResponse(user);
+    setTimeout(() => {
+      handleOpen();
+    }, 100);
+  }
+
   return (
     <LayoutBasePage
       title="Listagem de Úsuarios"
@@ -382,7 +435,7 @@ export const ListUsers: React.FC = () => {
           mostrarInputBusca
           textoDaBusca={busca}
           textoBotaoNovo="Nova"
-          aoClicarEmNovo={() => navigate("/pessoas/detalhe/nova")}
+          aoClicarEmNovo={handleOpen}
           aoMudarTextoDeBusca={(texto) =>
             setSearchParams({ busca: texto, pagina: "1" }, { replace: true })
           }
@@ -409,7 +462,7 @@ export const ListUsers: React.FC = () => {
                   <IconButton size="small" onClick={() => handleDelete(row.id)}>
                     <Icon>delete</Icon>
                   </IconButton>
-                  <IconButton size="small" onClick={handleOpen}>
+                  <IconButton size="small" onClick={() => handleEdit(row)}>
                     <Icon>edit</Icon>
                   </IconButton>
                 </TableCell>
@@ -452,12 +505,26 @@ export const ListUsers: React.FC = () => {
 
         <Modal
           open={open}
-          onClose={handleClose}
+          onClose={(_, reason) => {
+            if (reason !== "backdropClick") {
+              handleClose();
+              setDataResponse(user);
+            }
+          }}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-            <LayoutBasePage title={id === "nova" ? "New user" : nome}>
+            <CloseIcon
+              onClick={handleClose}
+              style={{
+                position: "absolute",
+                right: "20px",
+                top: "20px",
+                cursor: "pointer",
+              }}
+            />
+            <LayoutBasePage title={titleModal === "" ? "New user" : titleModal}>
               <FormikProvider value={formik}>
                 <form onSubmit={formik.handleSubmit}>
                   <Box
@@ -584,8 +651,8 @@ export const ListUsers: React.FC = () => {
                     <Grid container direction="column" padding={2} spacing={2}>
                       <Grid item>
                         <Typography variant="h6">Endereços</Typography>
-                        {listAdrees()}
                       </Grid>
+                      <Grid item>{listAdrees()}</Grid>
                     </Grid>
                   </Box>
 
@@ -650,7 +717,7 @@ export const ListUsers: React.FC = () => {
                     mostrarBotaoApagar={id !== "nova"}
                     aoClicarEmSalvarEFechar={saveAndClose}
                     aoClicarEmVoltar={() => navigate("/pessoas")}
-                    aoClicarEmApagar={() => handleDelete(Number(id))}
+                    aoClicarEmApagar={() => handleDelete(id)}
                     aoClicarEmNovo={() => navigate("/pessoas/detalhe/nova")}
                   />
                 </form>

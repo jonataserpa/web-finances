@@ -11,6 +11,7 @@ import {
 import NumberFormat, { InputAttributes } from "react-number-format";
 import { useStyles } from "./styles";
 import { useFormikContext } from "formik";
+import { styled } from "@mui/material/styles";
 
 type InputPhoneProps = TextFieldProps & {
   name: string;
@@ -58,17 +59,24 @@ export function VInputPhone({
           format="(##) #####-####"
           size="small"
           label={label}
+          name={name}
           allowEmptyFormatting
           mask="_"
+          aria-describedby={name}
           customInput={TextField}
+          variant="outlined"
           className={
-            !!error && (valueDefault === '' || valueDefault === '(__) _____-____') ? classes.inputPhoneError : ""
+            !!error &&
+            (valueDefault === "" || valueDefault === "(__) _____-____")
+              ? classes.inputPhoneError
+              : ""
           }
         />
 
-        {!!error && (valueDefault === '' || valueDefault === '(__) _____-____') && (
-          <FormHelperText>{helperText}</FormHelperText>
-        )}
+        {!!error &&
+          (valueDefault === "" || valueDefault === "(__) _____-____") && (
+            <FormHelperText id={name}>{helperText}</FormHelperText>
+          )}
       </FormControl>
     </>
   );
