@@ -1,19 +1,47 @@
 import { Api } from "../../../shared/services/axios-config";
 import { Environment } from "../../../shared/environment";
 import { IUser } from "../interfaces/iUser.interface";
-
-export interface IDetailUser {
-  id: number;
-  email: string;
-  companyId: number;
-  name: string;
-}
+import { AxiosError } from "axios";
+import { toast } from "react-toastify";
 
 type TUserWithTotalCount = {
   data: IUser[];
   totalCount: number;
 };
 
+/**
+ * Handle api errors
+ * @param error
+ */
+export const handleApiErrors = (error: AxiosError, message: string) => {
+  if (error && error.response && error.response.data) {
+    switch (error.response.data.statusCode) {
+      case 400:
+        toast.error(
+          "Erro ao processar a requisição, verifique os dados enviados e tente novamente!"
+        );
+        break;
+      case 404:
+        toast.error("Usuario não encontrado");
+        break;
+      case 500:
+        toast.error(
+          "Erro, o servidor não conseguiu processar a requisição, por favor tente novamente mais tarde ou contate o suporte!"
+        );
+        break;
+      default:
+        toast.error(message);
+        break;
+    }
+  }
+};
+
+/**
+ * Get all users
+ * @param page
+ * @param filter
+ * @returns
+ */
 const getAll = async (
   page = 1,
   filter = ""
@@ -34,14 +62,17 @@ const getAll = async (
 
     return new Error("Erro ao listar os registros.");
   } catch (error) {
-    console.error(error);
-    return new Error(
-      (error as { message: string }).message || "Erro ao listar os registros."
-    );
+    handleApiErrors(error as AxiosError, "Erro ao listar os registros.");
+    throw error;
   }
 };
 
-const getById = async (id: number): Promise<IDetailUser | Error> => {
+/**
+ * Get by id user
+ * @param id
+ * @returns
+ */
+const getById = async (id: number): Promise<IUser | Error> => {
   try {
     const { data } = await Api.get(`/users/${id}`);
 
@@ -51,18 +82,21 @@ const getById = async (id: number): Promise<IDetailUser | Error> => {
 
     return new Error("Erro ao consultar o registro.");
   } catch (error) {
-    console.error(error);
-    return new Error(
-      (error as { message: string }).message || "Erro ao consultar o registro."
-    );
+    handleApiErrors(error as AxiosError, "Erro ao consultar o registro.");
+    throw error;
   }
 };
 
+/**
+ * Create user
+ * @param user
+ * @returns
+ */
 const create = async (
-  dados: Omit<IDetailUser, "id">
-): Promise<number | Error> => {
+  user: Omit<IUser, "id">
+): Promise<string | undefined | Error> => {
   try {
-    const { data } = await Api.post<IDetailUser>("/users", dados);
+    const { data } = await Api.post<IUser>("/users", user);
 
     if (data) {
       return data.id;
@@ -70,35 +104,38 @@ const create = async (
 
     return new Error("Erro ao criar o registro.");
   } catch (error) {
-    console.error(error);
-    return new Error(
-      (error as { message: string }).message || "Erro ao criar o registro."
-    );
+    handleApiErrors(error as AxiosError, "Erro ao criar o registro.");
+    throw error;
   }
 };
 
+/**
+ * Update user
+ * @param id
+ * @param user
+ */
 const updateById = async (
   id: number,
-  dados: IDetailUser
+  user: IUser
 ): Promise<void | Error> => {
   try {
-    await Api.put(`/users/${id}`, dados);
+    await Api.put(`/users/${id}`, user);
   } catch (error) {
-    console.error(error);
-    return new Error(
-      (error as { message: string }).message || "Erro ao atualizar o registro."
-    );
+    handleApiErrors(error as AxiosError, "Erro ao atualizar o registro.");
+    throw error;
   }
 };
 
-const deleteById = async (id: number): Promise<void | Error> => {
+/**
+ * Delete user
+ * @param id
+ */
+const deleteById = async (id: string): Promise<void | Error> => {
   try {
     await Api.delete(`/users/${id}`);
   } catch (error) {
-    console.error(error);
-    return new Error(
-      (error as { message: string }).message || "Erro ao apagar o registro."
-    );
+    handleApiErrors(error as AxiosError, "Erro ao apagar o registro.");
+    throw error;
   }
 };
 

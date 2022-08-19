@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "name": "Jonata serpa",
+      "name": "Jonata serpa-editado",
       "email": "jonataser@gmail.com",
       "phone": "(77) 77777-4544",
       "companyId": 2,
@@ -221,10 +221,6 @@
     }
   ],
   "companys": [
-    {
-      "id": 1,
-      "name": "Porto Alegre"
-    },
     {
       "name": "Novo Hamburgo",
       "id": 2

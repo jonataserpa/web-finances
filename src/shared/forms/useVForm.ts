@@ -4,35 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { UsersService } from "../../features/user/services/UsersService";
 
-/**
- * Handle api errors
- * @param error
- */
-export const handleApiErrors = (error: AxiosError) => {
-  if (error && error.response && error.response.data) {
-    switch (error.response.data.statusCode) {
-      case 400:
-        toast.error(
-          "Erro ao processar a requisição, verifique os dados enviados e tente novamente!"
-        );
-        break;
-      case 404:
-        toast.error("Usuario não encontrado");
-        break;
-      case 500:
-        toast.error(
-          "Erro, o servidor não conseguiu processar a requisição, por favor tente novamente mais tarde ou contate o suporte!"
-        );
-        break;
-      default:
-        toast.error(
-          "Problema ao processar sua requisição, por favor tente novamente!"
-        );
-        break;
-    }
-  }
-};
-
 export const useVForm = () => {
   const isSavingAndClose = useRef(false);
   const isSavingAndNew = useRef(false);
@@ -46,7 +17,6 @@ export const useVForm = () => {
       await UsersService.create(values);
       toast.success("Usúario criado com sucesso.");
     } catch (error: unknown) {
-      handleApiErrors(error as AxiosError);
       throw error;
     }
   }, []);
@@ -59,7 +29,6 @@ export const useVForm = () => {
       await UsersService.updateById(values.id, values);
       toast.success("Usúario atualizado com sucesso.");
     } catch (error: unknown) {
-      handleApiErrors(error as AxiosError);
       throw error;
     }
   }, []);

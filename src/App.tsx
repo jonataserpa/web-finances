@@ -16,9 +16,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
-    <IntlProvider
-      locale="en"
-    >
+    <IntlProvider locale="pt-BR">
       <ToastContainer
         position="top-center"
         theme="colored"
