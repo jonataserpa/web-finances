@@ -40,7 +40,7 @@ export const Dashboard = () => {
   return (
     <LayoutBasePage
       title="Página inicial"
-      toolBars={<ToolList mostrarBotaoNovo={false} />}
+      toolBars={<ToolList showButtonNew={false} />}
     >
       <Box width="100%" display="flex">
         <Grid container margin={2}>
