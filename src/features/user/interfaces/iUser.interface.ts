@@ -13,9 +13,9 @@ export interface IUser extends DynamicKey {
   id?: string;
   name: string;
   email: string;
-  phone: string;
-  companyId: number | undefined;
-  dateborn: string | undefined;
+  phone?: string;
+  companyId?: number | undefined;
+  dateborn?: string | undefined;
   radiogender?: string;
   address?: IAdresses[];
   password?: string;

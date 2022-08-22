@@ -43,6 +43,7 @@ import {
   useFormik,
 } from "formik";
 import { formValidationSchema } from "../schema";
+import TableRows from "../components/table-rows";
 
 const style = {
   position: "absolute",
@@ -443,20 +444,7 @@ export const ListUsers: React.FC = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <TableRow key={row.id}>
-                <TableCell>
-                  <IconButton size="small" onClick={() => handleDelete(row.id)}>
-                    <Icon>delete</Icon>
-                  </IconButton>
-                  <IconButton size="small" onClick={() => handleEdit(row)}>
-                    <Icon>edit</Icon>
-                  </IconButton>
-                </TableCell>
-                <TableCell>{row.name}</TableCell>
-                <TableCell>{row.email}</TableCell>
-              </TableRow>
-            ))}
+            <TableRows rows={rows} handleDelete={handleDelete} handleEdit={handleEdit} />
           </TableBody>
 
           {totalCount === 0 && !isLoading && (
