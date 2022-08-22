@@ -127,7 +127,7 @@ const updateById = async (id: number, user: IUser): Promise<void | Error> => {
  * Delete user
  * @param id
  */
-const deleteById = async (id: string): Promise<void | Error> => {
+const deleteById = async (id: string | undefined): Promise<void | Error> => {
   try {
     await Api.delete(`/users/${id}`);
   } catch (error) {

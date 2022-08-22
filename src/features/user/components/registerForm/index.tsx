@@ -68,7 +68,7 @@ const style = {
 
 /**
  * Register form user
- * @param param0 
+ * @param params 
  * @returns 
  */
 function RegisterForm({
