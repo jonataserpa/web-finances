@@ -3,7 +3,7 @@
  * Author Jonata Serpa
  */
 
-import { IAdresses } from "./IAdresses";
+import { IAdresses } from "./iAdresses";
 
 interface DynamicKey {
   [key: string]: any;

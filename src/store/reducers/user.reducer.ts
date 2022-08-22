@@ -1,6 +1,6 @@
 import { IUserAction } from "../actions/user.actions";
 import { SET_USERS } from "../actions/types";
-import { IAdresses } from "../../features/user/interfaces/IAdresses";
+import { IAdresses } from "../../features/user/interfaces/iAdresses";
 
 export interface IUserState {
   send: boolean;

@@ -93,7 +93,7 @@ const updateById = async (
   }
 };
 
-const deleteById = async (id: string): Promise<void | Error> => {
+const deleteById = async (id: string | undefined): Promise<void | Error> => {
   try {
     await Api.delete(`/companys/${id}`);
   } catch (error) {

@@ -1,4 +1,4 @@
-import { IAdresses } from "../../features/user/interfaces/IAdresses";
+import { IAdresses } from "../../features/user/interfaces/iAdresses";
 import { SET_USERS } from "./types";
 
 export interface IUserAction {

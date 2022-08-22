@@ -33,10 +33,16 @@ export const ListUsers: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [totalCount, setTotalCount] = useState(0);
 
+  /**
+   * Search default values
+   */
   const busca = useMemo(() => {
     return searchParams.get("busca") || "";
   }, [searchParams]);
 
+  /**
+   * Search page values
+   */
   const pagina = useMemo(() => {
     return Number(searchParams.get("pagina") || "1");
   }, [searchParams]);

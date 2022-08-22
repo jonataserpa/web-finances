@@ -27,9 +27,9 @@ import { IUser } from "../../interfaces/iUser.interface";
 import { formValidationSchema } from "../../schema";
 import { useVForm, VTextField } from "../../../../shared/forms";
 import { useNavigate, useParams } from "react-router-dom";
-import { IAdresses } from "../../interfaces/IAdresses";
+import { IAdresses } from "../../interfaces/iAdresses";
 import { LayoutBasePage } from "../../../../shared/layouts";
-import { IRegisterFormProps } from "../../interfaces/IRegisterForm.interface";
+import { IRegisterFormProps } from "../../interfaces/iRegisterForm.interface";
 
 const address = [
   {
@@ -66,6 +66,11 @@ const style = {
   p: 4,
 };
 
+/**
+ * Register form user
+ * @param param0 
+ * @returns 
+ */
 function RegisterForm({
   setIsLoading,
   isLoading,

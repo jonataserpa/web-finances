@@ -1,12 +1,11 @@
 import { Icon, IconButton, TableCell, TableRow } from "@mui/material";
-import { IUser } from "../../interfaces/iUser.interface";
+import { IRows } from "../../interfaces/iRows.interface";
 
-export interface IRows {
-  rows: IUser[];
-  handleDelete: (id: string | undefined) => void;
-  handleEdit: (user: IUser) => void;
-}
-
+/**
+ * List of users table
+ * @param param0 
+ * @returns 
+ */
 function TableRows({ rows, handleDelete, handleEdit }: IRows): JSX.Element {
   if (rows && rows.length === 0) {
     return <div>No users</div>;
