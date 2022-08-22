@@ -26,7 +26,7 @@
       "phone": "(77) 77777-4544",
       "companyId": 2,
       "dateborn": "2022-08-13T16:05:29.000Z",
-      "radiogender": "male",
+      "radiogender": "female",
       "address": [
         {
           "id": "a267cbe0-a8e8-401d-825c-5545353333",
@@ -35,6 +35,14 @@
           "number_end": "66",
           "state": "mg",
           "city": "silv"
+        },
+        {
+          "id": "f7c3659b-9e7e-4616-a418-4aea207ef197",
+          "cep": "888888",
+          "adrees": "rua bla bla",
+          "number_end": "77",
+          "state": "sp",
+          "city": "joanopolis"
         }
       ],
       "password": "teste",

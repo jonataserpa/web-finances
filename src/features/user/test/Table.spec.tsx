@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 import TableRows from "../components/table-rows/index";
 import { IUser } from '../interfaces/iUser.interface';
 
-const rowsFake: IUser[] = [
+const rowsMock: IUser[] = [
     {
         id: '1',
         name: 'John',
@@ -18,13 +18,13 @@ const rowsFake: IUser[] = [
 ];
 
 test('not should render users table', () => {
-    const { getByText } = render(<TableRows rows={[]} handleDelete={() => ('1')} handleEdit={() => rowsFake[0].id} />)
+    const { getByText } = render(<TableRows rows={[]} handleDelete={() => ('1')} handleEdit={() => rowsMock[0].id} />)
     expect(getByText('No users')).toBeInTheDocument()
 })
 
 test('should render data users table', () => {
-    const { getAllByTestId } = render(<TableRows rows={rowsFake} handleDelete={() => ('1')} handleEdit={() => rowsFake[0].id} />)
+    const { getAllByTestId } = render(<TableRows rows={rowsMock} handleDelete={() => ('1')} handleEdit={() => rowsMock[0].id} />)
     const userTableRows = getAllByTestId('users-table').map((tableCell) => tableCell.textContent)
-    const fakeUsersTableRows = rowsFake.map((row) => row.name)
+    const fakeUsersTableRows = rowsMock.map((row) => row.name)
     expect(userTableRows).toEqual(fakeUsersTableRows);
 })
