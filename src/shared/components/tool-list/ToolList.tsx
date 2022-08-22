@@ -3,21 +3,21 @@ import { Box, Button, Icon, Paper, TextField, useTheme } from "@mui/material";
 import { Environment } from "../../environment";
 
 interface IToolListProps {
-  textoDaBusca?: string;
-  mostrarInputBusca?: boolean;
-  aoMudarTextoDeBusca?: (novoTexto: string) => void;
-  textoBotaoNovo?: string;
-  mostrarBotaoNovo?: boolean;
-  aoClicarEmNovo?: () => void;
+  textSearch?: string;
+  showInputSearch?: boolean;
+  changeTextSearch?: (novoTexto: string) => void;
+  textButtonNew?: string;
+  showButtonNew?: boolean;
+  clickNew?: () => void;
 }
 
 export const ToolList: React.FC<IToolListProps> = ({
-  textoDaBusca = "",
-  aoMudarTextoDeBusca,
-  mostrarInputBusca = false,
-  aoClicarEmNovo,
-  textoBotaoNovo = "Novo",
-  mostrarBotaoNovo = true,
+  textSearch = "",
+  changeTextSearch,
+  showInputSearch = false,
+  clickNew,
+  textButtonNew = "Novo",
+  showButtonNew = true,
 }) => {
   const theme = useTheme();
 
@@ -32,25 +32,25 @@ export const ToolList: React.FC<IToolListProps> = ({
       height={theme.spacing(5)}
       component={Paper}
     >
-      {mostrarInputBusca && (
+      {showInputSearch && (
         <TextField
           size="small"
-          value={textoDaBusca}
+          value={textSearch}
           placeholder={Environment.INPUT_DE_BUSCA}
-          onChange={(e) => aoMudarTextoDeBusca?.(e.target.value)}
+          onChange={(e) => changeTextSearch?.(e.target.value)}
         />
       )}
 
       <Box flex={1} display="flex" justifyContent="end">
-        {mostrarBotaoNovo && (
+        {showButtonNew && (
           <Button
             color="primary"
             disableElevation
             variant="contained"
-            onClick={aoClicarEmNovo}
+            onClick={clickNew}
             endIcon={<Icon>add</Icon>}
           >
-            {textoBotaoNovo}
+            {textButtonNew}
           </Button>
         )}
       </Box>

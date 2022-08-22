@@ -12,46 +12,46 @@ import {
 } from "@mui/material";
 
 interface IToolDetailProps {
-  textoBotaoNovo?: string;
+  textButtonNew?: string;
 
-  mostrarBotaoNovo?: boolean;
-  mostrarBotaoVoltar?: boolean;
-  mostrarBotaoApagar?: boolean;
-  mostrarBotaoSalvar?: boolean;
-  mostrarBotaoSalvarEFechar?: boolean;
+  showButtonNew?: boolean;
+  showButtonBack?: boolean;
+  showButtonClean?: boolean;
+  showButtonSave?: boolean;
+  showButtonSaveAndClose?: boolean;
 
-  mostrarBotaoNovoCarregando?: boolean;
-  mostrarBotaoVoltarCarregando?: boolean;
-  mostrarBotaoApagarCarregando?: boolean;
-  mostrarBotaoSalvarCarregando?: boolean;
-  mostrarBotaoSalvarEFecharCarregando?: boolean;
+  showButtonNewLoading?: boolean;
+  showButtonBackLoading?: boolean;
+  showButtonCleanLoading?: boolean;
+  showButtonSaveLoading?: boolean;
+  showButtonSaveAndCloseLoading?: boolean;
 
-  aoClicarEmNovo?: () => void;
-  aoClicarEmVoltar?: () => void;
-  aoClicarEmApagar?: () => void;
-  aoClicarEmSalvar?: () => void;
-  aoClicarEmSalvarEFechar?: () => void;
+  onClickNew?: () => void;
+  onClickBack?: () => void;
+  onClickClean?: () => void;
+  onClickSave?: () => void;
+  onClickSaveAndClose?: () => void;
 }
 export const ToolDetail: React.FC<IToolDetailProps> = ({
-  textoBotaoNovo = "Novo",
+  textButtonNew = "Novo",
 
-  mostrarBotaoNovo = true,
-  mostrarBotaoVoltar = true,
-  mostrarBotaoApagar = true,
-  mostrarBotaoSalvar = true,
-  mostrarBotaoSalvarEFechar = false,
+  showButtonNew = true,
+  showButtonBack = true,
+  showButtonClean = true,
+  showButtonSave = true,
+  showButtonSaveAndClose = false,
 
-  mostrarBotaoNovoCarregando = false,
-  mostrarBotaoVoltarCarregando = false,
-  mostrarBotaoApagarCarregando = false,
-  mostrarBotaoSalvarCarregando = false,
-  mostrarBotaoSalvarEFecharCarregando = false,
+  showButtonNewLoading = false,
+  showButtonBackLoading = false,
+  showButtonCleanLoading = false,
+  showButtonSaveLoading = false,
+  showButtonSaveAndCloseLoading = false,
 
-  aoClicarEmNovo,
-  aoClicarEmVoltar,
-  aoClicarEmApagar,
-  aoClicarEmSalvar,
-  aoClicarEmSalvarEFechar,
+  onClickNew,
+  onClickBack,
+  onClickClean,
+  onClickSave,
+  onClickSaveAndClose,
 }) => {
   const smDown = useMediaQuery((theme: Theme) => theme.breakpoints.down("sm"));
   const mdDown = useMediaQuery((theme: Theme) => theme.breakpoints.down("md"));
@@ -69,13 +69,13 @@ export const ToolDetail: React.FC<IToolDetailProps> = ({
       height={theme.spacing(5)}
       component={Paper}
     >
-      {mostrarBotaoSalvar && !mostrarBotaoSalvarCarregando && (
+      {showButtonSave && !showButtonSaveLoading && (
         <Button
           color="primary"
           disableElevation
           variant="contained"
           type="submit"
-          // onClick={aoClicarEmSalvar}
+          // onClick={onClickSave}
           startIcon={<Icon>save</Icon>}
         >
           <Typography
@@ -89,17 +89,17 @@ export const ToolDetail: React.FC<IToolDetailProps> = ({
         </Button>
       )}
 
-      {mostrarBotaoSalvarCarregando && <Skeleton width={110} height={60} />}
+      {showButtonSaveLoading && <Skeleton width={110} height={60} />}
 
-      {mostrarBotaoSalvarEFechar &&
-        !mostrarBotaoSalvarEFecharCarregando &&
+      {showButtonSaveAndClose &&
+        !showButtonSaveAndCloseLoading &&
         !smDown &&
         !mdDown && (
           <Button
             color="primary"
             disableElevation
             variant="outlined"
-            onClick={aoClicarEmSalvarEFechar}
+            onClick={onClickSaveAndClose}
             startIcon={<Icon>save</Icon>}
           >
             <Typography
@@ -113,16 +113,16 @@ export const ToolDetail: React.FC<IToolDetailProps> = ({
           </Button>
         )}
 
-      {mostrarBotaoSalvarEFecharCarregando && !smDown && !mdDown && (
+      {showButtonSaveAndCloseLoading && !smDown && !mdDown && (
         <Skeleton width={180} height={60} />
       )}
 
-      {mostrarBotaoApagar && !mostrarBotaoApagarCarregando && (
+      {showButtonClean && !showButtonCleanLoading && (
         <Button
           color="primary"
           disableElevation
           variant="outlined"
-          onClick={aoClicarEmApagar}
+          onClick={onClickClean}
           startIcon={<Icon>delete</Icon>}
         >
           <Typography
@@ -136,14 +136,14 @@ export const ToolDetail: React.FC<IToolDetailProps> = ({
         </Button>
       )}
 
-      {mostrarBotaoApagarCarregando && <Skeleton width={110} height={60} />}
+      {showButtonCleanLoading && <Skeleton width={110} height={60} />}
 
-      {mostrarBotaoNovo && !mostrarBotaoNovoCarregando && !smDown && (
+      {showButtonNew && !showButtonNewLoading && !smDown && (
         <Button
           color="primary"
           disableElevation
           variant="outlined"
-          onClick={aoClicarEmNovo}
+          onClick={onClickNew}
           startIcon={<Icon>add</Icon>}
         >
           <Typography
@@ -152,29 +152,29 @@ export const ToolDetail: React.FC<IToolDetailProps> = ({
             textOverflow="ellipsis"
             overflow="hidden"
           >
-            {textoBotaoNovo}
+            {textButtonNew}
           </Typography>
         </Button>
       )}
 
-      {mostrarBotaoNovoCarregando && !smDown && (
+      {showButtonNewLoading && !smDown && (
         <Skeleton width={110} height={60} />
       )}
 
-      {mostrarBotaoVoltar &&
-        (mostrarBotaoNovo ||
-          mostrarBotaoApagar ||
-          mostrarBotaoSalvar ||
-          mostrarBotaoSalvarEFechar) && (
+      {showButtonBack &&
+        (showButtonNew ||
+          showButtonClean ||
+          showButtonSave ||
+          showButtonSaveAndClose) && (
           <Divider variant="middle" orientation="vertical" />
         )}
 
-      {mostrarBotaoVoltar && !mostrarBotaoVoltarCarregando && (
+      {showButtonBack && !showButtonBackLoading && (
         <Button
           color="primary"
           disableElevation
           variant="outlined"
-          onClick={aoClicarEmVoltar}
+          onClick={onClickBack}
           startIcon={<Icon>arrow_back</Icon>}
         >
           <Typography
@@ -188,7 +188,7 @@ export const ToolDetail: React.FC<IToolDetailProps> = ({
         </Button>
       )}
 
-      {mostrarBotaoVoltarCarregando && <Skeleton width={110} height={60} />}
+      {showButtonBackLoading && <Skeleton width={110} height={60} />}
     </Box>
   );
 };

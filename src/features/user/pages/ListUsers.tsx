@@ -203,6 +203,7 @@ export const ListUsers: React.FC = () => {
   const handleClose = () => {
     setOpen(false);
     setDataResponse(user);
+    setTitleModal("Novo Usúario");
     formik.resetForm();
   };
 
@@ -406,7 +407,7 @@ export const ListUsers: React.FC = () => {
    * Edit user modal dialog
    */
   function handleEdit(user: IUser) {
-    setTitleModal("Edit User");
+    setTitleModal("Edite Usúario");
     setDataResponse(user);
     setTimeout(() => {
       handleOpen();
@@ -418,11 +419,11 @@ export const ListUsers: React.FC = () => {
       title="Listagem de Úsuarios"
       toolBars={
         <ToolList
-          mostrarInputBusca
-          textoDaBusca={busca}
-          textoBotaoNovo="Nova"
-          aoClicarEmNovo={handleOpen}
-          aoMudarTextoDeBusca={(texto) =>
+          showInputSearch
+          textSearch={busca}
+          textButtonNew="Nova"
+          clickNew={handleOpen}
+          changeTextSearch={(texto) =>
             setSearchParams({ busca: texto, pagina: "1" }, { replace: true })
           }
         />
@@ -510,7 +511,7 @@ export const ListUsers: React.FC = () => {
                 cursor: "pointer",
               }}
             />
-            <LayoutBasePage title={titleModal === "" ? "New user" : titleModal}>
+            <LayoutBasePage title={titleModal === "" ? "Novo usúario" : titleModal}>
               <FormikProvider value={formik}>
                 <form onSubmit={formik.handleSubmit}>
                   <Box
@@ -697,14 +698,14 @@ export const ListUsers: React.FC = () => {
                   </Box>
 
                   <ToolDetail
-                    textoBotaoNovo="Nova"
-                    mostrarBotaoSalvarEFechar
-                    mostrarBotaoNovo={id !== "nova"}
-                    mostrarBotaoApagar={id !== "nova"}
-                    aoClicarEmSalvarEFechar={saveAndClose}
-                    aoClicarEmVoltar={() => navigate("/pessoas")}
-                    aoClicarEmApagar={() => handleDelete(id)}
-                    aoClicarEmNovo={() => navigate("/pessoas/detalhe/nova")}
+                    textButtonNew="Nova"
+                    showButtonSaveAndClose
+                    showButtonNew={id !== "nova"}
+                    showButtonClean={id !== "nova"}
+                    onClickSaveAndClose={saveAndClose}
+                    onClickBack={() => navigate("/pessoas")}
+                    onClickClean={() => handleDelete(id)}
+                    onClickNew={() => navigate("/pessoas/detalhe/nova")}
                   />
                 </form>
               </FormikProvider>
