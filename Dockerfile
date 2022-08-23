@@ -17,11 +17,11 @@ RUN npm run build
 
 FROM nginx:1.21.1-alpine
 
-COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
+# COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
 
-WORKDIR /usr/share/nginx/html
-RUN rm -rf ./*
-COPY --from=builder /app/build .
+# WORKDIR /usr/share/nginx/html
+# RUN rm -rf ./*
+# COPY --from=builder /app/build .
 
 EXPOSE 8080
 
