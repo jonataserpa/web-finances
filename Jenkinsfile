@@ -120,7 +120,7 @@ pipeline {
         currentBuild.result = currentBuild.result ?: 'SUCCESS'
         notifyBitbucket()
       }
-      junit 'cypress/results/cypress-report.xml'
+    //   junit 'cypress/results/cypress-report.xml'
       
       // remove container after test
       sh 'docker stop ${PROJECT_NAME}-ci-temp || true'
