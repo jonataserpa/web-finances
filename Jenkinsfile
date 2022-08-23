@@ -33,7 +33,7 @@ pipeline {
       }
     }
     
-    stage('Test code') {
+    stage('Test integration') {
       steps {
         echo '+-----------------------------------+'
         echo '| Test jest           |'
