@@ -1,6 +1,7 @@
 import { IUser } from "../interfaces/iUser.interface";
 import * as yup from "yup";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const formValidationSchema: yup.SchemaOf<IUser | any> = yup
   .object()
   .shape({

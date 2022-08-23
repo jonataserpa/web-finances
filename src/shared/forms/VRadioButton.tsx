@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import React from 'react';
+import { useState } from "react";
 import {
   FormControl,
   FormControlLabel,
   FormHelperText,
   Radio,
   RadioGroup,
-  TextField,
   TextFieldProps,
 } from "@mui/material";
 
@@ -16,7 +16,6 @@ type TVRadioButtonProps = TextFieldProps & {
   helperText: boolean | string | undefined;
 };
 export const VRadioButton: React.FC<TVRadioButtonProps> = ({
-  name,
   value,
   error,
   helperText,

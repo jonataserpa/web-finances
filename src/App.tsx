@@ -1,3 +1,4 @@
+import React from 'react';
 import { BrowserRouter } from "react-router-dom";
 import { IntlProvider } from "react-intl";
 import "./shared/forms/TraducoesYup";
@@ -14,7 +15,7 @@ import { Provider } from "react-redux";
 import { ToastContainer, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function App() {
+function App(): JSX.Element {
   return (
     <IntlProvider locale="pt-BR">
       <ToastContainer

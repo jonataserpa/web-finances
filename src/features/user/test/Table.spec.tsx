@@ -1,9 +1,9 @@
+import React from 'react';
 import "jest-environment-jsdom";
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import TableRows from "../components/table-rows/index";
 import { IUser } from "../interfaces/iUser.interface";
-import { VTextField } from "../../../shared/forms";
 
 /**
  * data mock

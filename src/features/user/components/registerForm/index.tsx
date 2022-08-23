@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Box,
   Grid,
@@ -22,8 +23,6 @@ import {
   getIn,
   useFormik,
 } from "formik";
-import { useState } from "react";
-import { IUser } from "../../interfaces/iUser.interface";
 import { formValidationSchema } from "../../schema";
 import { useVForm, VTextField } from "../../../../shared/forms";
 import { useNavigate, useParams } from "react-router-dom";
@@ -99,13 +98,6 @@ function RegisterForm({
       state: "",
       city: "",
     });
-  }
-
-  /**
-   * Remove item array address
-   */
-  function removeAdrees(arrayHelpers: any, index: number): void {
-    arrayHelpers.remove(index);
   }
 
   /**
@@ -300,7 +292,7 @@ function RegisterForm({
                       <RemoveCircleOutlineIcon
                         sx={{ fontSize: 30 }}
                         color="primary"
-                        onClick={() => removeAdrees(arrayHelpers, index)}
+                        onClick={() => arrayHelpers.remove(index)}
                         style={{ cursor: "pointer" }}
                       />
                     )}

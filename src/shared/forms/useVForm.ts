@@ -1,36 +1,25 @@
-import { AxiosError } from "axios";
 import { useCallback, useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { UsersService } from "../../features/user/services/UsersService";
 
 export const useVForm = () => {
   const isSavingAndClose = useRef(false);
   const isSavingAndNew = useRef(false);
-  const navigate = useNavigate();
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSave = useCallback(async (values: any) => {
     isSavingAndClose.current = false;
     isSavingAndNew.current = false;
-
-    try {
-      await UsersService.create(values);
-      toast.success("Usúario criado com sucesso.");
-    } catch (error: unknown) {
-      throw error;
-    }
+    await UsersService.create(values);
+    toast.success("Usúario criado com sucesso.");
   }, []);
-
+  
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleUpdate = useCallback(async (values: any) => {
     isSavingAndClose.current = false;
     isSavingAndNew.current = false;
-
-    try {
-      await UsersService.updateById(values.id, values);
-      toast.success("Usúario atualizado com sucesso.");
-    } catch (error: unknown) {
-      throw error;
-    }
+    await UsersService.updateById(values.id, values);
+    toast.success("Usúario atualizado com sucesso.");
   }, []);
 
   const handleSaveAndNew = useCallback(() => {

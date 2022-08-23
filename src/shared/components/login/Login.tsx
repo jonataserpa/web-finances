@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from "react";
 import {
   Box,
@@ -21,7 +22,8 @@ const loginSchema = yup.object().shape({
 interface ILoginProps {
   children: React.ReactNode;
 }
-export const Login: React.FC<ILoginProps> = ({ children }) => {
+// eslint-disable-next-line react/prop-types
+export const Login: React.FC<ILoginProps> = ({ children: any }) => {
   const { isAuthenticated, login } = useAuthContext();
 
   const [isLoading, setIsLoading] = useState(false);

@@ -1,7 +1,7 @@
+import React from 'react';
 import "jest-environment-jsdom";
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-import { IUser } from "../interfaces/iUser.interface";
 import { VTextField } from "../../../shared/forms";
 
 /**

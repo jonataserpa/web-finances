@@ -1,17 +1,15 @@
-import { forwardRef, ReactNode, useEffect, useRef, useState } from "react";
+import React from 'react';
+import { ReactNode, useState } from "react";
 import {
-  Box,
   FormControl,
-  FormControlLabel,
   FormHelperText,
   TextField,
   TextFieldProps,
 } from "@mui/material";
 // import { useField } from "@unform/core";
-import NumberFormat, { InputAttributes } from "react-number-format";
+import NumberFormat from "react-number-format";
 import { useStyles } from "./styles";
 import { useFormikContext } from "formik";
-import { styled } from "@mui/material/styles";
 
 type InputPhoneProps = TextFieldProps & {
   name: string;
@@ -23,15 +21,9 @@ type InputPhoneProps = TextFieldProps & {
   helperText: boolean | string | undefined;
 };
 
-interface CustomProps {
-  onChange: (event: { target: { name: string; value: string } }) => void;
-  name: string;
-}
-
 export function VInputPhone({
   name,
   label,
-  disabled,
   value,
   error,
   helperText,
