@@ -24,7 +24,7 @@ pipeline {
       }
     }
 
-    stage('Verify code') {
+    stage('Verify ESLint') {
       steps {
         echo '+-----------------------------------+'
         echo '| Check code style ESLint           |'

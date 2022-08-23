@@ -20,7 +20,7 @@ describe("validate component VTextField", () => {
       />
     );
 
-    const label = screen.getByLabelText("Name label");
+    const label = screen.getByLabelText("");
     expect(label).toBeInTheDocument();
   });
 
