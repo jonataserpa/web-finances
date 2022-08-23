@@ -9,9 +9,9 @@ pipeline {
     ansiColor('xterm')
   }
 
-  tools { 
-    nodejs "node16" 
-  }
+//   tools { 
+//     nodejs "node16" 
+//   }
 
   stages {
     stage('Install Dependencies') {
@@ -77,7 +77,7 @@ pipeline {
 
     stage('Deploy Localhost Develop') {
       when {
-        expression { return BRANCH_NAME ==~ /develop/ }
+        expression { return BRANCH_NAME ==~ /master/ }
       }
       steps {
         echo '+-----------------------------------+'
