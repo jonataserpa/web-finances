@@ -43,6 +43,7 @@ export function VInputPhone({
       >
         <NumberFormat
           value={valueDefault}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           onChange={(values: any) => {
             setValueDefault(values.target.value);
             rest.onChange?.(values);

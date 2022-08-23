@@ -1,5 +1,5 @@
 import React from "react";
-import { createContext, Key, useCallback, useContext, useState } from "react";
+import { createContext, useCallback, useContext, useState } from "react";
 
 interface IDrawerOption {
   icon: string;
@@ -16,12 +16,12 @@ const routes: IDrawerOption[] = [
   {
     icon: "company",
     path: "/companys",
-    label: "Company",
+    label: "Empresa",
   },
   {
     icon: "user",
     path: "/users",
-    label: "User",
+    label: "Usúario",
   },
 ];
 

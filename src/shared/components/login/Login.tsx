@@ -22,8 +22,7 @@ const loginSchema = yup.object().shape({
 interface ILoginProps {
   children: React.ReactNode;
 }
-// eslint-disable-next-line react/prop-types
-export const Login: React.FC<ILoginProps> = ({ children: any }) => {
+export const Login: React.FC<ILoginProps> = ({ children }) => {
   const { isAuthenticated, login } = useAuthContext();
 
   const [isLoading, setIsLoading] = useState(false);

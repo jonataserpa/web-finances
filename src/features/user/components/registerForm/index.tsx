@@ -29,6 +29,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { IAdresses } from "../../interfaces/iAdresses";
 import { LayoutBasePage } from "../../../../shared/layouts";
 import { IRegisterFormProps } from "../../interfaces/iRegisterForm.interface";
+import { IUser } from "../../interfaces/iUser.interface";
 
 const address = [
   {
@@ -310,7 +311,7 @@ function RegisterForm({
    * Validate payload
    * @param payload
    */
-  function validatePayload(payload: any): void {
+  function validatePayload(payload: IUser): void {
     setIsLoading(true);
     if (payload.id === "" || payload.id === undefined) {
       save(payload);

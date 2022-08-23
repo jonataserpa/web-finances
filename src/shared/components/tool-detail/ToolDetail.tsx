@@ -51,7 +51,6 @@ export const ToolDetail: React.FC<IToolDetailProps> = ({
   onClickNew,
   onClickBack,
   onClickClean,
-  onClickSave,
   onClickSaveAndClose,
 }) => {
   const smDown = useMediaQuery((theme: Theme) => theme.breakpoints.down("sm"));
