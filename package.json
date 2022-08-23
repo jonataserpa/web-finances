@@ -82,11 +82,5 @@
     "vite": "^2.9.9",
     "vitest": "^0.22.1",
     "web-vitals": "^2.1.2"
-  },
-  "jest": {
-    "globals": {
-       "__DEV__": true,
-       "__RCTProfileIsProfiling": false
-     }
   }
 }
