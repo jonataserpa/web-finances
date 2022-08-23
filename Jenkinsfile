@@ -116,10 +116,10 @@ pipeline {
   
   post {
     always {
-      script {
-        currentBuild.result = currentBuild.result ?: 'SUCCESS'
-        notifyBitbucket()
-      }
+    //   script {
+    //     currentBuild.result = currentBuild.result ?: 'SUCCESS'
+    //     notifyBitbucket()
+    //   }
     //   junit 'cypress/results/cypress-report.xml'
       
       // remove container after test
