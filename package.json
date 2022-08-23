@@ -1,7 +1,7 @@
 {
-  "name": "crud-material-ui",
+  "name": "financas_web",
+  "version": "0.1.10",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
   "jest-environment-jsdom": "25.5",
   "displayName": "dom",
@@ -45,6 +45,18 @@
     "styled-components": "^5.3.5",
     "ts-node": "^10.9.1",
     "yup": "^0.32.11"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "devDependencies": {
     "@swc/core": "^1.2.241",
