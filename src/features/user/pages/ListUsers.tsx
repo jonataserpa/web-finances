@@ -134,7 +134,11 @@ export const ListUsers: React.FC = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRows rows={rows} handleDelete={handleDelete} handleEdit={handleEdit} />
+            <TableRows
+              rows={rows}
+              handleDelete={handleDelete}
+              handleEdit={handleEdit}
+            />
           </TableBody>
 
           {totalCount === 0 && !isLoading && (
@@ -168,11 +172,11 @@ export const ListUsers: React.FC = () => {
           </TableFooter>
         </Table>
 
-        <RegisterForm 
+        <RegisterForm
           setIsLoading={setIsLoading}
           isLoading={isLoading}
-          getAllUsers={getAllUsers}       
-          handleDelete={handleDelete}   
+          getAllUsers={getAllUsers}
+          handleDelete={handleDelete}
           handleOpen={handleOpen}
           open={open}
           setOpen={setOpen}

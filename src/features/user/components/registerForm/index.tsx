@@ -68,8 +68,8 @@ const style = {
 
 /**
  * Register form user
- * @param params 
- * @returns 
+ * @param params
+ * @returns
  */
 function RegisterForm({
   setIsLoading,
@@ -83,7 +83,6 @@ function RegisterForm({
   dataResponse,
   setDataResponse,
 }: IRegisterFormProps): JSX.Element {
-  
   const { save, saveAndClose, update } = useVForm();
   const navigate = useNavigate();
   const { id = "nova" } = useParams<"id">();

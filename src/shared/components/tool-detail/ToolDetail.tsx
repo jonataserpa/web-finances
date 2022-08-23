@@ -157,9 +157,7 @@ export const ToolDetail: React.FC<IToolDetailProps> = ({
         </Button>
       )}
 
-      {showButtonNewLoading && !smDown && (
-        <Skeleton width={110} height={60} />
-      )}
+      {showButtonNewLoading && !smDown && <Skeleton width={110} height={60} />}
 
       {showButtonBack &&
         (showButtonNew ||

@@ -23,8 +23,7 @@ const enhancer = composeEnhancers();
 const initialState = {};
 const environment = import.meta.env.VITE_APP_STAGING;
 
-const STAGING: boolean =
-  `${environment}` === "DEVELOP" || false;
+const STAGING: boolean = `${environment}` === "DEVELOP" || false;
 
 const store = createStore(
   rootReducer,

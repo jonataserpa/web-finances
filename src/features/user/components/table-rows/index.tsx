@@ -3,8 +3,8 @@ import { IRows } from "../../interfaces/iRows.interface";
 
 /**
  * List of users table
- * @param param0 
- * @returns 
+ * @param param0
+ * @returns
  */
 function TableRows({ rows, handleDelete, handleEdit }: IRows): JSX.Element {
   if (rows && rows.length === 0) {
@@ -24,7 +24,7 @@ function TableRows({ rows, handleDelete, handleEdit }: IRows): JSX.Element {
                 <Icon>edit</Icon>
               </IconButton>
             </TableCell>
-            <TableCell data-testid='users-table'>{row.name}</TableCell>
+            <TableCell data-testid="users-table">{row.name}</TableCell>
             <TableCell>{row.email}</TableCell>
           </TableRow>
         ))}
