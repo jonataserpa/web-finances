@@ -5,9 +5,9 @@ pipeline {
     PROJECT_NAME = "${PACKAGE_JSON.name}"
     PROJECT_VERSION = "${PACKAGE_JSON.version}"
   }
-  options {
-    ansiColor('xterm')
-  }
+//   options {
+//     ansiColor('xterm')
+//   }
 
 //   tools { 
 //     nodejs "node16" 
