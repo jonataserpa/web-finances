@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { IntlProvider } from "react-intl";
 import "./shared/forms/TraducoesYup";

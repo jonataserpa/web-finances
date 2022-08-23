@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { Icon, IconButton, TableCell, TableRow } from "@mui/material";
 import { IRows } from "../../interfaces/iRows.interface";
 

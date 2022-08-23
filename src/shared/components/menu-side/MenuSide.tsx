@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React from "react";
 import {
   Avatar,
   Divider,
@@ -58,8 +57,7 @@ interface IMenuLateralProps {
   children: React.ReactNode;
 }
 
-// eslint-disable-next-line react/prop-types
-export const MenuSide: React.FC<IMenuLateralProps> = ({ children: any }) => {
+export const MenuSide: React.FC<IMenuLateralProps> = ({ children }) => {
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down("sm"));
 

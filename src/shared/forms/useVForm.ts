@@ -13,7 +13,7 @@ export const useVForm = () => {
     await UsersService.create(values);
     toast.success("Usúario criado com sucesso.");
   }, []);
-  
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleUpdate = useCallback(async (values: any) => {
     isSavingAndClose.current = false;
