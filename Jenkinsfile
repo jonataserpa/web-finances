@@ -4,6 +4,7 @@ pipeline {
     def PACKAGE_JSON = readJSON file: 'package.json'
     PROJECT_NAME = "${PACKAGE_JSON.name}"
     PROJECT_VERSION = "${PACKAGE_JSON.version}"
+    BRANCH_NAME = "${PACKAGE_JSON.BRANCH_NAME}"
   }
   options {
     ansiColor('xterm')

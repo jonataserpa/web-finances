@@ -2,6 +2,7 @@
   "name": "financas_web",
   "version": "0.17.1-SNAPSHOT",
   "private": true,
+  "BRANCH_NAME": "master",
   "type": "module",
   "jest-environment-jsdom": "25.5",
   "displayName": "dom",
