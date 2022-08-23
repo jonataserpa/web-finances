@@ -1,6 +1,6 @@
 {
   "name": "financas_web",
-  "version": "0.1.10",
+  "version": "0.17.1-SNAPSHOT",
   "private": true,
   "type": "module",
   "jest-environment-jsdom": "25.5",
