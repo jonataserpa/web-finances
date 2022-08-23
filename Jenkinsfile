@@ -1,7 +1,7 @@
 pipeline {
   agent any
   environment {
-    def PACKAGE_JSON = readJSON file: 'package.json'
+    def PACKAGE_JSON = readJson file: 'package.json'
     PROJECT_NAME = "${PACKAGE_JSON.name}"
     PROJECT_VERSION = "${PACKAGE_JSON.version}"
   }
