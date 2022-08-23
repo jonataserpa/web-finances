@@ -14,11 +14,11 @@ pipeline {
             }
         }  
         
-        stage('Mock') {
-            steps {
-                sh 'npm run mock'
-            }
-        }  
+        // stage('Mock') {
+        //     steps {
+        //         sh 'npm run mock'
+        //     }
+        // }  
 
         stage('Test') {
             steps {
