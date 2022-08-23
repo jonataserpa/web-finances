@@ -51,7 +51,7 @@ pipeline {
         echo '+-----------------------------------+'
         echo '| Docker Build                      |'
         echo '+-----------------------------------+'
-        sh 'docker build -t ${PROJECT_NAME}-ci-temp:${PROJECT_VERSION} --build-arg REACT_APP_BACKEND_URL=${DEV_REACT_APP_BACKEND_URL} .'
+        sh 'docker build -t ${PROJECT_NAME}-ci-temp:${PROJECT_VERSION} --build-arg VITE_APP_BACKEND_URL=${DEV_REACT_APP_BACKEND_URL} .'
       }
     }
 
@@ -83,7 +83,7 @@ pipeline {
         echo '+-----------------------------------+'
         echo '| Docker buid specific version      |'
         echo '+-----------------------------------+'
-        sh 'docker build -t ${PROJECT_NAME}-dev:${PROJECT_VERSION} --build-arg REACT_APP_BACKEND_URL=${DEV_REACT_APP_BACKEND_URL} .'
+        sh 'docker build -t ${PROJECT_NAME}-dev:${PROJECT_VERSION} --build-arg VITE_APP_BACKEND_URL=${DEV_REACT_APP_BACKEND_URL} .'
 
         echo '+-----------------------------------+'
         echo '| Docker run Develop                |'
@@ -102,7 +102,7 @@ pipeline {
         echo '+-----------------------------------+'
         echo '| Docker buid specific version      |'
         echo '+-----------------------------------+'
-        sh 'docker build -t ${PROJECT_NAME}-qa:${PROJECT_VERSION} --build-arg REACT_APP_BACKEND_URL=${QA_REACT_APP_BACKEND_URL} .'
+        sh 'docker build -t ${PROJECT_NAME}-qa:${PROJECT_VERSION} --build-arg VITE_APP_BACKEND_URL=${QA_REACT_APP_BACKEND_URL} .'
 
         echo '+-----------------------------------+'
         echo '| Docker run QA                       |'
