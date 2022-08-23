@@ -32,6 +32,15 @@ pipeline {
         sh 'npm run eslint'
       }
     }
+    
+    stage('Test code') {
+      steps {
+        echo '+-----------------------------------+'
+        echo '| Test jest           |'
+        echo '+-----------------------------------+'
+        sh 'npm run jest'
+      }
+    }
 
     // stage('Code Quality Check via SonarQube') {
     //     environment {
