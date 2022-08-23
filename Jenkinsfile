@@ -114,18 +114,18 @@ pipeline {
     }
   }
   
-  post {
-    always {
-    //   script {
-    //     currentBuild.result = currentBuild.result ?: 'SUCCESS'
-    //     notifyBitbucket()
-    //   }
-    //   junit 'cypress/results/cypress-report.xml'
+//   post {
+//     always {
+//       script {
+//         currentBuild.result = currentBuild.result ?: 'SUCCESS'
+//         notifyBitbucket()
+//       }
+//       junit 'cypress/results/cypress-report.xml'
       
-      // remove container after test
-      sh 'docker stop ${PROJECT_NAME}-ci-temp || true'
-      sh 'docker rm ${PROJECT_NAME}-ci-temp || true'
-    }
-  }
+//       // remove container after test
+//       sh 'docker stop ${PROJECT_NAME}-ci-temp || true'
+//       sh 'docker rm ${PROJECT_NAME}-ci-temp || true'
+//     }
+//   }
 
 }
