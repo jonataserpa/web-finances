@@ -38,7 +38,7 @@ pipeline {
         echo '+-----------------------------------+'
         echo '| Test jest           |'
         echo '+-----------------------------------+'
-        sh 'npm run jest'
+        sh 'npm run test'
       }
     }
 
