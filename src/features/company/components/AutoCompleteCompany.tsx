@@ -2,9 +2,9 @@ import React from "react";
 import { useEffect, useMemo, useState } from "react";
 import { Autocomplete, CircularProgress, TextField } from "@mui/material";
 
-import { CompanysService } from "../services/CompanysService";
+import { CompanyService } from "../services/CompanyService";
 import { useDebounce } from "../../../shared/hooks";
-import { IAutoCompleteCompanyProps } from "../interfaces/iCompany.interface";
+import { IAutoCompleteCompanyProps } from "../interfaces/iAutoCompleteCompanyProps.interface";
 import { useFormikContext } from "formik";
 
 type TAutoCompleteOption = {
@@ -31,7 +31,7 @@ export const AutoCompleteCompany: React.FC<IAutoCompleteCompanyProps> = ({
     setIsLoading(true);
 
     debounce(() => {
-      CompanysService.getAll(1, busca).then((result) => {
+      CompanyService.getAll(1, busca).then((result) => {
         setIsLoading(false);
 
         if (result instanceof Error) {
@@ -40,9 +40,9 @@ export const AutoCompleteCompany: React.FC<IAutoCompleteCompanyProps> = ({
           console.log(result);
 
           setOpcoes(
-            result.data.map((Company) => ({
-              id: Company.id,
-              label: Company.name,
+            result.data.map((company) => ({
+              id: company.id,
+              label: company.name,
             }))
           );
         }

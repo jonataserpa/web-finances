@@ -1,7 +1,11 @@
-export interface IAutoCompleteCompanyProps {
-  isExternalLoading?: boolean;
-  error: boolean | undefined;
-  helperText: boolean | string | undefined;
-  value: number | undefined;
-  name: string;
+import { IAdresses } from "../../user/interfaces/iAdresses";
+
+export interface ICompanyProps {
+  id: string;
+  reasonsocial: string;
+  namefantasy: string;
+  CNPJ: string;
+  phone: string;
+  email: string;
+  address?: IAdresses[];
 }

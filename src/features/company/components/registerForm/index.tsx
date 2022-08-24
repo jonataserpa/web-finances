@@ -12,9 +12,6 @@ import { v4 as uuidv4 } from "uuid";
 import CloseIcon from "@mui/icons-material/Close";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { ToolDetail } from "../../../../shared/components";
-import { AutoCompleteCompany } from "../../../company/components/AutoCompleteCompany";
-import { VDatePicker } from "../../../../shared/forms/VDatePicker";
-import { VRadioButton } from "../../../../shared/forms/VRadioButton";
 import { VInputPhone } from "../../../../shared/forms/VPhone";
 import {
   FieldArray,
@@ -23,14 +20,14 @@ import {
   getIn,
   useFormik,
 } from "formik";
-import { formValidationSchema } from "../../schema";
 import { useVForm, VTextField } from "../../../../shared/forms";
 import { useNavigate, useParams } from "react-router-dom";
-import { IAdresses } from "../../interfaces/iAdresses";
 import { LayoutBasePage } from "../../../../shared/layouts";
-import { IRegisterFormProps } from "../../interfaces/iRegisterForm.interface";
-import { IUser } from "../../interfaces/iUser.interface";
-import { user } from "../../../utils/initialValues";
+import { IAdresses } from "../../../user/interfaces/iAdresses";
+import { company } from "../../../utils/initialValues";
+import { IRegisterFormCompanyProps } from "../../interfaces/iRegisterForm.interface";
+import { ICompanyProps } from "../../interfaces/iCompany.interface";
+import { formValidationSchemaCompany } from "../../schema";
 
 const style = {
   position: "absolute",
@@ -62,7 +59,7 @@ function RegisterForm({
   titleModal,
   dataResponse,
   setDataResponse,
-}: IRegisterFormProps): JSX.Element {
+}: IRegisterFormCompanyProps): JSX.Element {
   const { save, saveAndClose, update } = useVForm();
   const navigate = useNavigate();
   const { id = "nova" } = useParams<"id">();
@@ -86,8 +83,8 @@ function RegisterForm({
    */
   const handleClose = () => {
     setOpen(false);
-    setDataResponse(user);
-    setTitleModal("Novo Usúario");
+    setDataResponse(company);
+    setTitleModal("Nova Empresa");
     formik.resetForm();
   };
 
@@ -291,7 +288,7 @@ function RegisterForm({
    * Validate payload
    * @param payload
    */
-  function validatePayload(payload: IUser): void {
+  function validatePayload(payload: ICompanyProps): void {
     setIsLoading(true);
     if (payload.id === "" || payload.id === undefined) {
       save(payload);
@@ -309,7 +306,7 @@ function RegisterForm({
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: { ...dataResponse },
-    validationSchema: formValidationSchema,
+    validationSchema: formValidationSchemaCompany,
     onSubmit: (values) => {
       validatePayload(values);
     },
@@ -322,7 +319,7 @@ function RegisterForm({
         onClose={(_, reason) => {
           if (reason !== "backdropClick") {
             handleClose();
-            setDataResponse(user);
+            setDataResponse(company);
           }
         }}
         aria-labelledby="modal-modal-title"
@@ -339,7 +336,7 @@ function RegisterForm({
             }}
           />
           <LayoutBasePage
-            title={titleModal === "" ? "Novo usúario" : titleModal}
+            title={titleModal === "" ? "Nova Empresa" : titleModal}
           >
             <FormikProvider value={formik}>
               <form onSubmit={formik.handleSubmit}>
@@ -365,35 +362,60 @@ function RegisterForm({
                       <Grid item xs={12} sm={12} md={6} lg={4} xl={5}>
                         <VTextField
                           fullWidth
-                          name="name"
+                          name="reasonsocial"
                           type="text"
                           disabled={isLoading}
-                          label="Nome completo"
+                          label="Razão social"
                           onChange={formik.handleChange}
-                          value={formik.values.name}
+                          value={formik.values.reasonsocial}
                           error={
-                            formik.touched.name && Boolean(formik.errors.name)
-                          }
-                          helperText={formik.touched.name && formik.errors.name}
-                        />
-                      </Grid>
-
-                      <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
-                        <AutoCompleteCompany
-                          isExternalLoading={isLoading}
-                          value={formik.values.companyId}
-                          name="companyId"
-                          error={
-                            formik.touched.companyId &&
-                            Boolean(formik.errors.companyId)
+                            formik.touched.reasonsocial &&
+                            Boolean(formik.errors.reasonsocial)
                           }
                           helperText={
-                            formik.touched.companyId && formik.errors.companyId
+                            formik.touched.reasonsocial &&
+                            formik.errors.reasonsocial
                           }
                         />
                       </Grid>
 
-                      <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
+                      <Grid item xs={12} sm={12} md={6} lg={4} xl={5}>
+                        <VTextField
+                          fullWidth
+                          name="namefantasy"
+                          type="text"
+                          disabled={isLoading}
+                          label="Nome fantasia"
+                          onChange={formik.handleChange}
+                          value={formik.values.namefantasy}
+                          error={
+                            formik.touched.namefantasy &&
+                            Boolean(formik.errors.namefantasy)
+                          }
+                          helperText={
+                            formik.touched.namefantasy &&
+                            formik.errors.namefantasy
+                          }
+                        />
+                      </Grid>
+
+                      <Grid item xs={12} sm={12} md={6} lg={4} xl={5}>
+                        <VTextField
+                          fullWidth
+                          name="CNPJ"
+                          type="text"
+                          disabled={isLoading}
+                          label="CNPJ"
+                          onChange={formik.handleChange}
+                          value={formik.values.CNPJ}
+                          error={
+                            formik.touched.CNPJ && Boolean(formik.errors.CNPJ)
+                          }
+                          helperText={formik.touched.CNPJ && formik.errors.CNPJ}
+                        />
+                      </Grid>
+
+                      <Grid item xs={12} sm={12} md={6} lg={4} xl={5}>
                         <VInputPhone
                           fullWidth
                           name="phone"
@@ -407,45 +429,6 @@ function RegisterForm({
                           }
                           helperText={
                             formik.touched.phone && formik.errors.phone
-                          }
-                        />
-                      </Grid>
-                    </Grid>
-
-                    <Grid container item direction="row" spacing={2}>
-                      <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
-                        <VDatePicker
-                          fullWidth
-                          name="dateborn"
-                          label="Data de nascimento"
-                          disabled={isLoading}
-                          onChange={formik.handleChange}
-                          value={formik.values.dateborn}
-                          error={
-                            formik.touched.dateborn &&
-                            Boolean(formik.errors.dateborn)
-                          }
-                          helperText={
-                            formik.touched.dateborn && formik.errors.dateborn
-                          }
-                        />
-                      </Grid>
-
-                      <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
-                        <VRadioButton
-                          fullWidth
-                          name="radiogender"
-                          label="Gênero"
-                          disabled={isLoading}
-                          onChange={formik.handleChange}
-                          value={formik.values.radiogender || ""}
-                          error={
-                            formik.touched.radiogender &&
-                            Boolean(formik.errors.radiogender)
-                          }
-                          helperText={
-                            formik.touched.radiogender &&
-                            formik.errors.radiogender
                           }
                         />
                       </Grid>
@@ -465,59 +448,6 @@ function RegisterForm({
                       <Typography variant="h6">Endereços</Typography>
                     </Grid>
                     <Grid item>{listAdrees()}</Grid>
-                  </Grid>
-                </Box>
-
-                <Box
-                  margin={1}
-                  display="flex"
-                  flexDirection="column"
-                  component={Paper}
-                  variant="outlined"
-                >
-                  <Grid container direction="column" padding={2} spacing={2}>
-                    <Grid item>
-                      <Typography variant="h6">Acesso</Typography>
-                    </Grid>
-
-                    <Grid container item direction="row" spacing={2}>
-                      <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
-                        <VTextField
-                          fullWidth
-                          name="email"
-                          type="email"
-                          label="Email"
-                          disabled={isLoading}
-                          onChange={formik.handleChange}
-                          value={formik.values.email}
-                          error={
-                            formik.touched.email && Boolean(formik.errors.email)
-                          }
-                          helperText={
-                            formik.touched.email && formik.errors.email
-                          }
-                        />
-                      </Grid>
-
-                      <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
-                        <VTextField
-                          fullWidth
-                          name="password"
-                          type="password"
-                          label="Password"
-                          disabled={isLoading}
-                          onChange={formik.handleChange}
-                          value={formik.values.password}
-                          error={
-                            formik.touched.password &&
-                            Boolean(formik.errors.password)
-                          }
-                          helperText={
-                            formik.touched.password && formik.errors.password
-                          }
-                        />
-                      </Grid>
-                    </Grid>
                   </Grid>
                 </Box>
 

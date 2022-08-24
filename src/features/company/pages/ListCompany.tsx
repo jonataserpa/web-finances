@@ -13,24 +13,24 @@ import {
   TableRow,
 } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
-import { UsersService } from "../services/UsersService";
+import { CompanyService } from "../services/CompanyService";
 import { Environment } from "../../../shared/environment";
 import { LayoutBasePage } from "../../../shared/layouts";
-import { IUser } from "../interfaces/iUser.interface";
 import { ToolList } from "../../../shared/components";
 import { useDebounce } from "../../../shared/hooks";
 import TableRows from "../components/table-rows";
 import RegisterForm from "../components/registerForm";
-import { user } from "../../utils/initialValues";
+import { ICompanyProps } from "../interfaces/iCompany.interface";
+import { company } from "../../utils/initialValues";
 
-export const ListUsers: React.FC = () => {
-  const [dataResponse, setDataResponse] = useState<IUser>(user);
+export const ListCompany: React.FC = () => {
+  const [dataResponse, setDataResponse] = useState<ICompanyProps>(company);
   const [searchParams, setSearchParams] = useSearchParams();
   const { debounce } = useDebounce();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const [titleModal, setTitleModal] = useState("");
-  const [rows, setRows] = useState<IUser[]>([]);
+  const [rows, setRows] = useState<ICompanyProps[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [totalCount, setTotalCount] = useState(0);
 
@@ -53,7 +53,7 @@ export const ListUsers: React.FC = () => {
    */
   function getAllUsers() {
     debounce(() => {
-      UsersService.getAll(pagina, busca).then((result) => {
+      CompanyService.getAll(pagina, busca).then((result) => {
         setIsLoading(false);
 
         if (result instanceof Error) {
@@ -82,12 +82,12 @@ export const ListUsers: React.FC = () => {
    */
   const handleDelete = (id: string | undefined) => {
     if (confirm("Realmente deseja apagar?")) {
-      UsersService.deleteById(id).then((result) => {
+      CompanyService.deleteById(id).then((result) => {
         if (result instanceof Error) {
           alert(result.message);
         } else {
           setRows((oldRows) => [
-            ...oldRows.filter((oldRow) => oldRow.id !== id),
+            ...oldRows.filter((oldRow) => oldRow.id.toString() !== id),
           ]);
           alert("Registro apagado com sucesso!");
         }
@@ -96,11 +96,11 @@ export const ListUsers: React.FC = () => {
   };
 
   /**
-   * Edit user modal dialog
+   * Edit company modal dialog
    */
-  function handleEdit(user: IUser) {
-    setTitleModal("Edite Usúario");
-    setDataResponse(user);
+  function handleEdit(company: ICompanyProps) {
+    setTitleModal("Edite Empresa");
+    setDataResponse(company);
     setTimeout(() => {
       handleOpen();
     }, 100);
@@ -108,7 +108,7 @@ export const ListUsers: React.FC = () => {
 
   return (
     <LayoutBasePage
-      title="Listagem de Úsuarios"
+      title="Listagem de Empresas"
       toolBars={
         <ToolList
           showInputSearch
@@ -130,8 +130,8 @@ export const ListUsers: React.FC = () => {
           <TableHead>
             <TableRow>
               <TableCell width={100}>Ações</TableCell>
-              <TableCell>Nome completo</TableCell>
-              <TableCell>Email</TableCell>
+              <TableCell>Razão social</TableCell>
+              <TableCell>CNPJ</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

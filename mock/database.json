@@ -230,19 +230,31 @@
   ],
   "companys": [
     {
-      "name": "Novo Hamburgo",
+      "reasonsocial": "Empresa Hamburgo",
+      "namefantasy": "Nome fantasy",      
+      "CNPJ": "37.004.504/0001-90",
+      "phone": "(77) 77777-4544",
       "id": 2
     },
     {
-      "name": "Palmitinho",
+      "reasonsocial": "Palmitinho",
+      "namefantasy": "Nome fantasy", 
+      "CNPJ": "19.890.685/0001-17",
+      "phone": "(77) 77777-4544",
       "id": 4
     },
     {
-      "name": "Sapucaia do Sul",
+      "reasonsocial": "Sapucaia do Sul",
+      "namefantasy": "Nome fantasy", 
+      "CNPJ": "12.528.181/0001-02",
+      "phone": "(77) 77777-4544",
       "id": 6
     },
     {
-      "name": "Tramandaí",
+      "reasonsocial": "Tramandaí",
+      "namefantasy": "Nome fantasy", 
+      "CNPJ": "34.734.525/0001-72",
+      "phone": "(77) 77777-4544",
       "id": 7
     }
   ],

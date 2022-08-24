@@ -1,18 +1,21 @@
 import { Api } from "../../../shared/services/axios-config";
 import { Environment } from "../../../shared/environment";
+import { IUser } from "../../user/interfaces/iUser.interface";
+import { ICompanyProps } from "../interfaces/iCompany.interface";
 
 export interface IListCompany {
   id: number;
-  name: string;
+  reasonsocial: string;
+  CNPJ: string;
 }
 
 export interface IDetailCompany {
   id: number;
-  name: string;
+  reasonsocial: string;
 }
 
-type TCompanyWithTotalCount = {
-  data: IListCompany[];
+export type TCompanyWithTotalCount = {
+  data: ICompanyProps[];
   totalCount: number;
 };
 
@@ -21,7 +24,7 @@ const getAll = async (
   filter = ""
 ): Promise<TCompanyWithTotalCount | Error> => {
   try {
-    const url = `/companys?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&name_like=${filter}`;
+    const url = `/companys?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&reasonsocial_like=${filter}`;
 
     const { data, headers } = await Api.get(url);
 
@@ -43,7 +46,7 @@ const getAll = async (
   }
 };
 
-const getById = async (id: number): Promise<IDetailCompany | Error> => {
+const getById = async (id: number): Promise<IUser | Error> => {
   try {
     const { data } = await Api.get(`/companys/${id}`);
 
@@ -60,9 +63,7 @@ const getById = async (id: number): Promise<IDetailCompany | Error> => {
   }
 };
 
-const create = async (
-  dados: Omit<IDetailCompany, "id">
-): Promise<number | Error> => {
+const create = async (dados: Omit<IUser, "id">): Promise<number | Error> => {
   try {
     const { data } = await Api.post<IDetailCompany>("/companys", dados);
 
@@ -79,10 +80,7 @@ const create = async (
   }
 };
 
-const updateById = async (
-  id: number,
-  dados: IDetailCompany
-): Promise<void | Error> => {
+const updateById = async (id: number, dados: IUser): Promise<void | Error> => {
   try {
     await Api.put(`/companys/${id}`, dados);
   } catch (error) {
@@ -104,7 +102,7 @@ const deleteById = async (id: string | undefined): Promise<void | Error> => {
   }
 };
 
-export const CompanysService = {
+export const CompanyService = {
   getAll,
   create,
   getById,

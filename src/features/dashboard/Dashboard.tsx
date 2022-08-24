@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
-import { CompanysService } from "../company/services/CompanysService";
+import { CompanyService } from "../company/services/CompanyService";
 import { UsersService } from "../user/services/UsersService";
 import { LayoutBasePage } from "../../shared/layouts";
 import { ToolList } from "../../shared/components";
@@ -17,7 +17,7 @@ export const Dashboard = () => {
     setIsLoadingCompanys(true);
     setIsLoadingUsers(true);
 
-    CompanysService.getAll(1).then((result) => {
+    CompanyService.getAll(1).then((result) => {
       setIsLoadingCompanys(false);
 
       if (result instanceof Error) {
