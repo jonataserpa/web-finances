@@ -476,9 +476,8 @@ function RegisterForm({
                   showButtonNew={id !== "nova"}
                   showButtonClean={id !== "nova"}
                   onClickSaveAndClose={saveAndClose}
-                  onClickBack={() => navigate("/pessoas")}
+                  onClickBack={() => navigate("/companys")}
                   onClickClean={() => handleDelete(id)}
-                  onClickNew={() => navigate("/pessoas/detalhe/nova")}
                 />
               </form>
             </FormikProvider>

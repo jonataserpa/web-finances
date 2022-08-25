@@ -9,7 +9,7 @@ import { IRows } from "../../interfaces/iRows.interface";
  */
 function TableRows({ rows, handleDelete, handleEdit }: IRows): JSX.Element {
   if (rows && rows.length === 0) {
-    return <div style={{ marginLeft: 20}}>No payments</div>;
+    return <div style={{ marginLeft: 20 }}>No payments</div>;
   }
   return (
     <>
@@ -26,7 +26,7 @@ function TableRows({ rows, handleDelete, handleEdit }: IRows): JSX.Element {
               </IconButton>
             </TableCell>
             <TableCell data-testid="users-table">{row.description}</TableCell>
-            <TableCell>{row.company}</TableCell>
+            <TableCell>{row.companyId}</TableCell>
             <TableCell>{row.value}</TableCell>
           </TableRow>
         ))}

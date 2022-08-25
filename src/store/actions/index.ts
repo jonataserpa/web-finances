@@ -1,7 +1,7 @@
-import user from "./user.actions";
+import payment from "./payments.actions";
 
 const allActions = {
-  user,
+  payment,
 };
 
 export default allActions;

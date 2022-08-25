@@ -1,6 +1,10 @@
 import { v4 as uuidv4 } from "uuid";
 import { ICompanyProps } from "../../company/interfaces/iCompany.interface";
+import { IPaymentsProps } from "../../payments/interfaces/iPayments.interface";
 
+/**
+ * Initil values address
+ */
 export const address = [
   {
     id: uuidv4(),
@@ -12,6 +16,9 @@ export const address = [
   },
 ];
 
+/**
+ * Initil values users
+ */
 export const user = {
   name: "",
   email: "",
@@ -22,6 +29,9 @@ export const user = {
   address,
 };
 
+/**
+ * Initil values company
+ */
 export const company: ICompanyProps = {
   id: "",
   reasonsocial: "",
@@ -31,3 +41,16 @@ export const company: ICompanyProps = {
   email: "",
   address,
 };
+
+/**
+ * Initil values payment
+ */
+export const paymentInital: IPaymentsProps = {
+  id: "",
+  description: "",
+  companyId: null,
+  value: "",
+  observacion: "",
+  date_payment: "",
+}
+

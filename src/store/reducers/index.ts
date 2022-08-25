@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
-import user, { IUserState } from "./user.reducer";
+import payment, { IPaymentState } from "./payments.reducer";
 
 export interface ICombineState {
-  user: IUserState;
+  payment: IPaymentState;
 }
 
 export default combineReducers({
-  user,
+  payment,
 });

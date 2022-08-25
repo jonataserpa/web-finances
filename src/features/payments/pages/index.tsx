@@ -20,17 +20,25 @@ import { useDebounce } from "../../../shared/hooks";
 import { IPaymentsProps } from "../interfaces/iPayments.interface";
 import { PaymentsService } from "../services/PaymentsService";
 import TableRows from "../components/table-rows";
+import RegisterForm from "../components/registerForm";
+import { useDispatch } from "react-redux";
+import allActions from "../../../store/actions";
+import { paymentInital } from "../../utils/initialValues";
 
 export const ListPayments: React.FC = () => {
-  const [dataResponse, setDataResponse] = useState<IPaymentsProps>();
   const [searchParams, setSearchParams] = useSearchParams();
   const { debounce } = useDebounce();
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => {
+    setOpen(true);
+    dispatch(allActions.payment.setPayment(true, paymentInital));
+  };
   const [titleModal, setTitleModal] = useState("");
   const [rows, setRows] = useState<IPaymentsProps[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [totalCount, setTotalCount] = useState(0);
+
+  const dispatch = useDispatch();
 
   /**
    * Search default values
@@ -51,7 +59,7 @@ export const ListPayments: React.FC = () => {
    */
   function getAllUsers() {
     debounce(() => {
-        PaymentsService.getAll(pagina, busca).then((result) => {
+      PaymentsService.getAll(pagina, busca).then((result) => {
         setIsLoading(false);
 
         if (result instanceof Error) {
@@ -80,7 +88,7 @@ export const ListPayments: React.FC = () => {
    */
   const handleDelete = (id: string | undefined) => {
     if (confirm("Realmente deseja apagar?")) {
-        PaymentsService.deleteById(id).then((result) => {
+      PaymentsService.deleteById(id).then((result) => {
         if (result instanceof Error) {
           alert(result.message);
         } else {
@@ -94,13 +102,13 @@ export const ListPayments: React.FC = () => {
   };
 
   /**
-   * Edit company modal dialog
+   * Edit payment modal dialog
    */
-  function handleEdit(company: IPaymentsProps) {
-    setTitleModal("Edite Saída");
-    setDataResponse(company);
+  function handleEdit(paymentValue: IPaymentsProps) {
+    setTitleModal("Edite Pagamento");
+    dispatch(allActions.payment.setPayment(true, paymentValue));
     setTimeout(() => {
-      handleOpen();
+        setOpen(true);
     }, 100);
   }
 
@@ -172,7 +180,7 @@ export const ListPayments: React.FC = () => {
           </TableFooter>
         </Table>
 
-        {/* <RegisterForm
+        <RegisterForm
           setIsLoading={setIsLoading}
           isLoading={isLoading}
           getAllUsers={getAllUsers}
@@ -182,9 +190,7 @@ export const ListPayments: React.FC = () => {
           setOpen={setOpen}
           setTitleModal={setTitleModal}
           titleModal={titleModal}
-          dataResponse={dataResponse}
-          setDataResponse={setDataResponse}
-        /> */}
+        />
       </TableContainer>
     </LayoutBasePage>
   );

@@ -95,7 +95,7 @@ const create = async (
 };
 
 const updateById = async (
-  id: number,
+  id: string,
   dados: IPaymentsProps
 ): Promise<void | Error> => {
   try {
