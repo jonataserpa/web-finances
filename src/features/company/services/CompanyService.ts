@@ -24,7 +24,7 @@ export type TCompanyWithTotalCount = {
  * Handle api errors
  * @param error
  */
- export const handleApiErrors = (error: AxiosError, message: string) => {
+export const handleApiErrors = (error: AxiosError, message: string) => {
   if (error && error.response && error.response.data) {
     switch (error.response.data.statusCode) {
       case 400:
@@ -87,7 +87,9 @@ const getById = async (id: number): Promise<ICompanyProps | Error> => {
   }
 };
 
-const create = async (dados: Omit<ICompanyProps, "id">): Promise<number | Error> => {
+const create = async (
+  dados: Omit<ICompanyProps, "id">
+): Promise<number | Error> => {
   try {
     const { data } = await Api.post<IDetailCompany>("/companys", dados);
 
@@ -103,7 +105,10 @@ const create = async (dados: Omit<ICompanyProps, "id">): Promise<number | Error>
   }
 };
 
-const updateById = async (id: number, dados: ICompanyProps): Promise<void | Error> => {
+const updateById = async (
+  id: number,
+  dados: ICompanyProps
+): Promise<void | Error> => {
   try {
     await Api.put(`/companys/${id}`, dados);
     toast.success("Usúario atualizado com sucesso.");

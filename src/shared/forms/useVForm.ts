@@ -11,7 +11,6 @@ export const useVForm = () => {
     isSavingAndClose.current = false;
     isSavingAndNew.current = false;
     await UsersService.create(values);
-    
   }, []);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -415,7 +415,7 @@ function RegisterForm({
                           helperText={formik.touched.CNPJ && formik.errors.CNPJ}
                         />
                       </Grid>
-                      
+
                       <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
                         <VTextField
                           fullWidth
@@ -428,7 +428,9 @@ function RegisterForm({
                           error={
                             formik.touched.email && Boolean(formik.errors.email)
                           }
-                          helperText={formik.touched.email && formik.errors.email}
+                          helperText={
+                            formik.touched.email && formik.errors.email
+                          }
                         />
                       </Grid>
 

@@ -1,8 +1,11 @@
 import React from "react";
 import { createContext, useCallback, useContext, useState } from "react";
+import Person3Icon from '@mui/icons-material/Person3';
+import StoreIcon from '@mui/icons-material/Store';
 
 interface IDrawerOption {
-  icon: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  icon: any;
   path: string;
   label: string;
 }
@@ -14,14 +17,24 @@ const routes: IDrawerOption[] = [
     label: "Page initial",
   },
   {
-    icon: "company",
+    icon: <StoreIcon />,
     path: "/companys",
     label: "Empresa",
   },
   {
-    icon: "user",
+    icon: <Person3Icon />,
     path: "/users",
     label: "Usúario",
+  },
+  {
+    icon: "receipt",
+    path: "/receipts",
+    label: "Entrada",
+  },
+  {
+    icon: "payments",
+    path: "/payments",
+    label: "Saída",
   },
 ];
 
