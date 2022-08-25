@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { IRegisterFormPaymentProps } from "../../interfaces/iIRegisterFormPaymentProps.interface";
 import { IPaymentsProps } from "../../interfaces/iPayments.interface";
-import { Box, fabClasses, Grid, LinearProgress, Modal, Paper, Typography } from "@mui/material";
+import {
+  Box,
+  fabClasses,
+  Grid,
+  LinearProgress,
+  Modal,
+  Paper,
+  Typography,
+} from "@mui/material";
 import { PaymentsService } from "../../services/PaymentsService";
 import { paymentInital } from "../../../utils/initialValues";
 import { LayoutBasePage } from "../../../../shared/layouts";
 import { ToolDetail } from "../../../../shared/components";
 import { ICombineState } from "../../../../store/reducers";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { VTextField } from "../../../../shared/forms";
 import CloseIcon from "@mui/icons-material/Close";
 import { useSelector } from "react-redux";
@@ -16,18 +24,18 @@ import { formValidationSchemaPayment } from "../../schemas";
 import { AutoCompleteCompany } from "../../../company/components/AutoCompleteCompany";
 
 const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: "80%",
-    height: "80%",
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    borderRadius: 4,
-    p: 4,
-  };
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "80%",
+  height: "80%",
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  borderRadius: 4,
+  p: 4,
+};
 
 function RegisterForm({
   setIsLoading,
@@ -39,8 +47,9 @@ function RegisterForm({
   setTitleModal,
   titleModal,
 }: IRegisterFormPaymentProps): JSX.Element {
-  const navigate = useNavigate();
-  const { payment, openModal } = useSelector((state: ICombineState) => state.payment);
+  const { payment, openModal } = useSelector(
+    (state: ICombineState) => state.payment
+  );
   const { id = "nova" } = useParams<"id">();
   const [dataResponse, setDataResponse] = useState<IPaymentsProps>(payment);
 
@@ -50,12 +59,12 @@ function RegisterForm({
    */
   useEffect(() => {
     if (payment) {
-        setDataResponse(payment);
-        formik.values = payment;
-        console.log('payment', payment);
-        console.log('formik', formik.values);
+      setDataResponse(payment);
+      formik.values = payment;
+      console.log("payment", payment);
+      console.log("formik", formik.values);
     }
-  },[payment, dataResponse])
+  }, [payment, dataResponse]);
 
   /**
    * Update the payment initial state values
@@ -63,9 +72,9 @@ function RegisterForm({
    */
   useEffect(() => {
     if (!openModal) {
-        setDataResponse(paymentInital);
+      setDataResponse(paymentInital);
     }
-  },[openModal])
+  }, [openModal]);
 
   /**
    * Handle close modal dialog
@@ -197,12 +206,10 @@ function RegisterForm({
                           onChange={formik.handleChange}
                           value={formik.values.value}
                           error={
-                            formik.touched.value &&
-                            Boolean(formik.errors.value)
+                            formik.touched.value && Boolean(formik.errors.value)
                           }
                           helperText={
-                            formik.touched.value &&
-                            formik.errors.value
+                            formik.touched.value && formik.errors.value
                           }
                         />
                       </Grid>
@@ -217,10 +224,12 @@ function RegisterForm({
                           onChange={formik.handleChange}
                           value={formik.values.observacion}
                           error={
-                            formik.touched.observacion && Boolean(formik.errors.observacion)
+                            formik.touched.observacion &&
+                            Boolean(formik.errors.observacion)
                           }
                           helperText={
-                            formik.touched.observacion && formik.errors.observacion
+                            formik.touched.observacion &&
+                            formik.errors.observacion
                           }
                         />
                       </Grid>

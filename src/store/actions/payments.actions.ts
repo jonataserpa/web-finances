@@ -9,7 +9,10 @@ export interface IPaymentAction {
   };
 }
 
-const setPayment = (openModal?: boolean, payment?: IPaymentsProps): IPaymentAction => ({
+const setPayment = (
+  openModal?: boolean,
+  payment?: IPaymentsProps
+): IPaymentAction => ({
   type: SET_PAYMENTS,
   payload: {
     openModal,

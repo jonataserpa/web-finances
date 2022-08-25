@@ -33,7 +33,7 @@ export const ListPayments: React.FC = () => {
     setOpen(true);
     dispatch(allActions.payment.setPayment(true, paymentInital));
   };
-  const [titleModal, setTitleModal] = useState("");
+  const [titleModal, setTitleModal] = useState("Novo Pagamento");
   const [rows, setRows] = useState<IPaymentsProps[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [totalCount, setTotalCount] = useState(0);
@@ -108,7 +108,7 @@ export const ListPayments: React.FC = () => {
     setTitleModal("Edite Pagamento");
     dispatch(allActions.payment.setPayment(true, paymentValue));
     setTimeout(() => {
-        setOpen(true);
+      setOpen(true);
     }, 100);
   }
 
