@@ -17,25 +17,25 @@ import { Environment } from "../../../shared/environment";
 import { LayoutBasePage } from "../../../shared/layouts";
 import { ToolList } from "../../../shared/components";
 import { useDebounce } from "../../../shared/hooks";
-import { IPaymentsProps } from "../interfaces/iPayments.interface";
-import { PaymentsService } from "../services/PaymentsService";
+import { IReceiveProps } from "../interfaces/iReceive.interface";
+import { ReceiptsService } from "../services/ReceiptsService";
 import TableRows from "../components/table-rows";
 import RegisterForm from "../components/registerForm";
 import { useDispatch } from "react-redux";
 import allActions from "../../../store/actions";
-import { paymentInital } from "../../utils/initialValues";
+import { receiptsInital } from "../../utils/initialValues";
 
-export const ListPayments: React.FC = () => {
+export const ListReceipts: React.FC = () => {
   const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
   const { debounce } = useDebounce();
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(true);
-    dispatch(allActions.payment.setPayment(false, paymentInital));
+    dispatch(allActions.receipt.setReceipt(false, receiptsInital));
   };
-  const [titleModal, setTitleModal] = useState("Novo Pagamento");
-  const [rows, setRows] = useState<IPaymentsProps[]>([]);
+  const [titleModal, setTitleModal] = useState("Nova Entrada");
+  const [rows, setRows] = useState<IReceiveProps[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [totalCount, setTotalCount] = useState(0);
 
@@ -58,7 +58,7 @@ export const ListPayments: React.FC = () => {
    */
   function getAllUsers() {
     debounce(() => {
-      PaymentsService.getAll(pagina, busca).then((result) => {
+      ReceiptsService.getAll(pagina, busca).then((result) => {
         setIsLoading(false);
 
         if (result instanceof Error) {
@@ -87,7 +87,7 @@ export const ListPayments: React.FC = () => {
    */
   const handleDelete = (id: string | undefined) => {
     if (confirm("Realmente deseja apagar?")) {
-      PaymentsService.deleteById(id).then((result) => {
+      ReceiptsService.deleteById(id).then((result) => {
         if (result instanceof Error) {
           alert(result.message);
         } else {
@@ -101,11 +101,11 @@ export const ListPayments: React.FC = () => {
   };
 
   /**
-   * Edit payment modal dialog
+   * Edit receipt modal dialog
    */
-  function handleEdit(paymentValue: IPaymentsProps) {
-    setTitleModal("Edite Pagamento");
-    dispatch(allActions.payment.setPayment(true, paymentValue));
+  function handleEdit(receiptValue: IReceiveProps) {
+    setTitleModal("Edite Entrada");
+    dispatch(allActions.receipt.setReceipt(true, receiptValue));
     setTimeout(() => {
       setOpen(true);
     }, 100);
@@ -113,7 +113,7 @@ export const ListPayments: React.FC = () => {
 
   return (
     <LayoutBasePage
-      title="Listagem de Saída"
+      title="Listagem de Entrada"
       toolBars={
         <ToolList
           showInputSearch

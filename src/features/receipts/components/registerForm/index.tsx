@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { IRegisterFormPaymentProps } from "../../interfaces/iIRegisterFormPaymentProps.interface";
-import { IPaymentsProps } from "../../interfaces/iPayments.interface";
+import { IReceiveProps } from "../../interfaces/iReceive.interface";
 import {
   Box,
   Grid,
@@ -9,8 +8,7 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
-import { PaymentsService } from "../../services/PaymentsService";
-import { paymentInital, statusPayment } from "../../../utils/initialValues";
+import { receiptsInital, statusReceipt } from "../../../utils/initialValues";
 import { LayoutBasePage } from "../../../../shared/layouts";
 import { ToolDetail } from "../../../../shared/components";
 import { ICombineState } from "../../../../store/reducers";
@@ -19,9 +17,11 @@ import { VTextField } from "../../../../shared/forms";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
 import { FormikProvider, useFormik } from "formik";
-import { formValidationSchemaPayment } from "../../schemas";
+import { formValidationSchemaReceipt } from "../../schemas";
 import { AutoCompleteCompany } from "../../../company/components/AutoCompleteCompany";
 import { VSelectStatus } from "../../../../shared/forms/VStatus";
+import { IRegisterFormReceiveProps } from "../../interfaces/iIRegisterFormReceiveProps.interface";
+import { ReceiptsService } from "../../services/ReceiptsService";
 import allActions from "../../../../store/actions";
 
 const style = {
@@ -47,34 +47,34 @@ function RegisterForm({
   setOpen,
   setTitleModal,
   titleModal,
-}: IRegisterFormPaymentProps): JSX.Element {
+}: IRegisterFormReceiveProps): JSX.Element {
   const dispatch = useDispatch();
 
-  const { payment } = useSelector(
-    (state: ICombineState) => state.payment
+  const { receipt } = useSelector(
+    (state: ICombineState) => state.receipt
   );
   const { id = "nova" } = useParams<"id">();
-  const [dataResponse, setDataResponse] = useState<IPaymentsProps>(payment);
+  const [dataResponse, setDataResponse] = useState<IReceiveProps>(receipt);
 
   /**
-   * Update the payment state value
+   * Update the receipt state value
    * @param {ICombineState} state
    */
   useEffect(() => {
-    if (payment) {
-      setDataResponse(payment);
-      formik.values = payment;
+    if (receipt) {
+      setDataResponse(receipt);
+      formik.values = receipt;
     }
-  }, [payment, dataResponse]);
+  }, [receipt, dataResponse]);
 
   /**
    * Handle close modal dialog
    */
   const handleClose = () => {
     setOpen(false);
-    setDataResponse(paymentInital);
-    dispatch(allActions.payment.setPayment(false, paymentInital));
-    setTitleModal("Novo Pagamento");
+    setDataResponse(() => receiptsInital);
+    dispatch(allActions.receipt.setReceipt(false, receiptsInital));
+    setTitleModal("Nova Entrada");
     formik.resetForm();
   };
 
@@ -82,12 +82,12 @@ function RegisterForm({
    * Validate payload
    * @param payload
    */
-  async function validatePayload(payload: IPaymentsProps): Promise<void> {
+  async function validatePayload(payload: IReceiveProps): Promise<void> {
     setIsLoading(true);
     if (payload.id === "" || payload.id === undefined) {
-      await PaymentsService.create(payload);
+      await ReceiptsService.create(payload);
     } else {
-      await PaymentsService.updateById(payload.id, payload);
+      await ReceiptsService.updateById(payload.id, payload);
     }
     setIsLoading(false);
     handleClose();
@@ -100,7 +100,7 @@ function RegisterForm({
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: { ...dataResponse },
-    validationSchema: formValidationSchemaPayment,
+    validationSchema: formValidationSchemaReceipt,
     onSubmit: (values) => {
       validatePayload(values);
     },
@@ -113,7 +113,7 @@ function RegisterForm({
         onClose={(_, reason) => {
           if (reason !== "backdropClick") {
             handleClose();
-            setDataResponse(paymentInital);
+            setDataResponse(receiptsInital);
           }
         }}
         aria-labelledby="modal-modal-title"
@@ -130,7 +130,7 @@ function RegisterForm({
             }}
           />
           <LayoutBasePage
-            title={titleModal === "" ? "Novo Pagamento" : titleModal}
+            title={titleModal === "" ? "Nova Entrada" : titleModal}
           >
             <FormikProvider value={formik}>
               <form onSubmit={formik.handleSubmit}>
@@ -213,9 +213,9 @@ function RegisterForm({
                           type="text"
                           disabled={isLoading}
                           label="Status"
-                          items={statusPayment}
                           onChange={formik.handleChange}
                           value={formik.values.status}
+                          items={statusReceipt}
                           error={
                             formik.touched.status &&
                             Boolean(formik.errors.status)

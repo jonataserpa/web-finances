@@ -1,9 +1,10 @@
 import { v4 as uuidv4 } from "uuid";
 import { ICompanyProps } from "../../company/interfaces/iCompany.interface";
 import { IPaymentsProps } from "../../payments/interfaces/iPayments.interface";
+import { IReceiveProps } from "../../receipts/interfaces/iReceive.interface";
 
 /**
- * Initil values address
+ * Initial values address
  */
 export const address = [
   {
@@ -17,7 +18,7 @@ export const address = [
 ];
 
 /**
- * Initil values users
+ * Initial values users
  */
 export const user = {
   name: "",
@@ -30,7 +31,7 @@ export const user = {
 };
 
 /**
- * Initil values company
+ * Initial values company
  */
 export const company: ICompanyProps = {
   id: "",
@@ -43,13 +44,55 @@ export const company: ICompanyProps = {
 };
 
 /**
- * Initil values payment
+ * Initial values payment
  */
 export const paymentInital: IPaymentsProps = {
   id: "",
   description: "",
-  companyId: null,
+  companyId: "",
   value: "",
   observacion: "",
   date_payment: "",
+  status: "",
 };
+
+/**
+ * Initial values receipt
+ */
+export const receiptsInital: IReceiveProps = {
+  id: "",
+  description: "",
+  companyId: "",
+  value: "",
+  observacion: "",
+  date_receipt: "",
+  status: "",
+};
+
+/**
+ * Initial values status combo payment
+ */
+export const statusPayment = [
+  {
+    id: 1,
+    name: "Pago",
+  },
+  {
+    id: 2,
+    name: "A pagar",
+  },
+];
+
+/**
+ * Initial values status combo receipt
+ */
+export const statusReceipt = [
+  {
+    id: 1,
+    name: "A receber",
+  },
+  {
+    id: 2,
+    name: "Recebido",
+  },
+];

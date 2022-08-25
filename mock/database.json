@@ -392,24 +392,44 @@
       "value": "905.66",
       "observacion": "hhhhhhh",
       "date_payment": ""
+    },
+    {
+      "id": "MonyyKS",
+      "description": "teste",
+      "companyId": 4,
+      "value": "156",
+      "observacion": "teste",
+      "date_payment": "",
+      "status": "A pagar"
     }
   ],
   "receipts": [
     {
       "id": "1",
-      "description": "Pagamento 1",
-      "company": "Empresa 1",
+      "description": "Recebimento 11111",
+      "companyId": 4,
       "value": "200.55",
       "observacion": "TESTE 1",
+      "status": "A receber",
       "date_receipt": "2022-05-06"
     },
     {
       "id": "2",
-      "description": "Pagamento 2",
-      "company": "Empresa 2",
+      "description": "Recebimento 2",
+      "companyId": 2,
       "value": "156.77",
       "observacion": "TESTE 2",
+      "status": "Recebido",
       "date_receipt": "2022-03-09"
+    },
+    {
+      "id": "ca2sLdf",
+      "description": "teste123",
+      "companyId": 6,
+      "value": "234",
+      "observacion": "teste",
+      "date_receipt": "",
+      "status": "A receber"
     }
   ],
   "auth": {

@@ -13,7 +13,7 @@ const initialState: IPaymentState = {
   payment: paymentInital,
 };
 
-export default function user(
+export default function payment(
   state = initialState,
   action: IPaymentAction = { type: "" }
 ): IPaymentState {
