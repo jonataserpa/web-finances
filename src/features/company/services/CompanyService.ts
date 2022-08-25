@@ -1,7 +1,8 @@
 import { Api } from "../../../shared/services/axios-config";
 import { Environment } from "../../../shared/environment";
-import { IUser } from "../../user/interfaces/iUser.interface";
 import { ICompanyProps } from "../interfaces/iCompany.interface";
+import { toast } from "react-toastify";
+import { AxiosError } from "axios";
 
 export interface IListCompany {
   id: number;
@@ -17,6 +18,33 @@ export interface IDetailCompany {
 export type TCompanyWithTotalCount = {
   data: ICompanyProps[];
   totalCount: number;
+};
+
+/**
+ * Handle api errors
+ * @param error
+ */
+ export const handleApiErrors = (error: AxiosError, message: string) => {
+  if (error && error.response && error.response.data) {
+    switch (error.response.data.statusCode) {
+      case 400:
+        toast.error(
+          "Erro ao processar a requisição, verifique os dados enviados e tente novamente!"
+        );
+        break;
+      case 404:
+        toast.error("Usuario não encontrado");
+        break;
+      case 500:
+        toast.error(
+          "Erro, o servidor não conseguiu processar a requisição, por favor tente novamente mais tarde ou contate o suporte!"
+        );
+        break;
+      default:
+        toast.error(message);
+        break;
+    }
+  }
 };
 
 const getAll = async (
@@ -39,14 +67,12 @@ const getAll = async (
 
     return new Error("Erro ao listar os registros.");
   } catch (error) {
-    console.error(error);
-    return new Error(
-      (error as { message: string }).message || "Erro ao listar os registros."
-    );
+    handleApiErrors(error as AxiosError, "Erro ao listar os registros.");
+    throw error;
   }
 };
 
-const getById = async (id: number): Promise<IUser | Error> => {
+const getById = async (id: number): Promise<ICompanyProps | Error> => {
   try {
     const { data } = await Api.get(`/companys/${id}`);
 
@@ -56,38 +82,34 @@ const getById = async (id: number): Promise<IUser | Error> => {
 
     return new Error("Erro ao consultar o registro.");
   } catch (error) {
-    console.error(error);
-    return new Error(
-      (error as { message: string }).message || "Erro ao consultar o registro."
-    );
+    handleApiErrors(error as AxiosError, "Erro ao consultar o registro.");
+    throw error;
   }
 };
 
-const create = async (dados: Omit<IUser, "id">): Promise<number | Error> => {
+const create = async (dados: Omit<ICompanyProps, "id">): Promise<number | Error> => {
   try {
     const { data } = await Api.post<IDetailCompany>("/companys", dados);
 
     if (data) {
+      toast.success("Usúario criado com sucesso.");
       return data.id;
     }
 
     return new Error("Erro ao criar o registro.");
   } catch (error) {
-    console.error(error);
-    return new Error(
-      (error as { message: string }).message || "Erro ao criar o registro."
-    );
+    handleApiErrors(error as AxiosError, "Erro ao criar o registro.");
+    throw error;
   }
 };
 
-const updateById = async (id: number, dados: IUser): Promise<void | Error> => {
+const updateById = async (id: number, dados: ICompanyProps): Promise<void | Error> => {
   try {
     await Api.put(`/companys/${id}`, dados);
+    toast.success("Usúario atualizado com sucesso.");
   } catch (error) {
-    console.error(error);
-    return new Error(
-      (error as { message: string }).message || "Erro ao atualizar o registro."
-    );
+    handleApiErrors(error as AxiosError, "Erro ao atualizar o registro.");
+    throw error;
   }
 };
 
@@ -95,10 +117,8 @@ const deleteById = async (id: string | undefined): Promise<void | Error> => {
   try {
     await Api.delete(`/companys/${id}`);
   } catch (error) {
-    console.error(error);
-    return new Error(
-      (error as { message: string }).message || "Erro ao apagar o registro."
-    );
+    handleApiErrors(error as AxiosError, "Erro ao apagar o registro.");
+    throw error;
   }
 };
 

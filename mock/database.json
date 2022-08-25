@@ -226,36 +226,138 @@
       ],
       "password": "Teste#123",
       "id": 13
+    },
+    {
+      "id": 14,
+      "reasonsocial": "Jonata_dev",
+      "namefantasy": "Holder_dev",
+      "CNPJ": "51.628.881/0001-20",
+      "phone": "(45) 64565-4645",
+      "email": "",
+      "address": [
+        {
+          "id": "dbe6f357-cea8-4941-9342-efdafc61e15d",
+          "cep": "1234",
+          "adrees": "testet",
+          "number_end": "77",
+          "state": "MG",
+          "city": "Silvianopolis"
+        }
+      ]
     }
   ],
   "companys": [
     {
-      "reasonsocial": "Empresa Hamburgo",
-      "namefantasy": "Nome fantasy",      
+      "reasonsocial": "Empresa Hamburgoeeeee",
+      "namefantasy": "Nome fantasy",
       "CNPJ": "37.004.504/0001-90",
       "phone": "(77) 77777-4544",
-      "id": 2
+      "id": 2,
+      "address": [
+        {
+          "id": "98a3ca24-db09-44c9-bd0f-452f22e328d8",
+          "cep": "3333",
+          "adrees": "teste77",
+          "number_end": "77",
+          "state": "MG",
+          "city": "Silvianopolis"
+        }
+      ]
     },
     {
       "reasonsocial": "Palmitinho",
-      "namefantasy": "Nome fantasy", 
+      "namefantasy": "Nome fantasy",
       "CNPJ": "19.890.685/0001-17",
       "phone": "(77) 77777-4544",
-      "id": 4
+      "id": 4,
+      "address": [
+        {
+          "id": "98a3ca24-db09-44c9-bd0f-452f22e328f8",
+          "cep": "4444",
+          "adrees": "teste744",
+          "number_end": "44",
+          "state": "MG",
+          "city": "Silvianopolis"
+        }
+      ]
     },
     {
       "reasonsocial": "Sapucaia do Sul",
-      "namefantasy": "Nome fantasy", 
+      "namefantasy": "Nome fantasy",
       "CNPJ": "12.528.181/0001-02",
       "phone": "(77) 77777-4544",
-      "id": 6
+      "id": 6,
+      "address": [
+        {
+          "id": "98a3ca24-db09-44c9-bd0f-452f22e328d3",
+          "cep": "6665",
+          "adrees": "teste755",
+          "number_end": "51",
+          "state": "MG",
+          "city": "Silvianopolis"
+        }
+      ]
     },
     {
       "reasonsocial": "Tramandaí",
-      "namefantasy": "Nome fantasy", 
+      "namefantasy": "Nome fantasy",
       "CNPJ": "34.734.525/0001-72",
       "phone": "(77) 77777-4544",
-      "id": 7
+      "id": 7,
+      "address": [
+        {
+          "id": "98a3ca24-db09-44c9-bd0f-452f22e328d1",
+          "cep": "12322",
+          "adrees": "teste71",
+          "number_end": "11",
+          "state": "MG",
+          "city": "Silvianopolis"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "reasonsocial": "Jonata_dev",
+      "namefantasy": "teste",
+      "CNPJ": "51.628.881/0001-20",
+      "phone": "(32) 11321-2313",
+      "email": "jonata.junio@inatel.br",
+      "address": [
+        {
+          "id": "98a3ca24-db09-44c9-bd0f-452f22e328d6",
+          "cep": "123333",
+          "adrees": "teste",
+          "number_end": "77",
+          "state": "MG",
+          "city": "Silvianopolis"
+        },
+        {
+          "id": "c343dedb-2f48-43b0-967a-bfb9d03ee0d8",
+          "cep": "3211",
+          "adrees": "TESTE2",
+          "number_end": "88",
+          "state": "SP",
+          "city": "joanopolis"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "reasonsocial": "teste",
+      "namefantasy": "teste",
+      "CNPJ": "12345",
+      "phone": "(55) 55555-5555",
+      "email": "dsdassads@fdfsdfs.com",
+      "address": [
+        {
+          "id": "c960aba6-b6d1-48b7-b965-3024930daa83",
+          "cep": "1233",
+          "adrees": "teste",
+          "number_end": "44",
+          "state": "mg",
+          "city": "silv"
+        }
+      ]
     }
   ],
   "auth": {

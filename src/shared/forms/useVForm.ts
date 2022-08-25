@@ -11,7 +11,7 @@ export const useVForm = () => {
     isSavingAndClose.current = false;
     isSavingAndNew.current = false;
     await UsersService.create(values);
-    toast.success("Usúario criado com sucesso.");
+    
   }, []);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

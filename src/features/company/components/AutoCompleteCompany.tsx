@@ -41,8 +41,8 @@ export const AutoCompleteCompany: React.FC<IAutoCompleteCompanyProps> = ({
 
           setOpcoes(
             result.data.map((company) => ({
-              id: company.id,
-              label: company.name,
+              id: Number(company.id),
+              label: company.reasonsocial,
             }))
           );
         }

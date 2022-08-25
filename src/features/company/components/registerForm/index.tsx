@@ -28,6 +28,7 @@ import { company } from "../../../utils/initialValues";
 import { IRegisterFormCompanyProps } from "../../interfaces/iRegisterForm.interface";
 import { ICompanyProps } from "../../interfaces/iCompany.interface";
 import { formValidationSchemaCompany } from "../../schema";
+import { CompanyService } from "../../services/CompanyService";
 
 const style = {
   position: "absolute",
@@ -60,7 +61,7 @@ function RegisterForm({
   dataResponse,
   setDataResponse,
 }: IRegisterFormCompanyProps): JSX.Element {
-  const { save, saveAndClose, update } = useVForm();
+  const { saveAndClose } = useVForm();
   const navigate = useNavigate();
   const { id = "nova" } = useParams<"id">();
 
@@ -288,12 +289,12 @@ function RegisterForm({
    * Validate payload
    * @param payload
    */
-  function validatePayload(payload: ICompanyProps): void {
+  async function validatePayload(payload: ICompanyProps): Promise<void> {
     setIsLoading(true);
     if (payload.id === "" || payload.id === undefined) {
-      save(payload);
+      await CompanyService.create(payload);
     } else {
-      update(payload);
+      await CompanyService.updateById(Number(payload.id), payload);
     }
     setIsLoading(false);
     handleClose();
@@ -414,8 +415,24 @@ function RegisterForm({
                           helperText={formik.touched.CNPJ && formik.errors.CNPJ}
                         />
                       </Grid>
+                      
+                      <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
+                        <VTextField
+                          fullWidth
+                          name="email"
+                          type="email"
+                          disabled={isLoading}
+                          label="Email"
+                          onChange={formik.handleChange}
+                          value={formik.values.email}
+                          error={
+                            formik.touched.email && Boolean(formik.errors.email)
+                          }
+                          helperText={formik.touched.email && formik.errors.email}
+                        />
+                      </Grid>
 
-                      <Grid item xs={12} sm={12} md={6} lg={4} xl={5}>
+                      <Grid item xs={12} sm={12} md={6} lg={4} xl={2}>
                         <VInputPhone
                           fullWidth
                           name="phone"
