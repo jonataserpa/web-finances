@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import { PaymentsService } from "../../services/PaymentsService";
-import { paymentInital, statusPayment } from "../../../utils/initialValues";
+import { paymentInital, statusPayment, statusTypePayment } from "../../../utils/initialValues";
 import { LayoutBasePage } from "../../../../shared/layouts";
 import { ToolDetail } from "../../../../shared/components";
 import { ICombineState } from "../../../../store/reducers";
@@ -183,6 +183,26 @@ function RegisterForm({
                           }
                           helperText={
                             formik.touched.companyId && formik.errors.companyId
+                          }
+                        />
+                      </Grid>
+
+                      <Grid item xs={12} sm={12} md={12} lg={3} xl={3}>
+                        <VSelectStatus
+                          fullWidth
+                          name="typepayment"
+                          type="text"
+                          disabled={isLoading}
+                          label="Tipo de pagamento"
+                          items={statusTypePayment}
+                          onChange={formik.handleChange}
+                          value={formik.values.typepayment}
+                          error={
+                            formik.touched.typepayment &&
+                            Boolean(formik.errors.typepayment)
+                          }
+                          helperText={
+                            formik.touched.typepayment && formik.errors.typepayment
                           }
                         />
                       </Grid>

@@ -7,4 +7,5 @@ export interface IPaymentsProps {
   observacion: string;
   date_payment: string;
   datedue: string;
+  typepayment: string;
 }

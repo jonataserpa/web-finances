@@ -369,7 +369,8 @@
       "observacion": "Teste",
       "date_payment": "",
       "status": "A pagar",
-      "datedue": "2022-08-25T11:37:10.000Z"
+      "datedue": "2022-08-25T11:37:10.000Z",
+      "typepayment": "A Vista"
     },
     {
       "id": "tZBow0E",
@@ -380,6 +381,17 @@
       "date_payment": "",
       "status": "A pagar",
       "datedue": "2022-08-29T11:38:53.000Z"
+    },
+    {
+      "id": "fHba4MS",
+      "description": "Pagamento 3",
+      "companyId": 6,
+      "value": "6665",
+      "observacion": "teste",
+      "date_payment": "",
+      "status": "Pago",
+      "datedue": "2022-08-26T13:06:07.000Z",
+      "typepayment": "Cheque"
     }
   ],
   "receipts": [

@@ -55,6 +55,7 @@ export const paymentInital: IPaymentsProps = {
   date_payment: "",
   status: "",
   datedue: "",
+  typepayment: "",
 };
 
 /**
@@ -95,5 +96,35 @@ export const statusReceipt = [
   {
     id: 2,
     name: "Recebido",
+  },
+];
+
+/**
+ * Initial values status combo type payment
+ */
+export const statusTypePayment = [
+  {
+    id: 1,
+    name: "Cheque",
+  },
+  {
+    id: 2,
+    name: "A Vista",
+  },
+  {
+    id: 3,
+    name: "Parcelado no cartão 6x",
+  },
+  {
+    id: 4,
+    name: "Parcelado no cartão 12x",
+  },
+  {
+    id: 5,
+    name: "Parcelado no cartão 24x",
+  },
+  {
+    id: 6,
+    name: "Parcelado no cartão 36x",
   },
 ];
