@@ -362,45 +362,24 @@
   ],
   "payments": [
     {
-      "id": "1",
+      "id": "XXgCn8x",
       "description": "Pagamento 1",
-      "companyId": 2,
-      "value": "200.55",
-      "observacion": "TESTE 1",
-      "date_payment": "2022-05-06"
-    },
-    {
-      "id": "2",
-      "description": "Pagamento 2",
       "companyId": 4,
-      "value": "156.77",
-      "observacion": "TESTE 2",
-      "date_payment": "2022-03-09"
-    },
-    {
-      "id": "ZDCnaXP",
-      "description": "Conta de energia",
       "value": "15.50",
-      "observacion": "teste",
+      "observacion": "Teste",
       "date_payment": "",
-      "companyId": 4
+      "status": "A pagar",
+      "datedue": "2022-08-25T11:37:10.000Z"
     },
     {
-      "id": "xvff4Yz",
-      "description": "teste editado",
+      "id": "tZBow0E",
+      "description": "Pagamento 2222",
       "companyId": 8,
-      "value": "905.66",
+      "value": "15222",
       "observacion": "hhhhhhh",
-      "date_payment": ""
-    },
-    {
-      "id": "MonyyKS",
-      "description": "teste",
-      "companyId": 4,
-      "value": "156",
-      "observacion": "teste",
       "date_payment": "",
-      "status": "A pagar"
+      "status": "A pagar",
+      "datedue": "2022-08-29T11:38:53.000Z"
     }
   ],
   "receipts": [

@@ -54,6 +54,7 @@ export const paymentInital: IPaymentsProps = {
   observacion: "",
   date_payment: "",
   status: "",
+  datedue: "",
 };
 
 /**

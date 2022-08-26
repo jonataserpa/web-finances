@@ -6,4 +6,5 @@ export interface IPaymentsProps {
   status: string;
   observacion: string;
   date_payment: string;
+  datedue: string;
 }

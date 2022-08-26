@@ -34,9 +34,11 @@ export const VDatePicker: React.FC<TVDatePickerProps> = ({
       error={!!error && valueDefault === ""}
       defaultValue={valueDefault}
       component="fieldset"
+      fullWidth
     >
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <DatePicker
+          inputFormat="dd/MM/yyyy"
           renderInput={(params) => (
             <TextField
               {...rest}

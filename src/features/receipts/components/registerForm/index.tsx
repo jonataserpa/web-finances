@@ -50,9 +50,7 @@ function RegisterForm({
 }: IRegisterFormReceiveProps): JSX.Element {
   const dispatch = useDispatch();
 
-  const { receipt } = useSelector(
-    (state: ICombineState) => state.receipt
-  );
+  const { receipt } = useSelector((state: ICombineState) => state.receipt);
   const { id = "nova" } = useParams<"id">();
   const [dataResponse, setDataResponse] = useState<IReceiveProps>(receipt);
 

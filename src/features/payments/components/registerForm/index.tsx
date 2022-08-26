@@ -23,6 +23,7 @@ import { formValidationSchemaPayment } from "../../schemas";
 import { AutoCompleteCompany } from "../../../company/components/AutoCompleteCompany";
 import { VSelectStatus } from "../../../../shared/forms/VStatus";
 import allActions from "../../../../store/actions";
+import { VDatePicker } from "../../../../shared/forms/VDatePicker";
 
 const style = {
   position: "absolute",
@@ -50,9 +51,7 @@ function RegisterForm({
 }: IRegisterFormPaymentProps): JSX.Element {
   const dispatch = useDispatch();
 
-  const { payment } = useSelector(
-    (state: ICombineState) => state.payment
-  );
+  const { payment } = useSelector((state: ICombineState) => state.payment);
   const { id = "nova" } = useParams<"id">();
   const [dataResponse, setDataResponse] = useState<IPaymentsProps>(payment);
 
@@ -226,7 +225,25 @@ function RegisterForm({
                         />
                       </Grid>
 
-                      <Grid item xs={12} sm={12} md={12} lg={8} xl={8}>
+                      <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
+                        <VDatePicker
+                          fullWidth
+                          name="datedue"
+                          label="Data de vencimento"
+                          disabled={isLoading}
+                          onChange={formik.handleChange}
+                          value={formik.values.datedue}
+                          error={
+                            formik.touched.datedue &&
+                            Boolean(formik.errors.datedue)
+                          }
+                          helperText={
+                            formik.touched.datedue && formik.errors.datedue
+                          }
+                        />
+                      </Grid>
+
+                      <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
                         <VTextField
                           fullWidth
                           name="observacion"
