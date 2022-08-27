@@ -30,8 +30,6 @@ import allActions from "../../../../store/actions";
 import { VDatePicker } from "../../../../shared/forms/VDatePicker";
 import getStyle from "../../../utils/styles";
 
-
-
 function RegisterForm({
   setIsLoading,
   isLoading,
@@ -180,7 +178,7 @@ function RegisterForm({
                         />
                       </Grid>
 
-                      <Grid item xs={12} sm={12} md={12} lg={3} xl={3}>
+                      <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
                         <VSelectStatus
                           fullWidth
                           name="typepayment"

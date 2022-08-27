@@ -7,5 +7,5 @@ export interface ICattlesProps {
   namefather: string;
   proprietary: string;
   observacion: string;
-  children:IChildrenProps[];
+  children: IChildrenProps[];
 }

@@ -8,9 +8,7 @@ export interface ICattlesAction {
   };
 }
 
-const setCattles = (
-  cattles?: ICattlesProps
-): ICattlesAction => ({
+const setCattles = (cattles?: ICattlesProps): ICattlesAction => ({
   type: SET_CATTLES,
   payload: {
     cattles,

@@ -1,4 +1,3 @@
-
 function getStyle() {
   return {
     position: "absolute",

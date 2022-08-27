@@ -140,12 +140,14 @@ export const cattleInitial: ICattlesProps = {
   date_born: "",
   observacion: "",
   proprietary: "",
-  children: [{
-    id: uuidv4(),
-    name: "",
-    namefather: "",
-    date_born: "",
-    observacion: "",
-    proprietary: "",
-  }],
-}
+  children: [
+    {
+      id: uuidv4(),
+      name: "",
+      namefather: "",
+      date_born: "",
+      observacion: "",
+      proprietary: "",
+    },
+  ],
+};
