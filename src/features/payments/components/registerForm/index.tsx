@@ -10,7 +10,11 @@ import {
   Typography,
 } from "@mui/material";
 import { PaymentsService } from "../../services/PaymentsService";
-import { paymentInital, statusPayment, statusTypePayment } from "../../../utils/initialValues";
+import {
+  paymentInital,
+  statusPayment,
+  statusTypePayment,
+} from "../../../utils/initialValues";
 import { LayoutBasePage } from "../../../../shared/layouts";
 import { ToolDetail } from "../../../../shared/components";
 import { ICombineState } from "../../../../store/reducers";
@@ -24,20 +28,9 @@ import { AutoCompleteCompany } from "../../../company/components/AutoCompleteCom
 import { VSelectStatus } from "../../../../shared/forms/VStatus";
 import allActions from "../../../../store/actions";
 import { VDatePicker } from "../../../../shared/forms/VDatePicker";
+import getStyle from "../../../utils/styles";
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "80%",
-  height: "80%",
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  borderRadius: 4,
-  p: 4,
-};
+
 
 function RegisterForm({
   setIsLoading,
@@ -118,7 +111,7 @@ function RegisterForm({
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={getStyle()}>
           <CloseIcon
             onClick={handleClose}
             style={{
@@ -202,7 +195,8 @@ function RegisterForm({
                             Boolean(formik.errors.typepayment)
                           }
                           helperText={
-                            formik.touched.typepayment && formik.errors.typepayment
+                            formik.touched.typepayment &&
+                            formik.errors.typepayment
                           }
                         />
                       </Grid>

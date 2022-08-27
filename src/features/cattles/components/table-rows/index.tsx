@@ -3,13 +3,13 @@ import { Icon, IconButton, TableCell, TableRow } from "@mui/material";
 import { IRows } from "../../interfaces/iRows.interface";
 
 /**
- * List of receipts table
+ * List of cattles table
  * @param param0
  * @returns
  */
 function TableRows({ rows, handleDelete, handleEdit }: IRows): JSX.Element {
   if (rows && rows.length === 0) {
-    return <div style={{ marginLeft: 20 }}>No receipts</div>;
+    return <div style={{ marginLeft: 20 }}>No cattles</div>;
   }
   return (
     <>
@@ -25,9 +25,9 @@ function TableRows({ rows, handleDelete, handleEdit }: IRows): JSX.Element {
                 <Icon>edit</Icon>
               </IconButton>
             </TableCell>
-            <TableCell data-testid="users-table">{row.description}</TableCell>
-            <TableCell>{row.companyId}</TableCell>
-            <TableCell>{row.value}</TableCell>
+            <TableCell data-testid="users-table">{row.name}</TableCell>
+            <TableCell>{row.date_born}</TableCell>
+            <TableCell>{row.proprietary}</TableCell>
           </TableRow>
         ))}
     </>

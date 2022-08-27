@@ -423,6 +423,80 @@
       "status": "A receber"
     }
   ],
+  "cattles": [
+    {
+      "id": "1",
+      "name": "Vaca 1",
+      "date_born": "2022-08-06",
+      "namefather": "Gigante",
+      "proprietary": "Paulo",
+      "observacion": "Teste",
+      "children": [
+        {
+          "id": "1",
+          "name": "Vaca 1 - filha",
+          "date_born": "2022-08-06",
+          "namefather": "Gigante 2",
+          "proprietary": "Paulo",
+          "observacion": "Teste"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Vaca 2",
+      "date_born": "2022-08-06",
+      "namefather": "Gigante",
+      "proprietary": "Paulo",
+      "observacion": "Teste",
+      "children": [
+        {
+          "id": "1",
+          "name": "Vaca 2 - filha",
+          "date_born": "2022-08-06",
+          "namefather": "Gigante 2",
+          "proprietary": "Paulo",
+          "observacion": "Teste"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Vaca 3",
+      "date_born": "2022-08-06",
+      "namefather": "Gigante",
+      "proprietary": "Paulo",
+      "observacion": "Teste",
+      "children": [
+        {
+          "id": "3",
+          "name": "Vaca 3 - filha",
+          "date_born": "2022-08-06",
+          "namefather": "Gigante 3",
+          "proprietary": "Paulo",
+          "observacion": "Teste"
+        }
+      ]
+    },
+    {
+      "id": "okJqsep",
+      "name": "VACA 4 ",
+      "namefather": "GIGANTE 4",
+      "date_born": "2022-08-25T19:43:42.000Z",
+      "observacion": "TESTE",
+      "proprietary": "PAULO",
+      "children": [
+        {
+          "id": "d9496b9b-fb8c-46ff-be5b-f018e4776c45",
+          "name": "VAQUINHA 4",
+          "namefather": "BOIZAO",
+          "date_born": "2022-08-19T19:45:03.000Z",
+          "observacion": "TESTE BOIZAO",
+          "proprietary": "PAULO"
+        }
+      ]
+    }
+  ],
   "auth": {
     "accessToken": "aaaaaaaaaa.bbbbbbbbbb.cccccccc"
   }

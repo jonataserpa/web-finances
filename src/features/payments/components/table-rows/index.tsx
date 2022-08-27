@@ -3,7 +3,7 @@ import { Icon, IconButton, TableCell, TableRow } from "@mui/material";
 import { IRows } from "../../interfaces/iRows.interface";
 
 /**
- * List of users table
+ * List of payments table
  * @param param0
  * @returns
  */

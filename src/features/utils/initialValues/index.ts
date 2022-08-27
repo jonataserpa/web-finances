@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
+import { ICattlesProps } from "../../cattles/interfaces/iCattles.interface";
 import { ICompanyProps } from "../../company/interfaces/iCompany.interface";
 import { IPaymentsProps } from "../../payments/interfaces/iPayments.interface";
 import { IReceiveProps } from "../../receipts/interfaces/iReceive.interface";
@@ -128,3 +129,23 @@ export const statusTypePayment = [
     name: "Parcelado no cartão 36x",
   },
 ];
+
+/**
+ * Initial values cattles
+ */
+export const cattleInitial: ICattlesProps = {
+  id: "",
+  name: "",
+  namefather: "",
+  date_born: "",
+  observacion: "",
+  proprietary: "",
+  children: [{
+    id: uuidv4(),
+    name: "",
+    namefather: "",
+    date_born: "",
+    observacion: "",
+    proprietary: "",
+  }],
+}
