@@ -23,20 +23,7 @@ import { VSelectStatus } from "../../../../shared/forms/VStatus";
 import { IRegisterFormReceiveProps } from "../../interfaces/iIRegisterFormReceiveProps.interface";
 import { ReceiptsService } from "../../services/ReceiptsService";
 import allActions from "../../../../store/actions";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "80%",
-  height: "80%",
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  borderRadius: 4,
-  p: 4,
-};
+import getStyle from "../../../utils/styles";
 
 function RegisterForm({
   setIsLoading,
@@ -117,7 +104,7 @@ function RegisterForm({
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={getStyle()}>
           <CloseIcon
             onClick={handleClose}
             style={{

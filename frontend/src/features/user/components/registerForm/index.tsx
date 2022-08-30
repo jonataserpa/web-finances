@@ -31,20 +31,7 @@ import { LayoutBasePage } from "../../../../shared/layouts";
 import { IRegisterFormProps } from "../../interfaces/iRegisterForm.interface";
 import { IUser } from "../../interfaces/iUser.interface";
 import { user } from "../../../utils/initialValues";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "80%",
-  height: "80%",
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  borderRadius: 4,
-  p: 4,
-};
+import getStyle from "../../../utils/styles";
 
 /**
  * Register form user
@@ -328,7 +315,7 @@ function RegisterForm({
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={getStyle()}>
           <CloseIcon
             onClick={handleClose}
             style={{
