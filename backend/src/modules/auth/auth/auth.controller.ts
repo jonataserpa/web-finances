@@ -1,4 +1,4 @@
-import { RoleGuard } from './../role.guard';
+import { RoleGuard } from '../role.guard';
 import { JwtGuard } from './jwt.guard';
 import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
