@@ -416,7 +416,7 @@ function RegisterForm({
                     </Grid>
 
                     <Grid container item direction="row" spacing={2}>
-                      <Grid item xs={12} sm={12} md={6} lg={4} xl={5}>
+                      <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
                         <VTextField
                           fullWidth
                           name="name"
@@ -432,7 +432,7 @@ function RegisterForm({
                         />
                       </Grid>
 
-                      <Grid item xs={12} sm={12} md={6} lg={4} xl={5}>
+                      <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
                         <VTextField
                           fullWidth
                           name="namefather"
@@ -452,7 +452,7 @@ function RegisterForm({
                         />
                       </Grid>
 
-                      <Grid item xs={12} sm={12} md={6} lg={4} xl={5}>
+                      <Grid item xs={12} sm={12} md={6} lg={4} xl={6}>
                         <VTextField
                           fullWidth
                           name="proprietary"
@@ -472,7 +472,7 @@ function RegisterForm({
                         />
                       </Grid>
 
-                      <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
+                      <Grid item xs={12} sm={12} md={6} lg={4} xl={6}>
                         <VDatePicker
                           fullWidth
                           name="date_born"
@@ -490,7 +490,7 @@ function RegisterForm({
                         />
                       </Grid>
 
-                      <Grid item xs={12} sm={12} md={12} lg={8} xl={8}>
+                      <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
                         <VTextField
                           fullWidth
                           name="observacion"

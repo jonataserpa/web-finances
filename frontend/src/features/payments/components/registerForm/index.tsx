@@ -143,7 +143,7 @@ function RegisterForm({
                     </Grid>
 
                     <Grid container item direction="row" spacing={2}>
-                      <Grid item xs={12} sm={12} md={6} lg={4} xl={5}>
+                      <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
                         <VTextField
                           fullWidth
                           name="description"
@@ -163,7 +163,7 @@ function RegisterForm({
                         />
                       </Grid>
 
-                      <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
+                      <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
                         <AutoCompleteCompany
                           isExternalLoading={isLoading}
                           value={Number(formik.values.companyId)}
@@ -178,7 +178,7 @@ function RegisterForm({
                         />
                       </Grid>
 
-                      <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
+                      <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
                         <VSelectStatus
                           fullWidth
                           name="typepayment"
@@ -199,7 +199,7 @@ function RegisterForm({
                         />
                       </Grid>
 
-                      <Grid item xs={12} sm={12} md={6} lg={4} xl={5}>
+                      <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
                         <VTextField
                           fullWidth
                           name="value"
@@ -217,7 +217,7 @@ function RegisterForm({
                         />
                       </Grid>
 
-                      <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
+                      <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
                         <VSelectStatus
                           fullWidth
                           name="status"
@@ -237,7 +237,7 @@ function RegisterForm({
                         />
                       </Grid>
 
-                      <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
+                      <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
                         <VDatePicker
                           fullWidth
                           name="datedue"

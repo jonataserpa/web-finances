@@ -40,6 +40,7 @@ export function VInputPhone({
         error={!!error}
         defaultValue={valueDefault}
         component="fieldset"
+        fullWidth
       >
         <NumberFormat
           value={valueDefault}
