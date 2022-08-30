@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
@@ -61,4 +61,29 @@ model Address {
   deleteAt DateTime?
 
   @@map("address")
+}
+
+model Payment {
+  id           String        @id @default(uuid())
+  description  String
+  companyId    String
+  value        String
+  observacion  String
+  date_payment DateTime
+  datedue      DateTime
+  typepayment  String
+  status       PaymentStatus @default(PAYABLE)
+
+  createAt DateTime  @default(now())
+  updateAt DateTime  @updatedAt
+  deleteAt DateTime?
+
+  @@map("payments")
+}
+
+enum PaymentStatus {
+  PAYABLE
+  PAIDOUT
+  RECEIVABLE
+  RECEIVED
 }

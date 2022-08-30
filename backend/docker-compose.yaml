@@ -8,5 +8,21 @@ services:
       - 3000:3000
     volumes:
       - .:/home/node/app
+  # mysql-db:
+  #   image: mysql:8.0
+  #   container_name: mysql_container
+  #   restart: always
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: root
+  #     MYSQL_DATABASE: dev_finances
+  #   volumes:
+  #     - dbdata:/var/lib/mysql  
+  #   ports:
+  #     - "3306:3306"
+  #   cap_add:
+  #     - SYS_NICE
+
+
+#docker inspect  meu-mysql | grep IPAdress
 
   
