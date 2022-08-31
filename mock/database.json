@@ -1,0 +1,504 @@
+{
+  "users": [
+    {
+      "name": "Jonata serpa-editado",
+      "email": "jonataser@gmail.com",
+      "phone": "(77) 77777-4544",
+      "companyId": 2,
+      "dateborn": "2022-08-13T16:05:29.000Z",
+      "radiogender": "male",
+      "address": [
+        {
+          "id": "a267cbe0-a8e8-401d-825c-41d668b4e927",
+          "cep": "12345678",
+          "adrees": "teste",
+          "number_end": "123",
+          "state": "mg",
+          "city": "silv"
+        }
+      ],
+      "password": "teste",
+      "id": 1
+    },
+    {
+      "name": "Nubia OLiveira-editado",
+      "email": "jonataser@gmail.com",
+      "phone": "(77) 77777-4544",
+      "companyId": 2,
+      "dateborn": "2022-08-13T16:05:29.000Z",
+      "radiogender": "female",
+      "address": [
+        {
+          "id": "a267cbe0-a8e8-401d-825c-5545353333",
+          "cep": "12345678",
+          "adrees": "rua vitor coutinho",
+          "number_end": "66",
+          "state": "mg",
+          "city": "silv"
+        },
+        {
+          "id": "f7c3659b-9e7e-4616-a418-4aea207ef197",
+          "cep": "888888",
+          "adrees": "rua bla bla",
+          "number_end": "77",
+          "state": "sp",
+          "city": "joanopolis"
+        }
+      ],
+      "password": "teste",
+      "id": 2
+    },
+    {
+      "name": "Arthur Bertolini",
+      "email": "jonataser@gmail.com",
+      "phone": "(77) 77777-4544",
+      "companyId": 2,
+      "dateborn": "2022-08-13T16:05:29.000Z",
+      "radiogender": "male",
+      "address": [
+        {
+          "id": "a267cbe0-a8e8-401d-825c-5545353333",
+          "cep": "12345678",
+          "adrees": "rua vitor coutinho",
+          "number_end": "66",
+          "state": "mg",
+          "city": "silv"
+        }
+      ],
+      "password": "teste",
+      "id": 3
+    },
+    {
+      "name": "LOgan",
+      "email": "jonataser@gmail.com",
+      "phone": "(77) 77777-4544",
+      "companyId": 2,
+      "dateborn": "2022-08-13T16:05:29.000Z",
+      "radiogender": "male",
+      "address": [
+        {
+          "id": "a267cbe0-a8e8-401d-825c-5545353333",
+          "cep": "12345678",
+          "adrees": "rua vitor coutinho",
+          "number_end": "66",
+          "state": "mg",
+          "city": "silv"
+        }
+      ],
+      "password": "teste",
+      "id": 4
+    },
+    {
+      "name": "jjjjjjjjjjjjj-editadooooo",
+      "email": "jonataser@gmail.com",
+      "phone": "(77) 77777-7777",
+      "dateborn": "2022-08-06T16:14:48.000Z",
+      "radiogender": "other",
+      "address": [
+        {
+          "id": "87f82609-6977-44b8-9611-f8c0aa4d935a",
+          "cep": "666666",
+          "adrees": "teste",
+          "number_end": "444",
+          "state": "mg",
+          "city": "silv"
+        }
+      ],
+      "password": "hhhhhhhhhhhh",
+      "id": 6,
+      "companyId": 6
+    },
+    {
+      "name": "novo usuario-edit",
+      "email": "jonataser@gmail.com",
+      "phone": "(23) 12312-3123",
+      "companyId": 4,
+      "dateborn": "2022-08-12T18:02:32.000Z",
+      "radiogender": "male",
+      "address": [
+        {
+          "id": "4c0fd21c-b492-48c3-a574-73e8c8979147",
+          "cep": "12333",
+          "adrees": "teste",
+          "number_end": "435",
+          "state": "mg",
+          "city": "kkkkkkkkk"
+        }
+      ],
+      "id": 7
+    },
+    {
+      "name": "testes",
+      "email": "jonata.junio@inatel.br",
+      "phone": "(23) 42342-3423",
+      "companyId": 6,
+      "dateborn": "2022-08-19T18:18:34.000Z",
+      "radiogender": "male",
+      "address": [
+        {
+          "id": "08925c66-7540-46c8-adb6-0bdcc4f48901",
+          "cep": "234",
+          "adrees": "teste",
+          "number_end": "234",
+          "state": "AM",
+          "city": "teste"
+        }
+      ],
+      "password": "Teste#123",
+      "id": 8
+    },
+    {
+      "name": "testes",
+      "email": "jonata.junio@inatel.br",
+      "phone": "(23) 42342-3423",
+      "companyId": 6,
+      "dateborn": "2022-08-19T18:18:34.000Z",
+      "radiogender": "male",
+      "address": [
+        {
+          "id": "08925c66-7540-46c8-adb6-0bdcc4f48901",
+          "cep": "234",
+          "adrees": "teste",
+          "number_end": "234",
+          "state": "AM",
+          "city": "teste"
+        }
+      ],
+      "password": "Teste#123",
+      "id": 9
+    },
+    {
+      "name": "testes-editado",
+      "email": "jonata.junio@inatel.br",
+      "phone": "(23) 42342-3423",
+      "companyId": 6,
+      "dateborn": "2022-08-19T18:18:34.000Z",
+      "radiogender": "male",
+      "address": [
+        {
+          "id": "08925c66-7540-46c8-adb6-0bdcc4f48901",
+          "cep": "234",
+          "adrees": "teste",
+          "number_end": "234",
+          "state": "AM",
+          "city": "teste"
+        }
+      ],
+      "password": "Teste#123",
+      "id": 10
+    },
+    {
+      "name": "Kiara-editadohhhh",
+      "email": "kiara@gmail.br",
+      "phone": "(23) 43242-3423",
+      "companyId": 1,
+      "dateborn": "2022-08-03T19:20:50.000Z",
+      "radiogender": "female",
+      "address": [
+        {
+          "id": "b67392fd-c3dd-469f-bebb-9708aeefe5ac",
+          "cep": "123",
+          "adrees": "teste",
+          "number_end": "44",
+          "state": "AM",
+          "city": "teste"
+        }
+      ],
+      "password": "Teste#123",
+      "id": 11
+    },
+    {
+      "name": "multilaser-editado",
+      "email": "jonata.junio@inatel.br",
+      "phone": "(76) 75756-7575",
+      "companyId": 4,
+      "dateborn": "2022-08-12T11:51:39.000Z",
+      "radiogender": "other",
+      "address": [
+        {
+          "id": "40f2f1ae-5e8a-4b91-b54c-7e7b1d758a5f",
+          "cep": "1234",
+          "adrees": "teste",
+          "number_end": "54",
+          "state": "mg",
+          "city": "teste"
+        }
+      ],
+      "password": "Teste#123",
+      "id": 13
+    },
+    {
+      "id": 14,
+      "reasonsocial": "Jonata_dev",
+      "namefantasy": "Holder_dev",
+      "CNPJ": "51.628.881/0001-20",
+      "phone": "(45) 64565-4645",
+      "email": "",
+      "address": [
+        {
+          "id": "dbe6f357-cea8-4941-9342-efdafc61e15d",
+          "cep": "1234",
+          "adrees": "testet",
+          "number_end": "77",
+          "state": "MG",
+          "city": "Silvianopolis"
+        }
+      ]
+    }
+  ],
+  "companys": [
+    {
+      "reasonsocial": "Empresa Hamburgoeeeee",
+      "namefantasy": "Nome fantasy",
+      "CNPJ": "37.004.504/0001-90",
+      "phone": "(77) 77777-4544",
+      "id": 2,
+      "address": [
+        {
+          "id": "98a3ca24-db09-44c9-bd0f-452f22e328d8",
+          "cep": "3333",
+          "adrees": "teste77",
+          "number_end": "77",
+          "state": "MG",
+          "city": "Silvianopolis"
+        }
+      ],
+      "email": "admin@taggen.br"
+    },
+    {
+      "reasonsocial": "Palmitinho",
+      "namefantasy": "Nome fantasy",
+      "CNPJ": "19.890.685/0001-17",
+      "phone": "(77) 77777-4544",
+      "id": 4,
+      "address": [
+        {
+          "id": "98a3ca24-db09-44c9-bd0f-452f22e328f8",
+          "cep": "4444",
+          "adrees": "teste744",
+          "number_end": "44",
+          "state": "MG",
+          "city": "Silvianopolis"
+        }
+      ]
+    },
+    {
+      "reasonsocial": "Sapucaia do Sul",
+      "namefantasy": "Nome fantasy",
+      "CNPJ": "12.528.181/0001-02",
+      "phone": "(77) 77777-4544",
+      "id": 6,
+      "address": [
+        {
+          "id": "98a3ca24-db09-44c9-bd0f-452f22e328d3",
+          "cep": "6665",
+          "adrees": "teste755",
+          "number_end": "51",
+          "state": "MG",
+          "city": "Silvianopolis"
+        }
+      ]
+    },
+    {
+      "reasonsocial": "Tramandaí",
+      "namefantasy": "Nome fantasy",
+      "CNPJ": "34.734.525/0001-72",
+      "phone": "(77) 77777-4544",
+      "id": 7,
+      "address": [
+        {
+          "id": "98a3ca24-db09-44c9-bd0f-452f22e328d1",
+          "cep": "12322",
+          "adrees": "teste71",
+          "number_end": "11",
+          "state": "MG",
+          "city": "Silvianopolis"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "reasonsocial": "Jonata_dev",
+      "namefantasy": "teste",
+      "CNPJ": "51.628.881/0001-20",
+      "phone": "(32) 11321-2313",
+      "email": "jonata.junio@inatel.br",
+      "address": [
+        {
+          "id": "98a3ca24-db09-44c9-bd0f-452f22e328d6",
+          "cep": "123333",
+          "adrees": "teste",
+          "number_end": "77",
+          "state": "MG",
+          "city": "Silvianopolis"
+        },
+        {
+          "id": "c343dedb-2f48-43b0-967a-bfb9d03ee0d8",
+          "cep": "3211",
+          "adrees": "TESTE2",
+          "number_end": "88",
+          "state": "SP",
+          "city": "joanopolis"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "reasonsocial": "teste",
+      "namefantasy": "teste",
+      "CNPJ": "12345",
+      "phone": "(55) 55555-5555",
+      "email": "dsdassads@fdfsdfs.com",
+      "address": [
+        {
+          "id": "c960aba6-b6d1-48b7-b965-3024930daa83",
+          "cep": "1233",
+          "adrees": "teste",
+          "number_end": "44",
+          "state": "mg",
+          "city": "silv"
+        }
+      ]
+    }
+  ],
+  "payments": [
+    {
+      "id": "XXgCn8x",
+      "description": "Pagamento 1",
+      "companyId": 4,
+      "value": "15.50",
+      "observacion": "Teste",
+      "date_payment": "",
+      "status": "A pagar",
+      "datedue": "2022-08-25T11:37:10.000Z",
+      "typepayment": "A Vista"
+    },
+    {
+      "id": "tZBow0E",
+      "description": "Pagamento 2222",
+      "companyId": 8,
+      "value": "15222",
+      "observacion": "hhhhhhh",
+      "date_payment": "",
+      "status": "A pagar",
+      "datedue": "2022-08-29T11:38:53.000Z"
+    },
+    {
+      "id": "fHba4MS",
+      "description": "Pagamento 3",
+      "companyId": 6,
+      "value": "6665",
+      "observacion": "teste",
+      "date_payment": "",
+      "status": "Pago",
+      "datedue": "2022-08-26T13:06:07.000Z",
+      "typepayment": "Cheque"
+    }
+  ],
+  "receipts": [
+    {
+      "id": "1",
+      "description": "Recebimento 11111",
+      "companyId": 4,
+      "value": "200.55",
+      "observacion": "TESTE 1",
+      "status": "A receber",
+      "date_receipt": "2022-05-06"
+    },
+    {
+      "id": "2",
+      "description": "Recebimento 2",
+      "companyId": 2,
+      "value": "156.77",
+      "observacion": "TESTE 2",
+      "status": "Recebido",
+      "date_receipt": "2022-03-09"
+    },
+    {
+      "id": "ca2sLdf",
+      "description": "teste123",
+      "companyId": 6,
+      "value": "234",
+      "observacion": "teste",
+      "date_receipt": "",
+      "status": "A receber"
+    }
+  ],
+  "cattles": [
+    {
+      "id": "1",
+      "name": "Vaca 1",
+      "date_born": "2022-08-06",
+      "namefather": "Gigante",
+      "proprietary": "Paulo",
+      "observacion": "Teste",
+      "children": [
+        {
+          "id": "1",
+          "name": "Vaca 1 - filha",
+          "date_born": "2022-08-06",
+          "namefather": "Gigante 2",
+          "proprietary": "Paulo",
+          "observacion": "Teste"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Vaca 2",
+      "date_born": "2022-08-06",
+      "namefather": "Gigante",
+      "proprietary": "Paulo",
+      "observacion": "Teste",
+      "children": [
+        {
+          "id": "1",
+          "name": "Vaca 2 - filha",
+          "date_born": "2022-08-06",
+          "namefather": "Gigante 2",
+          "proprietary": "Paulo",
+          "observacion": "Teste"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Vaca 3",
+      "date_born": "2022-08-06",
+      "namefather": "Gigante",
+      "proprietary": "Paulo",
+      "observacion": "Teste",
+      "children": [
+        {
+          "id": "3",
+          "name": "Vaca 3 - filha",
+          "date_born": "2022-08-06",
+          "namefather": "Gigante 3",
+          "proprietary": "Paulo",
+          "observacion": "Teste"
+        }
+      ]
+    },
+    {
+      "id": "okJqsep",
+      "name": "VACA 4 ",
+      "namefather": "GIGANTE 4",
+      "date_born": "2022-08-25T19:43:42.000Z",
+      "observacion": "TESTE",
+      "proprietary": "PAULO",
+      "children": [
+        {
+          "id": "d9496b9b-fb8c-46ff-be5b-f018e4776c45",
+          "name": "VAQUINHA 4",
+          "namefather": "BOIZAO",
+          "date_born": "2022-08-19T19:45:03.000Z",
+          "observacion": "TESTE BOIZAO",
+          "proprietary": "PAULO"
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "accessToken": "aaaaaaaaaa.bbbbbbbbbb.cccccccc"
+  }
+}
