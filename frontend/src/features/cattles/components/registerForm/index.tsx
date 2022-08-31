@@ -438,7 +438,7 @@ function RegisterForm({
                           name="namefather"
                           type="text"
                           disabled={isLoading}
-                          label="Nome do pai"
+                          label="Nome do boi"
                           onChange={formik.handleChange}
                           value={formik.values.namefather}
                           error={
