@@ -1,15 +1,21 @@
 import { Injectable } from '@nestjs/common';
-import { CreateModuleDto } from '../dto/create-module.dto';
-import { UpdateModuleDto } from '../dto/update-module.dto';
+import { PrismaService } from 'src/config/database/PrismaService';
+import { UserCreateDto } from '../dto/userCreate.dto';
+import { UpdateModuleDto } from '../dto/userUpdate.dto';
 
 @Injectable()
-export class ModuleService {
-  create(createModuleDto: CreateModuleDto) {
-    return 'This action adds a new module';
+export class UserService {
+
+  constructor(private prisma: PrismaService) { }
+
+  async create(userDto: UserCreateDto) {
+    // const user = await this.prisma.user.create({ data: userDto });
+
+    // return user;
   }
 
   findAll() {
-    return `This action returns all users`;
+    return this.prisma.user.findMany();
   }
 
   findOne(id: number) {

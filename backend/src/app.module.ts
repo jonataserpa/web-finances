@@ -1,13 +1,16 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './modules/auth/auth.module';
-import { ModuleModule } from './modules/user/module.module';
+import { UserModule } from './modules/user/user.module';
 //decorator - Javascript - Ecmascript 7
 
 @Module({
-  imports: [AuthModule, ModuleModule],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    AuthModule, 
+    UserModule
+  ],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
