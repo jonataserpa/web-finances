@@ -53,7 +53,7 @@ export const ListUsers: React.FC = () => {
    */
   function getAllUsers() {
     debounce(() => {
-      UsersService.getAll(pagina, busca).then((result) => {
+      UsersService.getAll(pagina, Environment.LIMITE_DE_LINHAS, busca).then((result) => {
         setIsLoading(false);
 
         if (result instanceof Error) {

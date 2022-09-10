@@ -1,4 +1,4 @@
-import { Api } from "../../../shared/services/axios-config";
+import { ApiService } from "../../../shared/services/axios-config";
 import { Environment } from "../../../shared/environment";
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
@@ -43,7 +43,7 @@ const getAll = async (
   try {
     const url = `/payments?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&description_like=${filter}`;
 
-    const { data, headers } = await Api.get(url);
+    const { data, headers } = await ApiService.get(url);
 
     if (data) {
       return {
@@ -63,7 +63,7 @@ const getAll = async (
 
 const getById = async (id: number): Promise<IPaymentsProps | Error> => {
   try {
-    const { data } = await Api.get(`/payments/${id}`);
+    const { data } = await ApiService.get(`/payments/${id}`);
 
     if (data) {
       return data;
@@ -80,7 +80,7 @@ const create = async (
   dados: Omit<IPaymentsProps, "id">
 ): Promise<string | Error> => {
   try {
-    const { data } = await Api.post<IPaymentsProps>("/payments", dados);
+    const { data } = await ApiService.post("/payments", dados);
 
     if (data) {
       toast.success("Pagamento criado com sucesso.");
@@ -99,7 +99,7 @@ const updateById = async (
   dados: IPaymentsProps
 ): Promise<void | Error> => {
   try {
-    await Api.put(`/payments/${id}`, dados);
+    await ApiService.put(`/payments/${id}`, dados);
     toast.success("Pagamento atualizado com sucesso.");
   } catch (error) {
     handleApiErrors(error as AxiosError, "Erro ao atualizar o registro.");
@@ -109,7 +109,7 @@ const updateById = async (
 
 const deleteById = async (id: string | undefined): Promise<void | Error> => {
   try {
-    await Api.delete(`/payments/${id}`);
+    await ApiService.delete(`/payments/`, id);
   } catch (error) {
     handleApiErrors(error as AxiosError, "Erro ao apagar o registro.");
     throw error;

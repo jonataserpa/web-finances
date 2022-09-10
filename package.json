@@ -8,7 +8,7 @@
   "displayName": "dom",
   "testEnvironment": "jest-environment-jsdom",
   "scripts": {
-    "dev": "npm run format && vite",
+    "dev": "npm run format && vite && npm run mock",
     "build": "npm run eslint && tsc && vite build",
     "preview": "vite preview",
     "mock": "json-server -w -p 3333 ./mock/database.json",

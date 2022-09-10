@@ -6,6 +6,7 @@ import { CompanyService } from "../company/services/CompanyService";
 import { UsersService } from "../user/services/UsersService";
 import { LayoutBasePage } from "../../shared/layouts";
 import { ToolList } from "../../shared/components";
+import { Environment } from "../../shared/environment";
 
 export const Dashboard = () => {
   const [isLoadingCompanys, setIsLoadingCompanys] = useState(true);
@@ -27,7 +28,7 @@ export const Dashboard = () => {
       }
     });
 
-    UsersService.getAll(1).then((result) => {
+    UsersService.getAll(1, Environment.LIMITE_DE_LINHAS, '').then((result) => {
       setIsLoadingUsers(false);
 
       if (result instanceof Error) {

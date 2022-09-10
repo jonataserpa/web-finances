@@ -1,4 +1,4 @@
-import { Api } from "../../../shared/services/axios-config";
+import { ApiService } from "../../../shared/services/axios-config";
 import { Environment } from "../../../shared/environment";
 import { ICompanyProps } from "../interfaces/iCompany.interface";
 import { toast } from "react-toastify";
@@ -54,7 +54,7 @@ const getAll = async (
   try {
     const url = `/companys?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&reasonsocial_like=${filter}`;
 
-    const { data, headers } = await Api.get(url);
+    const { data, headers } = await ApiService.get(url);
 
     if (data) {
       return {
@@ -74,7 +74,7 @@ const getAll = async (
 
 const getById = async (id: number): Promise<ICompanyProps | Error> => {
   try {
-    const { data } = await Api.get(`/companys/${id}`);
+    const { data } = await ApiService.get(`/companys/${id}`);
 
     if (data) {
       return data;
@@ -91,7 +91,7 @@ const create = async (
   dados: Omit<ICompanyProps, "id">
 ): Promise<number | Error> => {
   try {
-    const { data } = await Api.post<IDetailCompany>("/companys", dados);
+    const { data } = await ApiService.post("/companys", dados);
 
     if (data) {
       toast.success("Usúario criado com sucesso.");
@@ -110,7 +110,7 @@ const updateById = async (
   dados: ICompanyProps
 ): Promise<void | Error> => {
   try {
-    await Api.put(`/companys/${id}`, dados);
+    await ApiService.put(`/companys/${id}`, dados);
     toast.success("Usúario atualizado com sucesso.");
   } catch (error) {
     handleApiErrors(error as AxiosError, "Erro ao atualizar o registro.");
@@ -120,7 +120,7 @@ const updateById = async (
 
 const deleteById = async (id: string | undefined): Promise<void | Error> => {
   try {
-    await Api.delete(`/companys/${id}`);
+    await ApiService.delete(`/companys/`, id);
   } catch (error) {
     handleApiErrors(error as AxiosError, "Erro ao apagar o registro.");
     throw error;

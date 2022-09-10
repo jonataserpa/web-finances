@@ -1,13 +1,15 @@
-import { Api } from "../../../shared/services/axios-config";
+import { ApiService } from "../../../shared/services/axios-config";
 import { Environment } from "../../../shared/environment";
 import { IUser } from "../interfaces/iUser.interface";
-import { AxiosError } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 import { toast } from "react-toastify";
 
 type TUserWithTotalCount = {
   data: IUser[];
   totalCount: number;
 };
+
+export type directionOfSort = "ASC" | "DESC" | undefined;
 
 /**
  * Handle api errors
@@ -33,6 +35,8 @@ export const handleApiErrors = (error: AxiosError, message: string) => {
         toast.error(message);
         break;
     }
+  } else {
+    toast.error("Erro de conexão.");
   }
 };
 
@@ -43,20 +47,22 @@ export const handleApiErrors = (error: AxiosError, message: string) => {
  * @returns
  */
 const getAll = async (
-  page = 1,
-  filter = ""
+  skip: number,
+  take: number,
+  filter: string,
+  sortDirection?: directionOfSort
 ): Promise<TUserWithTotalCount | Error> => {
   try {
-    const url = `/users?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&name_like=${filter}`;
+    // const url = `/users?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&name_like=${filter}`;
+    const url = `/user`;
 
-    const { data, headers } = await Api.get(url);
-
+    const { data } = await ApiService.get(url, {
+      params: { skip, take, filter, sortDirection },
+    });
     if (data) {
       return {
-        data,
-        totalCount: Number(
-          headers["x-total-count"] || Environment.LIMITE_DE_LINHAS
-        ),
+        data: data.data,
+        totalCount: data.headers,
       };
     }
 
@@ -74,7 +80,7 @@ const getAll = async (
  */
 const getById = async (id: number): Promise<IUser | Error> => {
   try {
-    const { data } = await Api.get(`/users/${id}`);
+    const { data } = await ApiService.get(`/user/${id}`);
 
     if (data) {
       return data;
@@ -96,7 +102,7 @@ const create = async (
   user: Omit<IUser, "id">
 ): Promise<string | undefined | Error> => {
   try {
-    const { data } = await Api.post<IUser>("/users", user);
+    const { data } = await ApiService.post("/user", user);
 
     if (data) {
       return data.id;
@@ -116,7 +122,7 @@ const create = async (
  */
 const updateById = async (id: number, user: IUser): Promise<void | Error> => {
   try {
-    await Api.put(`/users/${id}`, user);
+    await ApiService.put(`/user/${id}`, user);
   } catch (error) {
     handleApiErrors(error as AxiosError, "Erro ao atualizar o registro.");
     throw error;
@@ -129,7 +135,7 @@ const updateById = async (id: number, user: IUser): Promise<void | Error> => {
  */
 const deleteById = async (id: string | undefined): Promise<void | Error> => {
   try {
-    await Api.delete(`/users/${id}`);
+    await ApiService.delete(`/user/`, id);
   } catch (error) {
     handleApiErrors(error as AxiosError, "Erro ao apagar o registro.");
     throw error;
