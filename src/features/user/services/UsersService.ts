@@ -1,7 +1,6 @@
 import { ApiService } from "../../../shared/services/axios-config";
-import { Environment } from "../../../shared/environment";
 import { IUser } from "../interfaces/iUser.interface";
-import { AxiosError, AxiosResponse } from "axios";
+import { AxiosError } from "axios";
 import { toast } from "react-toastify";
 
 type TUserWithTotalCount = {
@@ -53,7 +52,6 @@ const getAll = async (
   sortDirection?: directionOfSort
 ): Promise<TUserWithTotalCount | Error> => {
   try {
-    // const url = `/users?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&name_like=${filter}`;
     const url = `/user`;
 
     const { data } = await ApiService.get(url, {

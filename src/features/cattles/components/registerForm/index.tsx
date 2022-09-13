@@ -471,7 +471,6 @@ function RegisterForm({
                           }
                         />
                       </Grid>
-
                       <Grid item xs={12} sm={12} md={6} lg={4} xl={6}>
                         <VDatePicker
                           fullWidth

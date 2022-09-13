@@ -11,7 +11,7 @@ interface DynamicKey {
 }
 
 export interface IUser extends DynamicKey {
-  id?: string;
+  id?: number;
   name: string;
   email: string;
   phone?: string;

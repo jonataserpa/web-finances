@@ -51,20 +51,22 @@ export const ListCompany: React.FC = () => {
   /**
    * Get all users
    */
-  function getAllUsers() {
+  function getAllCompanys() {
     debounce(() => {
-      CompanyService.getAll(pagina, busca).then((result) => {
-        setIsLoading(false);
+      CompanyService.getAll(pagina, Environment.LIMITE_DE_LINHAS, busca).then(
+        (result) => {
+          setIsLoading(false);
 
-        if (result instanceof Error) {
-          alert(result.message);
-        } else {
-          console.log(result);
+          if (result instanceof Error) {
+            alert(result.message);
+          } else {
+            console.log(result);
 
-          setTotalCount(result.totalCount);
-          setRows(result.data);
+            setTotalCount(result.totalCount);
+            setRows(result.data);
+          }
         }
-      });
+      );
     });
   }
 
@@ -73,7 +75,7 @@ export const ListCompany: React.FC = () => {
    */
   useEffect(() => {
     setIsLoading(true);
-    getAllUsers();
+    getAllCompanys();
   }, [busca, pagina]);
 
   /**
@@ -176,7 +178,7 @@ export const ListCompany: React.FC = () => {
         <RegisterForm
           setIsLoading={setIsLoading}
           isLoading={isLoading}
-          getAllUsers={getAllUsers}
+          getAllCompanys={getAllCompanys}
           handleDelete={handleDelete}
           handleOpen={handleOpen}
           open={open}

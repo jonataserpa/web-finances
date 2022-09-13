@@ -280,10 +280,15 @@ function RegisterForm({
    */
   function validatePayload(payload: IUser): void {
     setIsLoading(true);
-    if (payload.id === "" || payload.id === undefined) {
-      save(payload);
+    const new_payload = {
+      ...payload,
+      phone_user: payload.phone,
+      company_id_user: payload.companyId?.toString(),
+    };
+    if (payload.id === undefined) {
+      save(new_payload);
     } else {
-      update(payload);
+      update(new_payload);
     }
     setIsLoading(false);
     handleClose();

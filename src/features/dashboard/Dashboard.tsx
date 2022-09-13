@@ -28,7 +28,7 @@ export const Dashboard = () => {
       }
     });
 
-    UsersService.getAll(1, Environment.LIMITE_DE_LINHAS, '').then((result) => {
+    UsersService.getAll(1, Environment.LIMITE_DE_LINHAS, "").then((result) => {
       setIsLoadingUsers(false);
 
       if (result instanceof Error) {

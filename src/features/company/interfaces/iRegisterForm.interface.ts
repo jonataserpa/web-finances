@@ -3,7 +3,7 @@ import { ICompanyProps } from "./iCompany.interface";
 export interface IRegisterFormCompanyProps {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   isLoading: boolean;
-  getAllUsers: () => void;
+  getAllCompanys: () => void;
   handleDelete: (id: string | undefined) => void;
   handleOpen: () => void;
   open: boolean;

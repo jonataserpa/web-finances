@@ -53,18 +53,19 @@ export const ListUsers: React.FC = () => {
    */
   function getAllUsers() {
     debounce(() => {
-      UsersService.getAll(pagina, Environment.LIMITE_DE_LINHAS, busca).then((result) => {
-        setIsLoading(false);
+      UsersService.getAll(pagina, Environment.LIMITE_DE_LINHAS, busca).then(
+        (result) => {
+          setIsLoading(false);
 
-        if (result instanceof Error) {
-          alert(result.message);
-        } else {
-          console.log(result);
-
-          setTotalCount(result.totalCount);
-          setRows(result.data);
+          if (result instanceof Error) {
+            alert(result.message);
+          } else {
+            setTotalCount(result.totalCount);
+            const data = result.data;
+            setRows(data);
+          }
         }
-      });
+      );
     });
   }
 

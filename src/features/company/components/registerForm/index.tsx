@@ -39,7 +39,7 @@ import getStyle from "../../../utils/styles";
 function RegisterForm({
   setIsLoading,
   isLoading,
-  getAllUsers,
+  getAllCompanys,
   handleDelete,
   open,
   setOpen,
@@ -285,7 +285,7 @@ function RegisterForm({
     }
     setIsLoading(false);
     handleClose();
-    getAllUsers();
+    getAllCompanys();
   }
 
   /**

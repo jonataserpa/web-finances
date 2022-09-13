@@ -6,6 +6,7 @@ import { CompanyService } from "../services/CompanyService";
 import { useDebounce } from "../../../shared/hooks";
 import { IAutoCompleteCompanyProps } from "../interfaces/iAutoCompleteCompanyProps.interface";
 import { useFormikContext } from "formik";
+import { Environment } from "../../../shared/environment";
 
 type TAutoCompleteOption = {
   id: number;
@@ -31,24 +32,24 @@ export const AutoCompleteCompany: React.FC<IAutoCompleteCompanyProps> = ({
     setIsLoading(true);
 
     debounce(() => {
-      CompanyService.getAll(1, busca).then((result) => {
-        setIsLoading(false);
+      CompanyService.getAll(1, Environment.LIMITE_DE_LINHAS, busca).then(
+        (result) => {
+          setIsLoading(false);
 
-        if (result instanceof Error) {
-          // alert(result.message);
-        } else {
-          console.log(result);
-
-          setOpcoes(
-            result.data.map((company) => ({
-              id: Number(company.id),
-              label: company.reasonsocial,
-            }))
-          );
+          if (result instanceof Error) {
+            // alert(result.message);
+          } else {
+            setOpcoes(
+              result.data.map((company) => ({
+                id: Number(company.id),
+                label: company.reasonsocial,
+              }))
+            );
+          }
         }
-      });
+      );
     });
-  }, [busca]);
+  }, []);
 
   const autoCompleteSelectedOption = useMemo(() => {
     if (!selectedId) return null;
@@ -87,7 +88,7 @@ export const AutoCompleteCompany: React.FC<IAutoCompleteCompanyProps> = ({
           {...params}
           error={!!error && !selectedId}
           helperText={!!error && !selectedId ? helperText : ""}
-          label="Company"
+          label="Empresa"
           name={name}
         />
       )}

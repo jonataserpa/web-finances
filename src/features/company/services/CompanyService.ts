@@ -1,8 +1,8 @@
 import { ApiService } from "../../../shared/services/axios-config";
-import { Environment } from "../../../shared/environment";
 import { ICompanyProps } from "../interfaces/iCompany.interface";
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
+import { directionOfSort } from "../../user/services/UsersService";
 
 export interface IListCompany {
   id: number;
@@ -48,20 +48,22 @@ export const handleApiErrors = (error: AxiosError, message: string) => {
 };
 
 const getAll = async (
-  page = 1,
-  filter = ""
+  skip: number,
+  take: number,
+  filter: string,
+  sortDirection?: directionOfSort
 ): Promise<TCompanyWithTotalCount | Error> => {
   try {
-    const url = `/companys?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&reasonsocial_like=${filter}`;
+    const url = "/company";
 
-    const { data, headers } = await ApiService.get(url);
+    const { data } = await ApiService.get(url, {
+      params: { skip, take, filter, sortDirection },
+    });
 
     if (data) {
       return {
-        data,
-        totalCount: Number(
-          headers["x-total-count"] || Environment.LIMITE_DE_LINHAS
-        ),
+        data: data.data,
+        totalCount: data.headers,
       };
     }
 
@@ -74,7 +76,7 @@ const getAll = async (
 
 const getById = async (id: number): Promise<ICompanyProps | Error> => {
   try {
-    const { data } = await ApiService.get(`/companys/${id}`);
+    const { data } = await ApiService.get(`/company/${id}`);
 
     if (data) {
       return data;
@@ -91,10 +93,10 @@ const create = async (
   dados: Omit<ICompanyProps, "id">
 ): Promise<number | Error> => {
   try {
-    const { data } = await ApiService.post("/companys", dados);
+    const { data } = await ApiService.post("/company", dados);
 
     if (data) {
-      toast.success("Usúario criado com sucesso.");
+      toast.success("company criado com sucesso.");
       return data.id;
     }
 
@@ -110,8 +112,8 @@ const updateById = async (
   dados: ICompanyProps
 ): Promise<void | Error> => {
   try {
-    await ApiService.put(`/companys/${id}`, dados);
-    toast.success("Usúario atualizado com sucesso.");
+    await ApiService.put(`/company/${id}`, dados);
+    toast.success("company atualizado com sucesso.");
   } catch (error) {
     handleApiErrors(error as AxiosError, "Erro ao atualizar o registro.");
     throw error;
@@ -120,7 +122,7 @@ const updateById = async (
 
 const deleteById = async (id: string | undefined): Promise<void | Error> => {
   try {
-    await ApiService.delete(`/companys/`, id);
+    await ApiService.delete(`/company/`, id);
   } catch (error) {
     handleApiErrors(error as AxiosError, "Erro ao apagar o registro.");
     throw error;
