@@ -137,7 +137,7 @@ export const cattleInitial: ICattlesProps = {
   id: "",
   name: "",
   namefather: "",
-  date_born: "",
+  dateborn: null,
   observacion: "",
   proprietary: "",
   children: [
@@ -145,9 +145,56 @@ export const cattleInitial: ICattlesProps = {
       id: uuidv4(),
       name: "",
       namefather: "",
-      date_born: "",
+      dateborn: null,
       observacion: "",
       proprietary: "",
     },
   ],
+};
+
+export const calcPagination = (page: number) => {
+  let skip = 0;
+  if (page === 1) {
+    skip = 0;
+  } else if (page === 2) {
+    skip = 5;
+  } else if (page === 3) {
+    skip = 10;
+  } else if (page === 4) {
+    skip = 15;
+  } else if (page === 5) {
+    skip = 20;
+  } else if (page === 6) {
+    skip = 25;
+  } else if (page === 7) {
+    skip = 30;
+  } else if (page === 8) {
+    skip = 35;
+  } else if (page === 9) {
+    skip = 40;
+  } else if (page === 10) {
+    skip = 45;
+  } else if (page === 11) {
+    skip = 50;
+  } else if (page === 12) {
+    skip = 55;
+  } else if (page === 13) {
+    skip = 60;
+  } else if (page === 14) {
+    skip = 65;
+  } else if (page === 15) {
+    skip = 70;
+  } else if (page === 16) {
+    skip = 75;
+  } else if (page === 17) {
+    skip = 80;
+  } else if (page === 18) {
+    skip = 85;
+  } else if (page === 19) {
+    skip = 90;
+  } else if (page === 20) {
+    skip = 95;
+  }
+
+  return skip;
 };

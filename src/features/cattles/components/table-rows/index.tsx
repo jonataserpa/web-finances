@@ -26,7 +26,7 @@ function TableRows({ rows, handleDelete, handleEdit }: IRows): JSX.Element {
               </IconButton>
             </TableCell>
             <TableCell data-testid="users-table">{row.name}</TableCell>
-            <TableCell>{row.date_born}</TableCell>
+            <TableCell>{row.dateborn}</TableCell>
             <TableCell>{row.proprietary}</TableCell>
           </TableRow>
         ))}

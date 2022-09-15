@@ -3,6 +3,7 @@ import { Environment } from "../../../shared/environment";
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
 import { ICattlesProps } from "../interfaces/iCattles.interface";
+import { directionOfSort } from "../../user/services/UsersService";
 
 export type TCattlesWithTotalCount = {
   data: ICattlesProps[];
@@ -37,20 +38,23 @@ export const handleApiErrors = (error: AxiosError, message: string) => {
 };
 
 const getAll = async (
-  page = 1,
-  filter = ""
+  skip: number,
+  take: number,
+  filter: string,
+  sortDirection?: directionOfSort
 ): Promise<TCattlesWithTotalCount | Error> => {
   try {
-    const url = `/cattles?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&name_like=${filter}`;
-
-    const { data, headers } = await ApiService.get(url);
+    // const url = `/cattles?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&name_like=${filter}`;
+    // const { data, headers } = await ApiService.get(url);
+    const url = "/cattles";
+    const { data } = await ApiService.get(url, {
+      params: { skip, take, filter, sortDirection },
+    });
 
     if (data) {
       return {
-        data,
-        totalCount: Number(
-          headers["x-total-count"] || Environment.LIMITE_DE_LINHAS
-        ),
+        data: data.data,
+        totalCount: data.headers,
       };
     }
 

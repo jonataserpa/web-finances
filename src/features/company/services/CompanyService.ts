@@ -96,7 +96,7 @@ const create = async (
     const { data } = await ApiService.post("/company", dados);
 
     if (data) {
-      toast.success("company criado com sucesso.");
+      toast.success("Empresa criado com sucesso.");
       return data.id;
     }
 
@@ -113,7 +113,7 @@ const updateById = async (
 ): Promise<void | Error> => {
   try {
     await ApiService.put(`/company/${id}`, dados);
-    toast.success("company atualizado com sucesso.");
+    toast.success("Empresa atualizado com sucesso.");
   } catch (error) {
     handleApiErrors(error as AxiosError, "Erro ao atualizar o registro.");
     throw error;

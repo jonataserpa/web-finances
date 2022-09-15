@@ -21,7 +21,7 @@ import { useDebounce } from "../../../shared/hooks";
 import TableRows from "../components/table-rows";
 import RegisterForm from "../components/registerForm";
 import { ICompanyProps } from "../interfaces/iCompany.interface";
-import { company } from "../../utils/initialValues";
+import { calcPagination, company } from "../../utils/initialValues";
 
 export const ListCompany: React.FC = () => {
   const [dataResponse, setDataResponse] = useState<ICompanyProps>(company);
@@ -45,7 +45,7 @@ export const ListCompany: React.FC = () => {
    * Search page values
    */
   const pagina = useMemo(() => {
-    return Number(searchParams.get("pagina") || "1");
+    return Number(searchParams.get("pagina") || "0");
   }, [searchParams]);
 
   /**
@@ -53,20 +53,20 @@ export const ListCompany: React.FC = () => {
    */
   function getAllCompanys() {
     debounce(() => {
-      CompanyService.getAll(pagina, Environment.LIMITE_DE_LINHAS, busca).then(
-        (result) => {
-          setIsLoading(false);
+      CompanyService.getAll(
+        calcPagination(pagina),
+        Environment.LIMITE_DE_LINHAS,
+        busca
+      ).then((result) => {
+        setIsLoading(false);
 
-          if (result instanceof Error) {
-            alert(result.message);
-          } else {
-            console.log(result);
-
-            setTotalCount(result.totalCount);
-            setRows(result.data);
-          }
+        if (result instanceof Error) {
+          alert(result.message);
+        } else {
+          setTotalCount(result.totalCount);
+          setRows(result.data);
         }
-      );
+      });
     });
   }
 
@@ -118,7 +118,7 @@ export const ListCompany: React.FC = () => {
           textButtonNew="Nova"
           clickNew={handleOpen}
           changeTextSearch={(texto) =>
-            setSearchParams({ busca: texto, pagina: "1" }, { replace: true })
+            setSearchParams({ busca: texto, pagina: "0" }, { replace: true })
           }
         />
       }

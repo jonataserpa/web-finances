@@ -96,7 +96,7 @@ function RegisterForm({
       id: uuidv4(),
       name: "",
       namefather: "",
-      date_born: "",
+      dateborn: "",
       observacion: "",
       proprietary: "",
     });
@@ -285,35 +285,29 @@ function RegisterForm({
                       <VDatePicker
                         fullWidth
                         label="Data de nascimento"
-                        id={`children[${index}].date_born`}
-                        name={`children[${index}].date_born`}
+                        id={`children[${index}].dateborn`}
+                        name={`children[${index}].dateborn`}
                         disabled={isLoading}
                         onChange={formik.handleChange}
-                        value={son.date_born}
+                        value={son.dateborn}
                         error={
                           Boolean(
-                            getIn(formik.errors, `children[${index}].date_born`)
+                            getIn(formik.errors, `children[${index}].dateborn`)
                           ) &&
                           Boolean(
-                            getIn(
-                              formik.touched,
-                              `children[${index}].date_born`
-                            )
+                            getIn(formik.touched, `children[${index}].dateborn`)
                           )
                         }
                         helperText={
                           Boolean(
-                            getIn(formik.errors, `children[${index}].date_born`)
+                            getIn(formik.errors, `children[${index}].dateborn`)
                           ) &&
                           Boolean(
-                            getIn(
-                              formik.touched,
-                              `children[${index}].date_born`
-                            )
+                            getIn(formik.touched, `children[${index}].dateborn`)
                           )
                             ? getIn(
                                 formik.errors,
-                                `children[${index}].observacion`
+                                `children[${index}].dateborn`
                               )
                             : ""
                         }
@@ -474,17 +468,17 @@ function RegisterForm({
                       <Grid item xs={12} sm={12} md={6} lg={4} xl={6}>
                         <VDatePicker
                           fullWidth
-                          name="date_born"
+                          name="dateborn"
                           label="Data de nascimento"
                           disabled={isLoading}
                           onChange={formik.handleChange}
-                          value={formik.values.date_born}
+                          value={formik.values.dateborn}
                           error={
-                            formik.touched.date_born &&
-                            Boolean(formik.errors.date_born)
+                            formik.touched.dateborn &&
+                            Boolean(formik.errors.dateborn)
                           }
                           helperText={
-                            formik.touched.date_born && formik.errors.date_born
+                            formik.touched.dateborn && formik.errors.dateborn
                           }
                         />
                       </Grid>

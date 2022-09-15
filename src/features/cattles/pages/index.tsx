@@ -19,7 +19,7 @@ import { ToolList } from "../../../shared/components";
 import { useDebounce } from "../../../shared/hooks";
 import { useDispatch } from "react-redux";
 import allActions from "../../../store/actions";
-import { cattleInitial } from "../../utils/initialValues";
+import { calcPagination, cattleInitial } from "../../utils/initialValues";
 import { ICattlesProps } from "../interfaces/iCattles.interface";
 import { CattlesService } from "../services/CattlesService";
 import TableRows from "../components/table-rows";
@@ -50,7 +50,7 @@ export const ListCattles: React.FC = () => {
    * Search page values
    */
   const pagina = useMemo(() => {
-    return Number(searchParams.get("pagina") || "1");
+    return Number(searchParams.get("pagina") || "0");
   }, [searchParams]);
 
   /**
@@ -58,14 +58,16 @@ export const ListCattles: React.FC = () => {
    */
   function getAllUsers() {
     debounce(() => {
-      CattlesService.getAll(pagina, busca).then((result) => {
+      CattlesService.getAll(
+        calcPagination(pagina),
+        Environment.LIMITE_DE_LINHAS,
+        busca
+      ).then((result) => {
         setIsLoading(false);
 
         if (result instanceof Error) {
           alert(result.message);
         } else {
-          console.log(result);
-
           setTotalCount(result.totalCount);
           setRows(result.data);
         }
@@ -121,7 +123,7 @@ export const ListCattles: React.FC = () => {
           textButtonNew="Nova"
           clickNew={handleOpen}
           changeTextSearch={(texto) =>
-            setSearchParams({ busca: texto, pagina: "1" }, { replace: true })
+            setSearchParams({ busca: texto, pagina: "0" }, { replace: true })
           }
         />
       }

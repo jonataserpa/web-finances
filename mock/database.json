@@ -428,7 +428,7 @@
     {
       "id": "1",
       "name": "Vaca 1",
-      "date_born": "2022-08-06",
+      "dateborn": "2022-08-06",
       "namefather": "Gigante",
       "proprietary": "Paulo",
       "observacion": "Teste",
@@ -436,7 +436,7 @@
         {
           "id": "1",
           "name": "Vaca 1 - filha",
-          "date_born": "2022-08-06",
+          "dateborn": "2022-08-06",
           "namefather": "Gigante 2",
           "proprietary": "Paulo",
           "observacion": "Teste"

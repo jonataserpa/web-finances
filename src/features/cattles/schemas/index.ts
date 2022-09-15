@@ -5,15 +5,14 @@ import { ICattlesProps } from "../interfaces/iCattles.interface";
 export const formValidationSchemaCattles: yup.SchemaOf<ICattlesProps | any> =
   yup.object().shape({
     name: yup.string().required().min(3),
-    date_born: yup.string(),
+    dateborn: yup.string().nullable().required(),
     observacion: yup.string(),
     namefather: yup.string(),
     proprietary: yup.string().required(),
     children: yup.array(
       yup.object({
-        id: yup.string(),
         name: yup.string(),
-        date_born: yup.string(),
+        // dateborn: yup.string(),
         namefather: yup.string(),
         proprietary: yup.string(),
         observacion: yup.string(),

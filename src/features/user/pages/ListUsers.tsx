@@ -21,7 +21,7 @@ import { ToolList } from "../../../shared/components";
 import { useDebounce } from "../../../shared/hooks";
 import TableRows from "../components/table-rows";
 import RegisterForm from "../components/registerForm";
-import { user } from "../../utils/initialValues";
+import { calcPagination, user } from "../../utils/initialValues";
 
 export const ListUsers: React.FC = () => {
   const [dataResponse, setDataResponse] = useState<IUser>(user);
@@ -45,7 +45,7 @@ export const ListUsers: React.FC = () => {
    * Search page values
    */
   const pagina = useMemo(() => {
-    return Number(searchParams.get("pagina") || "1");
+    return Number(searchParams.get("pagina") || "0");
   }, [searchParams]);
 
   /**
@@ -53,19 +53,20 @@ export const ListUsers: React.FC = () => {
    */
   function getAllUsers() {
     debounce(() => {
-      UsersService.getAll(pagina, Environment.LIMITE_DE_LINHAS, busca).then(
-        (result) => {
-          setIsLoading(false);
-
-          if (result instanceof Error) {
-            alert(result.message);
-          } else {
-            setTotalCount(result.totalCount);
-            const data = result.data;
-            setRows(data);
-          }
+      UsersService.getAll(
+        calcPagination(pagina),
+        Environment.LIMITE_DE_LINHAS,
+        busca
+      ).then((result) => {
+        setIsLoading(false);
+        if (result instanceof Error) {
+          alert(result.message);
+        } else {
+          setTotalCount(result.totalCount);
+          const data = result.data;
+          setRows(data);
         }
-      );
+      });
     });
   }
 
@@ -117,7 +118,7 @@ export const ListUsers: React.FC = () => {
           textButtonNew="Nova"
           clickNew={handleOpen}
           changeTextSearch={(texto) =>
-            setSearchParams({ busca: texto, pagina: "1" }, { replace: true })
+            setSearchParams({ busca: texto, pagina: "0" }, { replace: true })
           }
         />
       }

@@ -14,7 +14,7 @@ type TVDatePickerProps = TextFieldProps & {
   name: string;
   label: string;
   error: boolean | undefined;
-  value: string | undefined;
+  value: string | undefined | null;
   helperText: boolean | string | undefined;
 };
 export const VDatePicker: React.FC<TVDatePickerProps> = ({
