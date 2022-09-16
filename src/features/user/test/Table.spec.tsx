@@ -10,12 +10,12 @@ import { IUser } from "../interfaces/iUser.interface";
  */
 const rowsMock: IUser[] = [
   {
-    id: "1",
+    id: 1,
     name: "John",
     email: "john@example.com",
   },
   {
-    id: "2",
+    id: 2,
     name: "Jane",
     email: "jane@example.com",
   },

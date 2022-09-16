@@ -70,7 +70,7 @@ export const receiptsInital: IReceiveProps = {
   companyId: "",
   value: "",
   observacion: "",
-  date_receipt: "",
+  datereceipt: "",
   status: "",
 };
 

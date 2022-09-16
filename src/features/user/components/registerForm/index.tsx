@@ -52,7 +52,7 @@ function RegisterForm({
 }: IRegisterFormProps): JSX.Element {
   const { save, saveAndClose, update } = useVForm();
   const navigate = useNavigate();
-  const { id = "nova" } = useParams<"id">();
+  const { id } = useParams();
 
   /**
    * Add item array address
@@ -558,7 +558,6 @@ function RegisterForm({
                   showButtonClean={id !== "nova"}
                   onClickSaveAndClose={saveAndClose}
                   onClickBack={() => navigate("/users")}
-                  onClickClean={() => handleDelete(id)}
                 />
               </form>
             </FormikProvider>

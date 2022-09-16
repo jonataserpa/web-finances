@@ -82,7 +82,7 @@ export const ListUsers: React.FC = () => {
    * Handle delete item
    * @param id
    */
-  const handleDelete = (id: string | undefined) => {
+  const handleDelete = (id: number | undefined) => {
     if (confirm("Realmente deseja apagar?")) {
       UsersService.deleteById(id).then((result) => {
         if (result instanceof Error) {

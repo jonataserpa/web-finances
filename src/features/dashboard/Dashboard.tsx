@@ -18,15 +18,17 @@ export const Dashboard = () => {
     setIsLoadingCompanys(true);
     setIsLoadingUsers(true);
 
-    CompanyService.getAll(1, Environment.LIMITE_DE_LINHAS, "").then((result) => {
-      setIsLoadingCompanys(false);
+    CompanyService.getAll(1, Environment.LIMITE_DE_LINHAS, "").then(
+      (result) => {
+        setIsLoadingCompanys(false);
 
-      if (result instanceof Error) {
-        alert(result.message);
-      } else {
-        setTotalCountCompanys(result.totalCount);
+        if (result instanceof Error) {
+          alert(result.message);
+        } else {
+          setTotalCountCompanys(result.totalCount);
+        }
       }
-    });
+    );
 
     UsersService.getAll(1, Environment.LIMITE_DE_LINHAS, "").then((result) => {
       setIsLoadingUsers(false);

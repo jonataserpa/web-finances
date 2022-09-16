@@ -9,7 +9,7 @@ import { IRows } from "../../interfaces/iRows.interface";
  */
 function TableRows({ rows, handleDelete, handleEdit }: IRows): JSX.Element {
   if (rows && rows.length === 0) {
-    return <div>No users</div>;
+    return <div style={{ marginLeft: 20 }}>No users</div>;
   }
   return (
     <>
