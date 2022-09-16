@@ -65,6 +65,7 @@ function RegisterForm({
       number_end: "",
       state: "",
       city: "",
+      user_id: 0,
     });
   }
 
@@ -286,8 +287,41 @@ function RegisterForm({
       company_id_user: payload.companyId?.toString(),
     };
     if (payload.id === undefined) {
-      save(new_payload);
+      let newValue = new_payload;
+      if (
+        newValue.address &&
+        newValue.address.length === 1 &&
+        newValue.address[0].adrees === ""
+      ) {
+        newValue = { ...new_payload, address: [] };
+      }
+      newValue.address?.map((address) => {
+        return {
+          id: address.id,
+          cep: address.cep,
+          adrees: address.adrees,
+          number_end: address.number_end,
+          state: address.state,
+          city: address.city,
+        };
+      });
+      save(newValue);
     } else {
+      const address: IAdresses[] | undefined = [];
+      new_payload.address?.forEach((addr) => {
+        const adrs = {
+          id: addr.id,
+          cep: addr.cep,
+          adrees: addr.adrees,
+          number_end: addr.number_end,
+          state: addr.state,
+          city: addr.city,
+          user_id: new_payload.id,
+        };
+
+        address.push(adrs);
+      });
+      new_payload.address = address;
       update(new_payload);
     }
     setIsLoading(false);

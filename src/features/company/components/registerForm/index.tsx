@@ -279,8 +279,41 @@ function RegisterForm({
   async function validatePayload(payload: ICompanyProps): Promise<void> {
     setIsLoading(true);
     if (payload.id === "" || payload.id === undefined) {
-      await CompanyService.create(payload);
+      let newValue = payload;
+      if (
+        payload.address &&
+        payload.address.length === 1 &&
+        payload.address[0].adrees === ""
+      ) {
+        newValue = { ...payload, address: [] };
+      }
+      newValue.address?.map((address) => {
+        return {
+          id: address.id,
+          cep: address.cep,
+          adrees: address.adrees,
+          number_end: address.number_end,
+          state: address.state,
+          city: address.city,
+        };
+      });
+      await CompanyService.create(newValue);
     } else {
+      const address: IAdresses[] | undefined = [];
+      payload.address?.forEach((addr) => {
+        const adrs = {
+          id: addr.id,
+          cep: addr.cep,
+          adrees: addr.adrees,
+          number_end: addr.number_end,
+          state: addr.state,
+          city: addr.city,
+          company_id_address: Number(payload.id),
+        };
+
+        address.push(adrs);
+      });
+      payload.address = address;
       await CompanyService.updateById(Number(payload.id), payload);
     }
     setIsLoading(false);

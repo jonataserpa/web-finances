@@ -21,7 +21,7 @@ import { ToolList } from "../../../shared/components";
 import { useDebounce } from "../../../shared/hooks";
 import TableRows from "../components/table-rows";
 import RegisterForm from "../components/registerForm";
-import { calcPagination, user } from "../../utils/initialValues";
+import { address, calcPagination, user } from "../../utils/initialValues";
 
 export const ListUsers: React.FC = () => {
   const [dataResponse, setDataResponse] = useState<IUser>(user);
@@ -102,6 +102,9 @@ export const ListUsers: React.FC = () => {
    */
   function handleEdit(user: IUser) {
     setTitleModal("Edite Usúario");
+    if (user.address && user.address.length === 0) {
+      user.address = address;
+    }
     setDataResponse(user);
     setTimeout(() => {
       handleOpen();

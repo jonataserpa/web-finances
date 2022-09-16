@@ -5,4 +5,5 @@ export interface IChildrenProps {
   namefather: string;
   proprietary: string;
   observacion: string;
+  cattlesId?: number | null;
 }

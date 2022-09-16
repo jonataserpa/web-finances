@@ -14,10 +14,14 @@ export const formValidationSchema: yup.SchemaOf<IUser | any> = yup
     address: yup.array(
       yup.object({
         id: yup.string(),
-        cep: yup.string().required(),
-        adrees: yup.string().required(),
-        city: yup.string().required(),
-        state: yup.string().required(),
+        cep: yup.string(),
+        adrees: yup.string(),
+        city: yup.string(),
+        state: yup.string(),
+        // cep: yup.string().required(),
+        // adrees: yup.string().required(),
+        // city: yup.string().required(),
+        // state: yup.string().required(),
       })
     ),
   });

@@ -15,6 +15,7 @@ export const address = [
     number_end: "",
     state: "",
     city: "",
+    user_id: 0,
   },
 ];
 

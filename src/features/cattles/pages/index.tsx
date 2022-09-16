@@ -12,6 +12,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import { v4 as uuidv4 } from "uuid";
 import { useSearchParams } from "react-router-dom";
 import { Environment } from "../../../shared/environment";
 import { LayoutBasePage } from "../../../shared/layouts";
@@ -107,6 +108,18 @@ export const ListCattles: React.FC = () => {
    */
   function handleEdit(cattlesValue: ICattlesProps) {
     setTitleModal("Edite Vaca");
+    if (cattlesValue.children && cattlesValue.children.length === 0) {
+      cattlesValue.children = [
+        {
+          id: uuidv4(),
+          name: "",
+          namefather: "",
+          dateborn: null,
+          observacion: "",
+          proprietary: "",
+        },
+      ];
+    }
     dispatch(allActions.cattles.setCattles(cattlesValue));
     setTimeout(() => {
       setOpen(true);

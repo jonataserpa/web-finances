@@ -12,10 +12,14 @@ export const formValidationSchemaCompany: yup.SchemaOf<ICompanyProps | any> =
     address: yup.array(
       yup.object({
         id: yup.string(),
-        cep: yup.string().required(),
-        adrees: yup.string().required(),
-        city: yup.string().required(),
-        state: yup.string().required(),
+        cep: yup.string(),
+        adrees: yup.string(),
+        city: yup.string(),
+        state: yup.string(),
+        // cep: yup.string().required(),
+        // adrees: yup.string().required(),
+        // city: yup.string().required(),
+        // state: yup.string().required(),
       })
     ),
   });

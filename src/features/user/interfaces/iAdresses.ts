@@ -14,4 +14,6 @@ export interface IAdresses extends DynamicKey {
   number_end: string;
   state: string;
   city: string;
+  user_id?: number;
+  company_id_address?: number;
 }

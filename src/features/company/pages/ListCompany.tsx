@@ -21,7 +21,7 @@ import { useDebounce } from "../../../shared/hooks";
 import TableRows from "../components/table-rows";
 import RegisterForm from "../components/registerForm";
 import { ICompanyProps } from "../interfaces/iCompany.interface";
-import { calcPagination, company } from "../../utils/initialValues";
+import { address, calcPagination, company } from "../../utils/initialValues";
 
 export const ListCompany: React.FC = () => {
   const [dataResponse, setDataResponse] = useState<ICompanyProps>(company);
@@ -102,6 +102,9 @@ export const ListCompany: React.FC = () => {
    */
   function handleEdit(company: ICompanyProps) {
     setTitleModal("Edite Empresa");
+    if (company.address && company.address.length === 0) {
+      company.address = address;
+    }
     setDataResponse(company);
     setTimeout(() => {
       handleOpen();

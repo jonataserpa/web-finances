@@ -79,8 +79,37 @@ function RegisterForm({
   async function validatePayload(payload: ICattlesProps): Promise<void> {
     setIsLoading(true);
     if (payload.id === "" || payload.id === undefined) {
-      await CattlesService.create(payload);
+      let newValue = payload;
+      if (payload.children.length === 1 && payload.children[0].name === "") {
+        newValue = { ...payload, children: [] };
+      }
+      newValue.children?.map((childre) => {
+        return {
+          id: childre.id,
+          name: childre.name,
+          dateborn: childre.dateborn,
+          namefather: childre.namefather,
+          observacion: childre.observacion,
+          proprietary: childre.proprietary,
+        };
+      });
+      await CattlesService.create(newValue);
     } else {
+      const childrens: IChildrenProps[] | undefined = [];
+      payload.children?.forEach((childre) => {
+        const adrs = {
+          id: childre.id,
+          name: childre.name,
+          dateborn: childre.dateborn,
+          namefather: childre.namefather,
+          observacion: childre.observacion,
+          proprietary: childre.proprietary,
+          cattlesId: Number(payload.id),
+        };
+
+        childrens.push(adrs);
+      });
+      payload.children = childrens;
       await CattlesService.updateById(payload.id, payload);
     }
     setIsLoading(false);
@@ -360,6 +389,8 @@ function RegisterForm({
     validationSchema: formValidationSchemaCattles,
     onSubmit: (values) => {
       validatePayload(values);
+      formik.resetForm();
+      cattleInitial;
     },
   });
 
