@@ -3,6 +3,7 @@ import { Environment } from "../../../shared/environment";
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
 import { IPaymentsProps } from "../interfaces/iPayments.interface";
+import { directionOfSort } from "../../user/services/UsersService";
 
 export type TPaymentsWithTotalCount = {
   data: IPaymentsProps[];
@@ -37,20 +38,25 @@ export const handleApiErrors = (error: AxiosError, message: string) => {
 };
 
 const getAll = async (
-  page = 1,
-  filter = ""
+  skip: number,
+  take: number,
+  filter: string,
+  sortDirection?: directionOfSort
 ): Promise<TPaymentsWithTotalCount | Error> => {
   try {
-    const url = `/payments?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&description_like=${filter}`;
+    // const url = `/payments?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&description_like=${filter}`;
+    // const { data, headers } = await ApiService.get(url);
 
-    const { data, headers } = await ApiService.get(url);
+    const url = "/payment";
+
+    const { data } = await ApiService.get(url, {
+      params: { skip, take, filter, sortDirection },
+    });
 
     if (data) {
       return {
-        data,
-        totalCount: Number(
-          headers["x-total-count"] || Environment.LIMITE_DE_LINHAS
-        ),
+        data: data.data,
+        totalCount: data.headers,
       };
     }
 
@@ -63,7 +69,7 @@ const getAll = async (
 
 const getById = async (id: number): Promise<IPaymentsProps | Error> => {
   try {
-    const { data } = await ApiService.get(`/payments/${id}`);
+    const { data } = await ApiService.get(`/payment/${id}`);
 
     if (data) {
       return data;
@@ -80,7 +86,7 @@ const create = async (
   dados: Omit<IPaymentsProps, "id">
 ): Promise<string | Error> => {
   try {
-    const { data } = await ApiService.post("/payments", dados);
+    const { data } = await ApiService.post("/payment", dados);
 
     if (data) {
       toast.success("Pagamento criado com sucesso.");
@@ -99,7 +105,7 @@ const updateById = async (
   dados: IPaymentsProps
 ): Promise<void | Error> => {
   try {
-    await ApiService.put(`/payments/${id}`, dados);
+    await ApiService.put(`/payment/${id}`, dados);
     toast.success("Pagamento atualizado com sucesso.");
   } catch (error) {
     handleApiErrors(error as AxiosError, "Erro ao atualizar o registro.");
@@ -109,7 +115,7 @@ const updateById = async (
 
 const deleteById = async (id: string | undefined): Promise<void | Error> => {
   try {
-    await ApiService.delete(`/payments/`, id);
+    await ApiService.delete(`/payment/`, id);
   } catch (error) {
     handleApiErrors(error as AxiosError, "Erro ao apagar o registro.");
     throw error;

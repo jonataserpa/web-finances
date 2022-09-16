@@ -23,7 +23,7 @@ import TableRows from "../components/table-rows";
 import RegisterForm from "../components/registerForm";
 import { useDispatch } from "react-redux";
 import allActions from "../../../store/actions";
-import { paymentInital } from "../../utils/initialValues";
+import { calcPagination, paymentInital } from "../../utils/initialValues";
 
 export const ListPayments: React.FC = () => {
   const dispatch = useDispatch();
@@ -58,7 +58,11 @@ export const ListPayments: React.FC = () => {
    */
   function getAllUsers() {
     debounce(() => {
-      PaymentsService.getAll(pagina, busca).then((result) => {
+      PaymentsService.getAll(
+        calcPagination(pagina),
+        Environment.LIMITE_DE_LINHAS,
+        busca
+      ).then((result) => {
         setIsLoading(false);
 
         if (result instanceof Error) {

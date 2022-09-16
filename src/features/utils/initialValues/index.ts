@@ -16,6 +16,7 @@ export const address = [
     state: "",
     city: "",
     user_id: 0,
+    company_id_address: 0,
   },
 ];
 
@@ -80,10 +81,12 @@ export const statusPayment = [
   {
     id: 1,
     name: "Pago",
+    value: 'PAYABLE'
   },
   {
     id: 2,
     name: "A pagar",
+    value: 'PAIDOUT'
   },
 ];
 
@@ -94,10 +97,12 @@ export const statusReceipt = [
   {
     id: 1,
     name: "A receber",
+    value: 'RECEIVABLE'
   },
   {
     id: 2,
     name: "Recebido",
+    value: 'RECEIVED'
   },
 ];
 
@@ -108,26 +113,32 @@ export const statusTypePayment = [
   {
     id: 1,
     name: "Cheque",
+    value: "Cheque"
   },
   {
     id: 2,
     name: "A Vista",
+    value: "A Vista"
   },
   {
     id: 3,
     name: "Parcelado no cartão 6x",
+    value: "Parcelado no cartão 6x"
   },
   {
     id: 4,
     name: "Parcelado no cartão 12x",
+    value: "Parcelado no cartão 12x"
   },
   {
     id: 5,
     name: "Parcelado no cartão 24x",
+    value: "Parcelado no cartão 24x"
   },
   {
     id: 6,
     name: "Parcelado no cartão 36x",
+    value: "Parcelado no cartão 36x"
   },
 ];
 

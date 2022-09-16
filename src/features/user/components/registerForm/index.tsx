@@ -286,6 +286,7 @@ function RegisterForm({
       phone_user: payload.phone,
       company_id_user: payload.companyId?.toString(),
     };
+    const address: IAdresses[] | undefined = [];
     if (payload.id === undefined) {
       let newValue = new_payload;
       if (
@@ -294,20 +295,23 @@ function RegisterForm({
         newValue.address[0].adrees === ""
       ) {
         newValue = { ...new_payload, address: [] };
+      } else {
+        newValue.address?.forEach((addr) => {
+          const adrs = {
+            id: addr.id,
+            cep: addr.cep,
+            adrees: addr.adrees,
+            number_end: addr.number_end,
+            state: addr.state,
+            city: addr.city,
+          };
+  
+          address.push(adrs);
+        });
+        newValue.address = address;
       }
-      newValue.address?.map((address) => {
-        return {
-          id: address.id,
-          cep: address.cep,
-          adrees: address.adrees,
-          number_end: address.number_end,
-          state: address.state,
-          city: address.city,
-        };
-      });
       save(newValue);
     } else {
-      const address: IAdresses[] | undefined = [];
       new_payload.address?.forEach((addr) => {
         const adrs = {
           id: addr.id,

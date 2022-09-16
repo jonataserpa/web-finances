@@ -14,6 +14,7 @@ import { useFormikContext } from "formik";
 interface IStatus {
   id: number;
   name: string;
+  value: string;
 }
 
 type SelectStatusProps = TextFieldProps & {
@@ -70,7 +71,7 @@ export function VSelectStatus({
         >
           {items &&
             items.map((item) => (
-              <MenuItem key={item.id} value={item.name}>
+              <MenuItem key={item.id} value={item.value}>
                 {item.name}
               </MenuItem>
             ))}

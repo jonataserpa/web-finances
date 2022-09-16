@@ -63,6 +63,7 @@ function RegisterForm({
       number_end: "",
       state: "",
       city: "",
+      company_id_address: 0,
     });
   }
 
@@ -278,6 +279,7 @@ function RegisterForm({
    */
   async function validatePayload(payload: ICompanyProps): Promise<void> {
     setIsLoading(true);
+    const address: IAdresses[] | undefined = [];
     if (payload.id === "" || payload.id === undefined) {
       let newValue = payload;
       if (
@@ -286,20 +288,23 @@ function RegisterForm({
         payload.address[0].adrees === ""
       ) {
         newValue = { ...payload, address: [] };
+      } else {
+        payload.address?.forEach((addr) => {
+          const adrs = {
+            id: addr.id,
+            cep: addr.cep,
+            adrees: addr.adrees,
+            number_end: addr.number_end,
+            state: addr.state,
+            city: addr.city,
+          };
+  
+          address.push(adrs);
+        });
+        newValue.address = address;
       }
-      newValue.address?.map((address) => {
-        return {
-          id: address.id,
-          cep: address.cep,
-          adrees: address.adrees,
-          number_end: address.number_end,
-          state: address.state,
-          city: address.city,
-        };
-      });
       await CompanyService.create(newValue);
     } else {
-      const address: IAdresses[] | undefined = [];
       payload.address?.forEach((addr) => {
         const adrs = {
           id: addr.id,
