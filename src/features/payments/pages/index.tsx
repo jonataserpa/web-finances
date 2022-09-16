@@ -50,7 +50,7 @@ export const ListPayments: React.FC = () => {
    * Search page values
    */
   const pagina = useMemo(() => {
-    return Number(searchParams.get("pagina") || "1");
+    return Number(searchParams.get("pagina") || "0");
   }, [searchParams]);
 
   /**
@@ -125,7 +125,7 @@ export const ListPayments: React.FC = () => {
           textButtonNew="Nova"
           clickNew={handleOpen}
           changeTextSearch={(texto) =>
-            setSearchParams({ busca: texto, pagina: "1" }, { replace: true })
+            setSearchParams({ busca: texto, pagina: "0" }, { replace: true })
           }
         />
       }

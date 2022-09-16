@@ -3,6 +3,7 @@ import { Environment } from "../../../shared/environment";
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
 import { IReceiveProps } from "../interfaces/iReceive.interface";
+import { directionOfSort } from "../../user/services/UsersService";
 
 export type TReceivedWithTotalCount = {
   data: IReceiveProps[];
@@ -37,20 +38,21 @@ export const handleApiErrors = (error: AxiosError, message: string) => {
 };
 
 const getAll = async (
-  page = 1,
-  filter = ""
+  skip: number,
+  take: number,
+  filter: string,
+  sortDirection?: directionOfSort
 ): Promise<TReceivedWithTotalCount | Error> => {
   try {
-    const url = `/receipts?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&description_like=${filter}`;
-
-    const { data, headers } = await ApiService.get(url);
+    const url = "/receipt";
+    const { data } = await ApiService.get(url, {
+      params: { skip, take, filter, sortDirection },
+    });
 
     if (data) {
       return {
-        data,
-        totalCount: Number(
-          headers["x-total-count"] || Environment.LIMITE_DE_LINHAS
-        ),
+        data: data.data,
+        totalCount: data.headers,
       };
     }
 
@@ -63,7 +65,7 @@ const getAll = async (
 
 const getById = async (id: number): Promise<IReceiveProps | Error> => {
   try {
-    const { data } = await ApiService.get(`/receipts/${id}`);
+    const { data } = await ApiService.get(`/receipt/${id}`);
 
     if (data) {
       return data;
@@ -80,7 +82,7 @@ const create = async (
   dados: Omit<IReceiveProps, "id">
 ): Promise<string | Error> => {
   try {
-    const { data } = await ApiService.post("/receipts", dados);
+    const { data } = await ApiService.post("/receipt", dados);
 
     if (data) {
       toast.success("Entrada criado com sucesso.");
@@ -99,7 +101,7 @@ const updateById = async (
   dados: IReceiveProps
 ): Promise<void | Error> => {
   try {
-    await ApiService.put(`/receipts/${id}`, dados);
+    await ApiService.put(`/receipt/${id}`, dados);
     toast.success("Entrada atualizado com sucesso.");
   } catch (error) {
     handleApiErrors(error as AxiosError, "Erro ao atualizar o registro.");
@@ -109,7 +111,7 @@ const updateById = async (
 
 const deleteById = async (id: string | undefined): Promise<void | Error> => {
   try {
-    await ApiService.delete(`/receipts/`, id);
+    await ApiService.delete(`/receipt/`, id);
   } catch (error) {
     handleApiErrors(error as AxiosError, "Erro ao apagar o registro.");
     throw error;

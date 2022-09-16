@@ -18,7 +18,7 @@ export const Dashboard = () => {
     setIsLoadingCompanys(true);
     setIsLoadingUsers(true);
 
-    CompanyService.getAll(1).then((result) => {
+    CompanyService.getAll(1, Environment.LIMITE_DE_LINHAS, "").then((result) => {
       setIsLoadingCompanys(false);
 
       if (result instanceof Error) {

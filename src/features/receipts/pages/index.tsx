@@ -23,7 +23,7 @@ import TableRows from "../components/table-rows";
 import RegisterForm from "../components/registerForm";
 import { useDispatch } from "react-redux";
 import allActions from "../../../store/actions";
-import { receiptsInital } from "../../utils/initialValues";
+import { calcPagination, receiptsInital } from "../../utils/initialValues";
 
 export const ListReceipts: React.FC = () => {
   const dispatch = useDispatch();
@@ -50,7 +50,7 @@ export const ListReceipts: React.FC = () => {
    * Search page values
    */
   const pagina = useMemo(() => {
-    return Number(searchParams.get("pagina") || "1");
+    return Number(searchParams.get("pagina") || "0");
   }, [searchParams]);
 
   /**
@@ -58,14 +58,16 @@ export const ListReceipts: React.FC = () => {
    */
   function getAllUsers() {
     debounce(() => {
-      ReceiptsService.getAll(pagina, busca).then((result) => {
+      ReceiptsService.getAll(
+        calcPagination(pagina),
+        Environment.LIMITE_DE_LINHAS,
+        busca
+      ).then((result) => {
         setIsLoading(false);
 
         if (result instanceof Error) {
           alert(result.message);
         } else {
-          console.log(result);
-
           setTotalCount(result.totalCount);
           setRows(result.data);
         }
@@ -121,7 +123,7 @@ export const ListReceipts: React.FC = () => {
           textButtonNew="Nova"
           clickNew={handleOpen}
           changeTextSearch={(texto) =>
-            setSearchParams({ busca: texto, pagina: "1" }, { replace: true })
+            setSearchParams({ busca: texto, pagina: "0" }, { replace: true })
           }
         />
       }

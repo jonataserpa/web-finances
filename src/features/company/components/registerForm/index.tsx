@@ -298,7 +298,7 @@ function RegisterForm({
             state: addr.state,
             city: addr.city,
           };
-  
+
           address.push(adrs);
         });
         newValue.address = address;

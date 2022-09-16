@@ -403,7 +403,7 @@
       "value": "200.55",
       "observacion": "TESTE 1",
       "status": "A receber",
-      "date_receipt": "2022-05-06"
+      "datereceipt": "2022-05-06"
     },
     {
       "id": "2",
@@ -412,7 +412,7 @@
       "value": "156.77",
       "observacion": "TESTE 2",
       "status": "Recebido",
-      "date_receipt": "2022-03-09"
+      "datereceipt": "2022-03-09"
     },
     {
       "id": "ca2sLdf",
@@ -420,7 +420,7 @@
       "companyId": 6,
       "value": "234",
       "observacion": "teste",
-      "date_receipt": "",
+      "datereceipt": "",
       "status": "A receber"
     }
   ],

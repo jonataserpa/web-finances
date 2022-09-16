@@ -5,5 +5,5 @@ export interface IReceiveProps {
   value: string;
   status: string;
   observacion: string;
-  date_receipt: string;
+  datereceipt: string;
 }
