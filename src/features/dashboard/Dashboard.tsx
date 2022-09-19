@@ -53,7 +53,7 @@ export const Dashboard = () => {
               <Card>
                 <CardContent>
                   <Typography variant="h5" align="center">
-                    Total de Users
+                    Total de Usúarios
                   </Typography>
 
                   <Box
@@ -76,7 +76,7 @@ export const Dashboard = () => {
               <Card>
                 <CardContent>
                   <Typography variant="h5" align="center">
-                    Total de Companys
+                    Total de Empresas
                   </Typography>
 
                   <Box
