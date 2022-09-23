@@ -14,5 +14,5 @@ export const Environment = {
   /**
    * Url base de consultado dos dados dessa aplicação
    */
-  URL_BASE: "http://localhost:3000/api/v1/",
+  URL_BASE: "https://nest.api-dev-cow.online/api/v1/",
 };
