@@ -10,3 +10,18 @@ Financial control frontend
 
 ## web-finances
  - Form inputs complex validates
+
+## Installation
+
+```bash
+$ npm install
+```
+
+## Running the app
+
+```bash
+# development
+$ npm run start
+
+# watch mode
+$ npm run dev
